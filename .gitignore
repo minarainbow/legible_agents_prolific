@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Local participant submissions — never publish these
+annotation_app/data/
+
+# Raw results bundle is large. It is ignored by default; only the recordings
+# the study actually serves are force-added (git add -f) so the repo stays
+# small and self-contained. Everything else here remains untracked.
+/m3_exp1_40tasks_bundle/

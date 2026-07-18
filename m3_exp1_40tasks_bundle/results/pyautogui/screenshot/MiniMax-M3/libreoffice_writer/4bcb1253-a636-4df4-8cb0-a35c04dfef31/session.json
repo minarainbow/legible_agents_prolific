@@ -1,0 +1,14 @@
+{
+  "instruction": "Export the current document into PDF, keep the file name",
+  "example_id": "4bcb1253-a636-4df4-8cb0-a35c04dfef31",
+  "run_started_at": "2026-07-14T20:36:34.098032Z",
+  "recording_started_at": "2026-07-14T20:36:34.158175Z",
+  "recording_ended_at": "2026-07-14T20:43:31.773231Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "libreoffice_writer",
+  "recording_duration_sec": 417.609
+}

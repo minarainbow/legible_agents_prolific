@@ -1,0 +1,150 @@
+"""Central, human-editable configuration for the annotation study.
+
+Everything a researcher is likely to tweak (the action labels annotators pick
+from, the profile/familiarity questions, how many tasks each participant sees,
+and the Prolific completion link) lives here so you never have to touch the
+server or frontend code.
+"""
+from __future__ import annotations
+
+import os
+
+# --------------------------------------------------------------------------
+# Paths
+# --------------------------------------------------------------------------
+# Root of the study repo (folder that contains this app and the results bundle).
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# The recordings bundle produced by the agent runs.
+BUNDLE_DIR = os.path.join(REPO_ROOT, "m3_exp1_40tasks_bundle")
+INDEX_JSON = os.path.join(BUNDLE_DIR, "results_viewer", "index.json")
+
+# --------------------------------------------------------------------------
+# DEV MODE
+# --------------------------------------------------------------------------
+# When True, the ground-truth action (the pyautogui call + its category) is sent
+# to the browser and shown next to each answer box so you can sanity-check the
+# tool. SET THIS TO False BEFORE LAUNCHING THE STUDY — otherwise participants can
+# see the answer.
+DEV_MODE = False
+
+# Where participant submissions are written (one JSON file per participant).
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+
+# --------------------------------------------------------------------------
+# Task assignment
+# --------------------------------------------------------------------------
+# Every participant gets the same fixed set: TASKS_PER_DOMAIN recordings from
+# each application domain (chrome, gimp, vs_code, ...). No randomization.
+TASKS_PER_DOMAIN: int | None = 2
+
+# Do NOT shuffle the assigned task order (keep it grouped by domain).
+RANDOMIZE_TASKS = False
+
+# Specific recordings to force-include (and place first) within a domain,
+# keyed by domain -> list of example_ids. Anything pinned here is guaranteed to
+# be in the selection even if TASKS_PER_DOMAIN would otherwise skip it.
+PINNED_TASKS = {
+    # Chrome: always use "Find Dota 2 game and add all DLC to cart."
+    "chrome": ["121ba48f-9e17-48ce-9bc6-a4fb17a7ebba"],
+}
+
+# --------------------------------------------------------------------------
+# Annotators WRITE DOWN (free text) what the agent did in each step, rather
+# than picking from a list. These strings tune the write-in prompt shown above
+# the text box and the placeholder inside it.
+# --------------------------------------------------------------------------
+ANSWER_PROMPT = "In your own words, what did the agent do in this step?"
+ANSWER_PLACEHOLDER = (
+    "e.g. clicked the File menu / scrolled down the page / typed a file name / "
+    "dragged the slider to the right"
+)
+
+# The dedicated escape hatch button.
+CANT_TELL = {"id": "cant_tell", "label": "I can't tell what happened"}
+# Reminder shown under the button so it isn't overused.
+CANT_TELL_CAUTION = (
+    "It's completely fine to use this when an action genuinely isn't clear — "
+    "we're not testing your ability, and honest \u201ccan't tell\u201d answers "
+    "are useful to us. We only ask that you don't pick it just to get through "
+    "faster."
+)
+
+# --------------------------------------------------------------------------
+# Intro profile questions
+# --------------------------------------------------------------------------
+GENDER_OPTIONS = [
+    {"id": "female", "label": "Female"},
+    {"id": "male", "label": "Male"},
+    {"id": "nonbinary", "label": "Non-binary"},
+    {"id": "other", "label": "Prefer to self-describe or not say"},
+]
+
+# Experience with "computer use agents" (AI that controls a computer).
+EXPERIENCE_OPTIONS = [
+    {"id": "never", "label": "Never used or heard of them"},
+    {"id": "seen", "label": "Heard of them / seen examples"},
+    {"id": "few", "label": "Used them a few times"},
+    {"id": "often", "label": "Use them often"},
+]
+
+# --------------------------------------------------------------------------
+# Per-task familiarity question (asked before each recording).
+# --------------------------------------------------------------------------
+FAMILIARITY_PROMPT = (
+    "How familiar are you with this kind of task — could you do it yourself in "
+    "this application?"
+)
+FAMILIARITY_OPTIONS = [
+    {"id": "very", "label": "Very familiar — I could easily do this myself"},
+    {"id": "somewhat", "label": "Somewhat — I could do it, with some effort"},
+    {"id": "slightly", "label": "A little — I'd struggle to do it myself"},
+    {"id": "not", "label": "Not at all — I couldn't do this task"},
+]
+
+# --------------------------------------------------------------------------
+# Wrap-up questions asked AFTER watching each recording.
+# --------------------------------------------------------------------------
+SUCCESS_PROMPT = "Do you think the agent completed the task successfully?"
+SUCCESS_OPTIONS = [
+    {"id": "yes", "label": "Yes — it fully completed the task"},
+    {"id": "partial", "label": "Partially — it did some of it"},
+    {"id": "no", "label": "No — it failed or gave up"},
+    {"id": "unsure", "label": "I can't tell"},
+]
+
+EFFICIENCY_PROMPT = (
+    "Regardless of success, how efficiently did the agent work?"
+)
+EFFICIENCY_OPTIONS = [
+    {"id": "high", "label": "Very efficient — little or no wasted effort"},
+    {"id": "medium", "label": "Somewhat efficient — some wasted or repeated actions"},
+    {"id": "low", "label": "Inefficient — lots of wasted, repeated, or confused actions"},
+    {"id": "unsure", "label": "I can't tell"},
+]
+
+UNDERSTANDING_PROMPT = (
+    "Overall, how well could you understand what the agent was doing and why?"
+)
+UNDERSTANDING_OPTIONS = [
+    {"id": "very", "label": "Very well — its actions made sense throughout"},
+    {"id": "fairly", "label": "Fairly well — mostly clear, some confusing moments"},
+    {"id": "little", "label": "Only a little — often hard to follow"},
+    {"id": "not", "label": "Not at all — I couldn't tell what it was doing"},
+]
+
+# --------------------------------------------------------------------------
+# Prolific / completion
+# --------------------------------------------------------------------------
+# Shown at the end so workers can get credit. Replace with your study's URL,
+# e.g. "https://app.prolific.com/submissions/complete?cc=XXXXXXX".
+PROLIFIC_COMPLETION_URL = ""
+# Fallback manual completion code (used if no completion URL is set).
+COMPLETION_CODE = "STUDY-COMPLETE"
+
+# Playback tuning: each action fires almost exactly at its logged timestamp, so
+# clip boundaries are pulled this many seconds BEFORE the next action. This gives
+# every step a short run-up before its action and a buffer afterwards, so the
+# next action can't bleed into the current clip when playback overshoots the
+# pause point. Larger = more lead-in; too large may merge very fast actions.
+CLIP_LEAD_IN_SEC = 1.0

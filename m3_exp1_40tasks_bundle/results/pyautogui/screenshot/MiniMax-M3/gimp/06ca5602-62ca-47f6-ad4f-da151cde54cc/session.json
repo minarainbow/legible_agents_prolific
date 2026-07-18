@@ -1,0 +1,14 @@
+{
+  "instruction": "Could you help me set the image to Palette-Based?",
+  "example_id": "06ca5602-62ca-47f6-ad4f-da151cde54cc",
+  "run_started_at": "2026-07-14T18:10:54.431524Z",
+  "recording_started_at": "2026-07-14T18:10:54.469575Z",
+  "recording_ended_at": "2026-07-14T18:14:33.453613Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "gimp",
+  "recording_duration_sec": 218.984
+}

@@ -1,0 +1,52 @@
+{
+  "1": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "2": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "3": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "4": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "5": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "6": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "7": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "8": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "9": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "10": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "instruction": "I am reading lecture note in PDF while a music video is running in VLC media player. But I find I need to switch to the player every time I need to pause/start.Could you help me change the setting to allow pausing the video using keyboard shortcut without minimizing the PDF reader? I want to focus on the lecture note and don't be disturbed by the app switching.",
+  "example_id": "386dbd0e-0241-4a0a-b6a2-6704fba26b1c",
+  "run_started_at": "2026-07-14T22:01:00.437568Z",
+  "recording_started_at": "2026-07-14T22:01:00.463612Z",
+  "recording_ended_at": "2026-07-14T22:03:02.535259Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "vlc",
+  "recording_duration_sec": 122.063
+}

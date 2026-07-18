@@ -1,0 +1,14 @@
+{
+  "instruction": "Can you disable the cone icon in the splash screen? I am tired of its skeuomorphic design.",
+  "example_id": "215dfd39-f493-4bc3-a027-8a97d72c61bf",
+  "run_started_at": "2026-07-14T21:56:26.318467Z",
+  "recording_started_at": "2026-07-14T21:56:26.347997Z",
+  "recording_ended_at": "2026-07-14T21:59:18.525322Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "vlc",
+  "recording_duration_sec": 172.172
+}

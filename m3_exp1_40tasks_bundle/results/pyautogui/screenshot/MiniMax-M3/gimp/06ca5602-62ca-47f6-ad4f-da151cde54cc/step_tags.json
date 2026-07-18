@@ -1,0 +1,62 @@
+{
+  "1": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "2": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "3": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "4": {
+    "tier": "easy",
+    "category": "move_with_duration",
+    "modality": "human_like"
+  },
+  "5": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "6": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "7": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "8": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  },
+  "9": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  },
+  "10": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  },
+  "11": {
+    "tier": "easy",
+    "category": "move_with_duration",
+    "modality": "human_like"
+  },
+  "12": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  }
+}

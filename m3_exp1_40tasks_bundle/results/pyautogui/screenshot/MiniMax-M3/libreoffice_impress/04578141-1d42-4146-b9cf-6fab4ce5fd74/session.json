@@ -1,0 +1,14 @@
+{
+  "instruction": "Change the text color in the textboxes to on slide 1 yellow, red, and green, respectively, in top-to-bottom order. Use exactly these colors—no variations (e.g., no dark red, light green, etc.).",
+  "example_id": "04578141-1d42-4146-b9cf-6fab4ce5fd74",
+  "run_started_at": "2026-07-14T19:50:24.481928Z",
+  "recording_started_at": "2026-07-14T19:50:24.514967Z",
+  "recording_ended_at": "2026-07-14T20:01:49.609217Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "libreoffice_impress",
+  "recording_duration_sec": 685.094
+}

@@ -1,0 +1,17 @@
+{
+  "1": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "2": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "3": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  }
+}
