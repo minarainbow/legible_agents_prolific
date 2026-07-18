@@ -29,6 +29,26 @@ async function api(path, body) {
 }
 
 // ------------------------------------------------------------------
+// Backend abstraction
+// ------------------------------------------------------------------
+// The app runs in two modes:
+//   • Flask mode (local dev): talks to /api/* endpoints on the Python server.
+//   • Static mode (GitHub Pages): no server — a prebuilt study.json supplies the
+//     config + tasks, and reads/writes go through window.StudyBackend
+//     (see annotation_app/static/backend.js: localStorage now, Firebase later).
+const STATIC = !!window.STUDY_STATIC;
+
+async function participantReq(body) {
+  return STATIC ? window.StudyBackend.participant(body) : api("/api/participant", body);
+}
+async function saveReq(body) {
+  return STATIC ? window.StudyBackend.save(body) : api("/api/save", body);
+}
+async function submitReq(body) {
+  return STATIC ? window.StudyBackend.submit(body) : api("/api/submit", body);
+}
+
+// ------------------------------------------------------------------
 // Global state
 // ------------------------------------------------------------------
 const state = {
@@ -54,7 +74,16 @@ function isFlagged(taskId) {
 window.addEventListener("DOMContentLoaded", init);
 
 async function init() {
-  state.cfg = await (await fetch("/api/config")).json();
+  if (STATIC) {
+    const study = await (await fetch(window.STUDY_URL || "study.json")).json();
+    window.__STUDY = study;
+    state.cfg = study.config;
+    if (window.StudyBackend && window.StudyBackend.configure) {
+      window.StudyBackend.configure(study);
+    }
+  } else {
+    state.cfg = await (await fetch("/api/config")).json();
+  }
   buildProfileForm();
   wireWelcome();
   wireInstructions();
@@ -138,7 +167,7 @@ function wireProfile() {
     };
 
     try {
-      const data = await api("/api/participant", {
+      const data = await participantReq({
         prolific_pid: qs("PROLIFIC_PID"),
         study_id: qs("STUDY_ID"),
         session_id: qs("SESSION_ID"),
@@ -666,7 +695,7 @@ function scheduleSave(taskId) {
 
 async function doSave(taskId) {
   try {
-    await api("/api/save", {
+    await saveReq({
       participant_id: state.participantId,
       task_id: taskId,
       annotation: state.annotations[taskId],
@@ -728,7 +757,7 @@ function openReview() {
 
 async function submitAll() {
   try {
-    const res = await api("/api/submit", {
+    const res = await submitReq({
       participant_id: state.participantId,
       annotations: state.annotations,
     });
