@@ -290,7 +290,7 @@ function ensureAnnotation(task) {
     if (isAuto(s) && !a.steps[s.index]) {
       a.steps[s.index] = {
         answer: s.is_done ? "(agent signalled the task was finished)" : "(agent waited)",
-        cant_tell: false, note: "", auto: true,
+        cant_tell: false, note: "", auto: true, rewinds: 0,
       };
     }
   });
@@ -496,7 +496,10 @@ function buildTimeline(task) {
       ? `Waited (${fmtTime(s.seg_start)})`
       : `Action ${s.step_num} (${fmtTime(s.seg_start)})`;
     seg.appendChild(el("span", null, s.is_done ? "✓" : s.is_sleep ? "z" : String(s.step_num)));
-    seg.addEventListener("click", () => gotoStep(s.index, true));
+    seg.addEventListener("click", () => {
+      if (s.index === state.currentStepIdx) bumpRewind(); // re-watching the same step
+      gotoStep(s.index, true);
+    });
     track.appendChild(seg);
   });
   wrap.appendChild(track);
@@ -639,8 +642,18 @@ function renderStepPanel(task, step) {
 
 function ensureStep(task, step) {
   const a = state.annotations[task.id];
-  if (!a.steps[step.index]) a.steps[step.index] = { answer: "", cant_tell: false, note: "" };
+  if (!a.steps[step.index]) a.steps[step.index] = { answer: "", cant_tell: false, note: "", rewinds: 0 };
   return a.steps[step.index];
+}
+
+// Count a replay ("rewind") of the current step's clip.
+function bumpRewind() {
+  const task = state.tasks[state.currentTaskIdx];
+  const step = task && task.steps[state.currentStepIdx];
+  if (!step) return;
+  const s = ensureStep(task, step);
+  s.rewinds = (s.rewinds || 0) + 1;
+  scheduleSave(task.id);
 }
 
 function onAnswerInput(task, step, text) {
@@ -709,7 +722,7 @@ function wireWorkspace() {
   video.addEventListener("seeking", () => updatePlayhead(video.currentTime));
   video.addEventListener("play", () => hideBadge());
 
-  $("#btn-replay").addEventListener("click", () => gotoStep(state.currentStepIdx, true));
+  $("#btn-replay").addEventListener("click", () => { bumpRewind(); gotoStep(state.currentStepIdx, true); });
   $("#btn-prev").addEventListener("click", () => {
     if (state.currentStepIdx > 0) gotoStep(state.currentStepIdx - 1, true);
   });

@@ -50,14 +50,40 @@ The app also runs fully static, so you can host it on GitHub Pages. A prebuilt
    The site serves at `https://<user>.github.io/<repo>/` (videos stream with
    byte-range seeking).
 
-3. **Wire Firebase (later)**: add the Firebase SDK/init to the page and uncomment
-   the `setDoc(...)` lines in `annotation_app/static/backend.js`. Each participant
-   record is written to a `responses` collection keyed by participant id. Until
-   then, submissions persist to the browser's `localStorage`.
-
 Participant id comes from the Prolific `?PROLIFIC_PID=...` URL param (random
 fallback). The Flask app (`python3 app.py`) is unchanged and still works for
 local development.
+
+## Data storage (Firebase Realtime Database)
+
+In static/Pages mode, `annotation_app/static/backend.js` writes each participant's
+full record to a Firebase **Realtime Database** via its REST API (no SDK), and
+also caches to `localStorage` as an offline fallback / resume store.
+
+- **Database:** `https://legible-agents-pro-default-rtdb.firebaseio.com`
+  (change `DB_URL` in `backend.js` to point elsewhere).
+- **Publish the rules** so writes are allowed (they are denied by default). The
+  rules live in `database.rules.json`; paste them into Firebase console →
+  Realtime Database → Rules, or deploy with the Firebase CLI. They allow
+  create/update under `/responses/{participantId}` and keep the data unreadable
+  from the client.
+
+Stored structure (one node per participant):
+
+```
+/responses/{participantId}
+  participant_id, prolific_pid, study_id, session_id
+  created_at, updated_at, submitted_at
+  profile/       age, gender, gender_self_describe, occupation, education,
+                 english, computer_freq, ai_tools, experience
+  task_order/    [taskId, ...]
+  annotations/{taskId}
+    familiarity, success, efficiency, understanding, task_comment
+    steps/{stepIndex}   answer, cant_tell, note, auto, rewinds
+```
+
+`rewinds` counts how many times the participant replayed that step's clip
+(via the "Replay this step" button or re-clicking its timeline segment).
 
 ## Notes
 

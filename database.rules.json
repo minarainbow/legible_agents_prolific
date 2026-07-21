@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "responses": {
+      "$pid": {
+        ".write": true,
+        ".read": false,
+        ".validate": "newData.hasChildren(['participant_id'])"
+      }
+    }
+  }
+}

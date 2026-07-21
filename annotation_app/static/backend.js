@@ -4,29 +4,40 @@
  * StudyBackend — data layer for STATIC (GitHub Pages) mode
  * ==========================================================================
  * When the app runs without the Flask server (e.g. on GitHub Pages), all
- * reads/writes go through this object instead of /api/*. The default
- * implementation persists to the browser's localStorage so the study is fully
- * usable as-is. To collect responses centrally, wire Firebase in the three
- * spots marked  ▼▼▼ FIREBASE ▼▼▼  below — the localStorage calls can stay as an
- * offline fallback.
+ * reads/writes go through this object instead of /api/*.
  *
- * ---- Wiring Firebase (later) --------------------------------------------
- * 1. In the page <head> (or the generated index.html), add the Firebase SDK and
- *    initialize it, exposing the Firestore instance, e.g.:
+ * Storage:
+ *   • Firebase Realtime Database (primary) — each participant's full record is
+ *     written to  /responses/{participantId}  via the RTDB REST API. No SDK is
+ *     required; writes are plain HTTPS PUTs.
+ *   • localStorage (fallback + resume) — every write is also cached locally so a
+ *     reload resumes where the participant left off, and no data is lost if the
+ *     network hiccups.
  *
- *      <script type="module">
- *        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
- *        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
- *        const app = initializeApp(YOUR_FIREBASE_CONFIG);
- *        window.db = getFirestore(app);
- *        window._fs = { doc, setDoc };
- *      </script>
+ * The Realtime DB must allow these writes — set rules like:
+ *   {
+ *     "rules": {
+ *       "responses": {
+ *         "$pid": { ".write": true, ".read": false }
+ *       }
+ *     }
+ *   }
  *
- * 2. Uncomment the setDoc(...) lines below. Each writes the whole participant
- *    record to  collection "responses", document = participantId.
+ * Stored record shape (clean, one node per participant):
+ *   /responses/{participantId}
+ *     participant_id, prolific_pid, study_id, session_id
+ *     created_at, updated_at, submitted_at
+ *     profile/  { age, gender, gender_self_describe, occupation, education,
+ *                 english, computer_freq, ai_tools, experience }
+ *     task_order/ [taskId, ...]
+ *     annotations/{taskId}
+ *        familiarity, success, efficiency, understanding, task_comment
+ *        steps/{stepIndex} { answer, cant_tell, note, auto, rewinds }
  * ------------------------------------------------------------------------- */
 
 (function () {
+  // Realtime Database base URL (no trailing slash).
+  const DB_URL = "https://legible-agents-pro-default-rtdb.firebaseio.com";
   const LS_PREFIX = "study_record:";
   let STUDY = { tasks: [], completion_url: null, completion_code: "STUDY-COMPLETE" };
 
@@ -42,6 +53,18 @@
     }
   }
 
+  // Fire-and-forget write of the whole record to the Realtime Database.
+  function pushRemote(record) {
+    if (!DB_URL) return;
+    const url = `${DB_URL}/responses/${encodeURIComponent(record.participant_id)}.json`;
+    fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(record),
+      keepalive: true, // let the final submit write survive page navigation
+    }).catch((e) => console.warn("RTDB write failed", e));
+  }
+
   function persist(record) {
     record.updated_at = nowIso();
     try {
@@ -49,13 +72,7 @@
     } catch (e) {
       console.warn("localStorage write failed", e);
     }
-    // ▼▼▼ FIREBASE ▼▼▼  (write the full record; safe to call on every save)
-    // if (window.db && window._fs) {
-    //   const { doc, setDoc } = window._fs;
-    //   setDoc(doc(window.db, "responses", record.participant_id), record)
-    //     .catch((e) => console.warn("firestore write failed", e));
-    // }
-    // ▲▲▲ FIREBASE ▲▲▲
+    pushRemote(record);
     return record;
   }
 
