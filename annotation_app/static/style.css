@@ -235,6 +235,8 @@ textarea { resize: vertical; }
 
 .error { color: var(--red); font-weight: 600; margin: 0 0 16px; }
 
+.dev-btn { display: block; margin-top: 12px; border-style: dashed; opacity: .85; }
+
 /* ---------- topbar ---------- */
 .topbar {
   position: sticky;

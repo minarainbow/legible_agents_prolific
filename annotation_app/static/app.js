@@ -101,6 +101,12 @@ function wireWelcome() {
     $("#btn-start").disabled = !e.target.checked;
   });
   $("#btn-start").addEventListener("click", () => showScreen("screen-instructions"));
+
+  const dev = $("#btn-devstart");
+  if (dev && state.cfg.dev_mode) {
+    dev.classList.remove("hidden");
+    dev.addEventListener("click", devQuickStart);
+  }
 }
 
 function wireInstructions() {
@@ -151,6 +157,15 @@ function buildProfileChoiceGroup(field, labelId, boxId, prompt, options) {
   });
 }
 
+// Split "Short label — longer description" into a bold label + muted hint.
+// An explicit opt.hint always wins.
+function splitLabelHint(opt) {
+  if (opt.hint) return { label: opt.label, hint: opt.hint };
+  const parts = String(opt.label || "").split(" — ");
+  if (parts.length >= 2) return { label: parts[0], hint: parts.slice(1).join(" — ") };
+  return { label: opt.label, hint: null };
+}
+
 // A single-select "option card" (radio-like).
 function makeChoice(group, opt, onPick) {
   const wrap = el("label", "opt");
@@ -158,9 +173,10 @@ function makeChoice(group, opt, onPick) {
   input.type = "radio";
   input.name = group;
   input.value = opt.id;
+  const lh = splitLabelHint(opt);
   const textWrap = el("div", "opt-text");
-  textWrap.appendChild(el("span", "opt-label", opt.label));
-  if (opt.hint) textWrap.appendChild(el("span", "opt-hint", opt.hint));
+  textWrap.appendChild(el("span", "opt-label", lh.label));
+  if (lh.hint) textWrap.appendChild(el("span", "opt-hint", lh.hint));
   wrap.appendChild(input);
   wrap.appendChild(textWrap);
   input.addEventListener("change", () => {
@@ -199,24 +215,51 @@ function wireProfile() {
     };
 
     try {
-      const data = await participantReq({
-        prolific_pid: qs("PROLIFIC_PID"),
-        study_id: qs("STUDY_ID"),
-        session_id: qs("SESSION_ID"),
-        profile: profilePayload,
-      });
-      state.participantId = data.participant_id;
-      state.tasks = data.tasks;
-      state.annotations = data.annotations || {};
-      state.tasks.forEach((t) => ensureAnnotation(t));
-      buildTaskSelect();
-      openTask(0);
-      showScreen("screen-work");
+      await startSession(profilePayload);
     } catch (e) {
       err.textContent = "Could not start the session. Please refresh and try again.";
       err.classList.remove("hidden");
     }
   });
+}
+
+// Create/resume the participant and open the workspace.
+async function startSession(profilePayload) {
+  const data = await participantReq({
+    prolific_pid: qs("PROLIFIC_PID"),
+    study_id: qs("STUDY_ID"),
+    session_id: qs("SESSION_ID"),
+    profile: profilePayload,
+  });
+  state.participantId = data.participant_id;
+  state.tasks = data.tasks;
+  state.annotations = data.annotations || {};
+  state.tasks.forEach((t) => ensureAnnotation(t));
+  buildTaskSelect();
+  openTask(0);
+  showScreen("screen-work");
+}
+
+// DEV ONLY: skip consent/instructions/profile with a dummy profile.
+async function devQuickStart() {
+  const c = state.cfg;
+  const first = (opts) => (opts && opts[0] ? opts[0].id : null);
+  try {
+    await startSession({
+      age: 30,
+      gender: first(c.gender_options),
+      gender_self_describe: null,
+      occupation: "(dev)",
+      education: first(c.education_options),
+      english: (c.english_options.find((o) => o.id === "native") || {}).id || first(c.english_options),
+      computer_freq: first(c.computer_freq_options),
+      ai_tools: first(c.ai_tools_options),
+      experience: first(c.experience_options),
+      _dev: true,
+    });
+  } catch (e) {
+    alert("Dev quick start failed: " + (e && e.message ? e.message : e));
+  }
 }
 
 // ------------------------------------------------------------------
@@ -373,7 +416,11 @@ function buildQuestionGroup(task, a, g) {
     input.checked = a[g.field] === o.id;
     if (input.checked) wrap.classList.add("selected");
     wrap.appendChild(input);
-    wrap.appendChild(el("span", "opt-label", o.label));
+    const lh = splitLabelHint(o);
+    const tw = el("div", "opt-text");
+    tw.appendChild(el("span", "opt-label", lh.label));
+    if (lh.hint) tw.appendChild(el("span", "opt-hint", lh.hint));
+    wrap.appendChild(tw);
     input.addEventListener("change", () => {
       box.querySelectorAll(".opt").forEach((x) => x.classList.remove("selected"));
       wrap.classList.add("selected");

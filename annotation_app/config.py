@@ -23,10 +23,13 @@ INDEX_JSON = os.path.join(BUNDLE_DIR, "results_viewer", "index.json")
 # DEV MODE
 # --------------------------------------------------------------------------
 # When True, the ground-truth action (the pyautogui call + its category) is sent
-# to the browser and shown next to each answer box so you can sanity-check the
-# tool. SET THIS TO False BEFORE LAUNCHING THE STUDY — otherwise participants can
-# see the answer.
-DEV_MODE = False
+# to the browser and shown next to each answer box, and a "quick start" button on
+# the welcome screen skips the intro questions — handy for sanity-checking.
+# Default is False (safe for a real launch). Turn it on for local dev WITHOUT
+# editing this file by setting the STUDY_DEV env var, e.g.:
+#     STUDY_DEV=1 python3 app.py
+#     STUDY_DEV=1 python3 build_static.py   # dev static build
+DEV_MODE = os.environ.get("STUDY_DEV", "").lower() in ("1", "true", "yes", "on")
 
 # Where participant submissions are written (one JSON file per participant).
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
