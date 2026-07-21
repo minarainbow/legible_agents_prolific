@@ -1,0 +1,14 @@
+{
+  "instruction": "Use terminal command to count all the lines of all php files in current directory recursively, show the result on the terminal",
+  "example_id": "4127319a-8b79-4410-b58a-7a151e15f3d7",
+  "run_started_at": "2026-07-14T21:46:13.853877Z",
+  "recording_started_at": "2026-07-14T21:46:13.885906Z",
+  "recording_ended_at": "2026-07-14T21:54:59.024788Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "os",
+  "recording_duration_sec": 525.125
+}

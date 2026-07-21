@@ -1,0 +1,14 @@
+{
+  "instruction": "In a new sheet (\"Sheet2\") with 4 headers \"Year\", \"CA changes\", \"FA changes\", and \"OA changes\", calculate the percentage annual changes compared to last year in 2015 to 2019 for the Current Assets, Fixed Assets, and Other Assets columns. ",
+  "example_id": "04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+  "run_started_at": "2026-07-14T19:26:29.793142Z",
+  "recording_started_at": "2026-07-14T19:26:29.825161Z",
+  "recording_ended_at": "2026-07-14T19:37:59.738710Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "libreoffice_calc",
+  "recording_duration_sec": 689.907
+}

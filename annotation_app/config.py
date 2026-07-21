@@ -50,10 +50,10 @@ RANDOMIZE_TASKS = False
 PINNED_TASKS = {
     "chrome": ["030eeff7-b492-4218-b312-701ec99ee0cc"],            # Enable 'Do Not Track'
     "gimp": ["06ca5602-62ca-47f6-ad4f-da151cde54cc"],             # Set image to Palette-Based
-    "libreoffice_calc": ["01b269ae-2111-4a07-81fd-3fcd711993b0"], # Fill blank cells with value above
-    "libreoffice_impress": ["04578141-1d42-4146-b9cf-6fab4ce5fd74"],  # Change textbox colors on slide 1
+    "libreoffice_calc": ["04d9aeaf-7bed-4024-bedb-e10e6f00eb7f"], # New Sheet2 with headers
+    "libreoffice_impress": ["08aced46-45a2-48d7-993b-ed3fb5b32302"],  # Right-aligned title "Note" on slide 2
     "libreoffice_writer": ["4bcb1253-a636-4df4-8cb0-a35c04dfef31"],   # Export document to PDF
-    "os": ["3ce045a0-877b-42aa-8d2c-b4a863336ab8"],               # Accessibility magnifier
+    "os": ["4127319a-8b79-4410-b58a-7a151e15f3d7"],               # Count lines of all php files
     "vlc": ["215dfd39-f493-4bc3-a027-8a97d72c61bf"],              # Disable cone splash icon
     "vs_code": ["57242fad-77ca-454f-b71b-f187181a9f23"],          # Create new python file test.py
 }

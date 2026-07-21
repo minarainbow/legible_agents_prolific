@@ -444,14 +444,14 @@
       ]
     },
     {
-      "id": "01b269ae-2111-4a07-81fd-3fcd711993b0",
-      "path": "results/pyautogui/screenshot/MiniMax-M3/libreoffice_calc/01b269ae-2111-4a07-81fd-3fcd711993b0",
+      "id": "04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+      "path": "results/pyautogui/screenshot/MiniMax-M3/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
       "domain": "libreoffice_calc",
-      "instruction": "Fill all the blank cells in B1:E30 with the value in the cell above it. Finish the work and don't touch irrelevant regions, even if they are blank.",
-      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_calc/01b269ae-2111-4a07-81fd-3fcd711993b0/recording.mp4",
-      "duration": 754.562,
-      "num_steps": 30,
-      "num_annotatable": 29,
+      "instruction": "In a new sheet (\"Sheet2\") with 4 headers \"Year\", \"CA changes\", \"FA changes\", and \"OA changes\", calculate the percentage annual changes compared to last year in 2015 to 2019 for the Current Assets, Fixed Assets, and Other Assets columns. ",
+      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f/recording.mp4",
+      "duration": 689.907,
+      "num_steps": 28,
+      "num_annotatable": 17,
       "steps": [
         {
           "index": 0,
@@ -460,7 +460,7 @@
           "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 0.0,
-          "seg_end": 26.641
+          "seg_end": 12.704
         },
         {
           "index": 1,
@@ -468,8 +468,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 26.641,
-          "seg_end": 37.594
+          "seg_start": 12.704,
+          "seg_end": 22.782
         },
         {
           "index": 2,
@@ -477,8 +477,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 37.594,
-          "seg_end": 52.437
+          "seg_start": 22.782,
+          "seg_end": 33.313
         },
         {
           "index": 3,
@@ -486,8 +486,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 52.437,
-          "seg_end": 64.125
+          "seg_start": 33.313,
+          "seg_end": 44.469
         },
         {
           "index": 4,
@@ -495,8 +495,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 64.125,
-          "seg_end": 76.828
+          "seg_start": 44.469,
+          "seg_end": 60.407
         },
         {
           "index": 5,
@@ -504,8 +504,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 76.828,
-          "seg_end": 89.766
+          "seg_start": 60.407,
+          "seg_end": 149.032
         },
         {
           "index": 6,
@@ -513,26 +513,26 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 89.766,
-          "seg_end": 104.797
+          "seg_start": 149.032,
+          "seg_end": 163.547
         },
         {
           "index": 7,
           "step_num": 8,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 104.797,
-          "seg_end": 123.906
+          "sleep_seconds": 0.5,
+          "seg_start": 163.547,
+          "seg_end": 180.032
         },
         {
           "index": 8,
           "step_num": 9,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 123.906,
-          "seg_end": 139.687
+          "sleep_seconds": 0.5,
+          "seg_start": 180.032,
+          "seg_end": 194.938
         },
         {
           "index": 9,
@@ -540,17 +540,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 139.687,
-          "seg_end": 156.641
+          "seg_start": 194.938,
+          "seg_end": 209.75
         },
         {
           "index": 10,
           "step_num": 11,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 156.641,
-          "seg_end": 176.25
+          "sleep_seconds": 0.5,
+          "seg_start": 209.75,
+          "seg_end": 228.719
         },
         {
           "index": 11,
@@ -558,8 +558,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 176.25,
-          "seg_end": 201.719
+          "seg_start": 228.719,
+          "seg_end": 248.547
         },
         {
           "index": 12,
@@ -567,17 +567,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 201.719,
-          "seg_end": 226.578
+          "seg_start": 248.547,
+          "seg_end": 266.579
         },
         {
           "index": 13,
           "step_num": 14,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 226.578,
-          "seg_end": 251.094
+          "sleep_seconds": 0.5,
+          "seg_start": 266.579,
+          "seg_end": 288.547
         },
         {
           "index": 14,
@@ -585,17 +585,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 251.094,
-          "seg_end": 275.391
+          "seg_start": 288.547,
+          "seg_end": 309.61
         },
         {
           "index": 15,
           "step_num": 16,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 275.391,
-          "seg_end": 301.359
+          "sleep_seconds": 0.5,
+          "seg_start": 309.61,
+          "seg_end": 330.5
         },
         {
           "index": 16,
@@ -603,8 +603,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 301.359,
-          "seg_end": 327.266
+          "seg_start": 330.5,
+          "seg_end": 352.266
         },
         {
           "index": 17,
@@ -612,17 +612,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 327.266,
-          "seg_end": 356.875
+          "seg_start": 352.266,
+          "seg_end": 374.907
         },
         {
           "index": 18,
           "step_num": 19,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 356.875,
-          "seg_end": 386.75
+          "sleep_seconds": 0.5,
+          "seg_start": 374.907,
+          "seg_end": 402.172
         },
         {
           "index": 19,
@@ -630,8 +630,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 386.75,
-          "seg_end": 414.578
+          "seg_start": 402.172,
+          "seg_end": 433.75
         },
         {
           "index": 20,
@@ -639,17 +639,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 414.578,
-          "seg_end": 444.328
+          "seg_start": 433.75,
+          "seg_end": 460.516
         },
         {
           "index": 21,
           "step_num": 22,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 444.328,
-          "seg_end": 474.969
+          "sleep_seconds": 0.5,
+          "seg_start": 460.516,
+          "seg_end": 492.547
         },
         {
           "index": 22,
@@ -657,17 +657,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 474.969,
-          "seg_end": 508.703
+          "seg_start": 492.547,
+          "seg_end": 520.672
         },
         {
           "index": 23,
           "step_num": 24,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 508.703,
-          "seg_end": 542.859
+          "sleep_seconds": 0.5,
+          "seg_start": 520.672,
+          "seg_end": 553.016
         },
         {
           "index": 24,
@@ -675,8 +675,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 542.859,
-          "seg_end": 577.953
+          "seg_start": 553.016,
+          "seg_end": 587.641
         },
         {
           "index": 25,
@@ -684,65 +684,47 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 577.953,
-          "seg_end": 613.641
+          "seg_start": 587.641,
+          "seg_end": 623.594
         },
         {
           "index": 26,
           "step_num": 27,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 613.641,
-          "seg_end": 650.297
+          "sleep_seconds": 0.5,
+          "seg_start": 623.594,
+          "seg_end": 663.766
         },
         {
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
-          "is_done": false,
+          "is_done": true,
           "sleep_seconds": null,
-          "seg_start": 650.297,
-          "seg_end": 688.797
-        },
-        {
-          "index": 28,
-          "step_num": 29,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 688.797,
-          "seg_end": 728.031
-        },
-        {
-          "index": 29,
-          "step_num": 30,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 728.031,
-          "seg_end": 754.562
+          "seg_start": 663.766,
+          "seg_end": 689.907
         }
       ]
     },
     {
-      "id": "04578141-1d42-4146-b9cf-6fab4ce5fd74",
-      "path": "results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/04578141-1d42-4146-b9cf-6fab4ce5fd74",
+      "id": "08aced46-45a2-48d7-993b-ed3fb5b32302",
+      "path": "results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/08aced46-45a2-48d7-993b-ed3fb5b32302",
       "domain": "libreoffice_impress",
-      "instruction": "Change the text color in the textboxes to on slide 1 yellow, red, and green, respectively, in top-to-bottom order. Use exactly these colors—no variations (e.g., no dark red, light green, etc.).",
-      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/04578141-1d42-4146-b9cf-6fab4ce5fd74/recording.mp4",
-      "duration": 685.094,
-      "num_steps": 30,
-      "num_annotatable": 27,
+      "instruction": "Give the slide 2 the right aligned title, \"Note\".",
+      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/08aced46-45a2-48d7-993b-ed3fb5b32302/recording.mp4",
+      "duration": 205.844,
+      "num_steps": 16,
+      "num_annotatable": 11,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
-          "is_sleep": true,
+          "is_sleep": false,
           "is_done": false,
-          "sleep_seconds": 0.1,
+          "sleep_seconds": null,
           "seg_start": 0.0,
-          "seg_end": 9.047
+          "seg_end": 10.5
         },
         {
           "index": 1,
@@ -750,8 +732,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 9.047,
-          "seg_end": 19.281
+          "seg_start": 10.5,
+          "seg_end": 19.578
         },
         {
           "index": 2,
@@ -759,8 +741,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 19.281,
-          "seg_end": 29.641
+          "seg_start": 19.578,
+          "seg_end": 29.172
         },
         {
           "index": 3,
@@ -768,8 +750,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 29.641,
-          "seg_end": 40.375
+          "seg_start": 29.172,
+          "seg_end": 38.891
         },
         {
           "index": 4,
@@ -777,8 +759,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 40.375,
-          "seg_end": 51.75
+          "seg_start": 38.891,
+          "seg_end": 48.297
         },
         {
           "index": 5,
@@ -786,17 +768,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 51.75,
-          "seg_end": 67.797
+          "seg_start": 48.297,
+          "seg_end": 58.375
         },
         {
           "index": 6,
           "step_num": 7,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 67.797,
-          "seg_end": 83.359
+          "sleep_seconds": 0.1,
+          "seg_start": 58.375,
+          "seg_end": 70.844
         },
         {
           "index": 7,
@@ -804,17 +786,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 83.359,
-          "seg_end": 97.937
+          "seg_start": 70.844,
+          "seg_end": 82.75
         },
         {
           "index": 8,
           "step_num": 9,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 97.937,
-          "seg_end": 112.609
+          "sleep_seconds": 0.5,
+          "seg_start": 82.75,
+          "seg_end": 95.313
         },
         {
           "index": 9,
@@ -822,8 +804,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 112.609,
-          "seg_end": 131.016
+          "seg_start": 95.313,
+          "seg_end": 109.656
         },
         {
           "index": 10,
@@ -831,17 +813,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 131.016,
-          "seg_end": 148.672
+          "seg_start": 109.656,
+          "seg_end": 121.281
         },
         {
           "index": 11,
           "step_num": 12,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 148.672,
-          "seg_end": 166.812
+          "sleep_seconds": 0.5,
+          "seg_start": 121.281,
+          "seg_end": 133.922
         },
         {
           "index": 12,
@@ -849,8 +831,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 166.812,
-          "seg_end": 183.875
+          "seg_start": 133.922,
+          "seg_end": 148.453
         },
         {
           "index": 13,
@@ -858,152 +840,26 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 183.875,
-          "seg_end": 203.453
+          "seg_start": 148.453,
+          "seg_end": 164.125
         },
         {
           "index": 14,
           "step_num": 15,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 203.453,
-          "seg_end": 226.266
+          "sleep_seconds": 0.5,
+          "seg_start": 164.125,
+          "seg_end": 179.203
         },
         {
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
-          "is_done": false,
+          "is_done": true,
           "sleep_seconds": null,
-          "seg_start": 226.266,
-          "seg_end": 248.156
-        },
-        {
-          "index": 16,
-          "step_num": 17,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 248.156,
-          "seg_end": 271.797
-        },
-        {
-          "index": 17,
-          "step_num": 18,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 271.797,
-          "seg_end": 296.062
-        },
-        {
-          "index": 18,
-          "step_num": 19,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 296.062,
-          "seg_end": 324.641
-        },
-        {
-          "index": 19,
-          "step_num": 20,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 324.641,
-          "seg_end": 350.625
-        },
-        {
-          "index": 20,
-          "step_num": 21,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 350.625,
-          "seg_end": 381.453
-        },
-        {
-          "index": 21,
-          "step_num": 22,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 381.453,
-          "seg_end": 411.625
-        },
-        {
-          "index": 22,
-          "step_num": 23,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 411.625,
-          "seg_end": 443.187
-        },
-        {
-          "index": 23,
-          "step_num": 24,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 443.187,
-          "seg_end": 474.234
-        },
-        {
-          "index": 24,
-          "step_num": 25,
-          "is_sleep": true,
-          "is_done": false,
-          "sleep_seconds": 0.5,
-          "seg_start": 474.234,
-          "seg_end": 507.547
-        },
-        {
-          "index": 25,
-          "step_num": 26,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 507.547,
-          "seg_end": 539.297
-        },
-        {
-          "index": 26,
-          "step_num": 27,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 539.297,
-          "seg_end": 574.922
-        },
-        {
-          "index": 27,
-          "step_num": 28,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 574.922,
-          "seg_end": 612.219
-        },
-        {
-          "index": 28,
-          "step_num": 29,
-          "is_sleep": true,
-          "is_done": false,
-          "sleep_seconds": 0.5,
-          "seg_start": 612.219,
-          "seg_end": 650.516
-        },
-        {
-          "index": 29,
-          "step_num": 30,
-          "is_sleep": false,
-          "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 650.516,
-          "seg_end": 685.094
+          "seg_start": 179.203,
+          "seg_end": 205.844
         }
       ]
     },
@@ -1191,23 +1047,23 @@
       ]
     },
     {
-      "id": "3ce045a0-877b-42aa-8d2c-b4a863336ab8",
-      "path": "results/pyautogui/screenshot/MiniMax-M3/os/3ce045a0-877b-42aa-8d2c-b4a863336ab8",
+      "id": "4127319a-8b79-4410-b58a-7a151e15f3d7",
+      "path": "results/pyautogui/screenshot/MiniMax-M3/os/4127319a-8b79-4410-b58a-7a151e15f3d7",
       "domain": "os",
-      "instruction": "My glasses are broken, and I'm having trouble seeing small things clearly. Could you help me enlarge the text on my screen so it's easier to read?",
-      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/os/3ce045a0-877b-42aa-8d2c-b4a863336ab8/recording.mp4",
-      "duration": 191.546,
-      "num_steps": 9,
-      "num_annotatable": 7,
+      "instruction": "Use terminal command to count all the lines of all php files in current directory recursively, show the result on the terminal",
+      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/os/4127319a-8b79-4410-b58a-7a151e15f3d7/recording.mp4",
+      "duration": 525.125,
+      "num_steps": 30,
+      "num_annotatable": 25,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
+          "sleep_seconds": 0.1,
           "seg_start": 0.0,
-          "seg_end": 10.718
+          "seg_end": 7.297
         },
         {
           "index": 1,
@@ -1215,8 +1071,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 10.718,
-          "seg_end": 19.578
+          "seg_start": 7.297,
+          "seg_end": 14.687
         },
         {
           "index": 2,
@@ -1224,8 +1080,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 19.578,
-          "seg_end": 28.406
+          "seg_start": 14.687,
+          "seg_end": 22.703
         },
         {
           "index": 3,
@@ -1233,8 +1089,8 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 28.406,
-          "seg_end": 39.203
+          "seg_start": 22.703,
+          "seg_end": 40.984
         },
         {
           "index": 4,
@@ -1242,17 +1098,17 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 39.203,
-          "seg_end": 112.437
+          "seg_start": 40.984,
+          "seg_end": 49.875
         },
         {
           "index": 5,
           "step_num": 6,
-          "is_sleep": false,
+          "is_sleep": true,
           "is_done": false,
-          "sleep_seconds": null,
-          "seg_start": 112.437,
-          "seg_end": 140.343
+          "sleep_seconds": 0.5,
+          "seg_start": 49.875,
+          "seg_end": 58.875
         },
         {
           "index": 6,
@@ -1260,26 +1116,215 @@
           "is_sleep": false,
           "is_done": false,
           "sleep_seconds": null,
-          "seg_start": 140.343,
-          "seg_end": 150.687
+          "seg_start": 58.875,
+          "seg_end": 68.187
         },
         {
           "index": 7,
           "step_num": 8,
-          "is_sleep": true,
+          "is_sleep": false,
           "is_done": false,
-          "sleep_seconds": 0.1,
-          "seg_start": 150.687,
-          "seg_end": 164.015
+          "sleep_seconds": null,
+          "seg_start": 68.187,
+          "seg_end": 88.562
         },
         {
           "index": 8,
           "step_num": 9,
+          "is_sleep": true,
+          "is_done": false,
+          "sleep_seconds": 0.5,
+          "seg_start": 88.562,
+          "seg_end": 99.594
+        },
+        {
+          "index": 9,
+          "step_num": 10,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 99.594,
+          "seg_end": 111.359
+        },
+        {
+          "index": 10,
+          "step_num": 11,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 111.359,
+          "seg_end": 124.437
+        },
+        {
+          "index": 11,
+          "step_num": 12,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 124.437,
+          "seg_end": 136.203
+        },
+        {
+          "index": 12,
+          "step_num": 13,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 136.203,
+          "seg_end": 157.187
+        },
+        {
+          "index": 13,
+          "step_num": 14,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 157.187,
+          "seg_end": 171.031
+        },
+        {
+          "index": 14,
+          "step_num": 15,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 171.031,
+          "seg_end": 185.266
+        },
+        {
+          "index": 15,
+          "step_num": 16,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 185.266,
+          "seg_end": 200.328
+        },
+        {
+          "index": 16,
+          "step_num": 17,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 200.328,
+          "seg_end": 226.172
+        },
+        {
+          "index": 17,
+          "step_num": 18,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 226.172,
+          "seg_end": 243.875
+        },
+        {
+          "index": 18,
+          "step_num": 19,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 243.875,
+          "seg_end": 260.141
+        },
+        {
+          "index": 19,
+          "step_num": 20,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 260.141,
+          "seg_end": 276.359
+        },
+        {
+          "index": 20,
+          "step_num": 21,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 276.359,
+          "seg_end": 293.234
+        },
+        {
+          "index": 21,
+          "step_num": 22,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 293.234,
+          "seg_end": 317.703
+        },
+        {
+          "index": 22,
+          "step_num": 23,
+          "is_sleep": true,
+          "is_done": false,
+          "sleep_seconds": 0.5,
+          "seg_start": 317.703,
+          "seg_end": 337.344
+        },
+        {
+          "index": 23,
+          "step_num": 24,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 337.344,
+          "seg_end": 357.531
+        },
+        {
+          "index": 24,
+          "step_num": 25,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 357.531,
+          "seg_end": 386.906
+        },
+        {
+          "index": 25,
+          "step_num": 26,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 386.906,
+          "seg_end": 408.25
+        },
+        {
+          "index": 26,
+          "step_num": 27,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 408.25,
+          "seg_end": 430.5
+        },
+        {
+          "index": 27,
+          "step_num": 28,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 430.5,
+          "seg_end": 452.781
+        },
+        {
+          "index": 28,
+          "step_num": 29,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 452.781,
+          "seg_end": 484.344
+        },
+        {
+          "index": 29,
+          "step_num": 30,
           "is_sleep": false,
           "is_done": true,
           "sleep_seconds": null,
-          "seg_start": 164.015,
-          "seg_end": 191.546
+          "seg_start": 484.344,
+          "seg_end": 525.125
         }
       ]
     },

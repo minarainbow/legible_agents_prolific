@@ -1,0 +1,82 @@
+{
+  "1": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "2": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "3": {
+    "tier": "easy",
+    "category": "type_text",
+    "modality": "human_like"
+  },
+  "4": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "5": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "6": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "7": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  },
+  "8": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "9": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  },
+  "10": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "11": {
+    "tier": "invisible",
+    "category": "shortcut",
+    "modality": "hard_to_follow"
+  },
+  "12": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  },
+  "13": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "14": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "15": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  },
+  "16": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  }
+}

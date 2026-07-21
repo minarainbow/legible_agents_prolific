@@ -1,0 +1,14 @@
+{
+  "instruction": "Give the slide 2 the right aligned title, \"Note\".",
+  "example_id": "08aced46-45a2-48d7-993b-ed3fb5b32302",
+  "run_started_at": "2026-07-14T20:16:29.659724Z",
+  "recording_started_at": "2026-07-14T20:16:29.680245Z",
+  "recording_ended_at": "2026-07-14T20:19:55.519732Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "libreoffice_impress",
+  "recording_duration_sec": 205.844
+}
