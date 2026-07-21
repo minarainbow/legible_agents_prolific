@@ -382,9 +382,11 @@ function openTask(idx) {
   state.currentStepIdx = firstMissing ? firstMissing.index : 0;
 
   buildTimeline(task);
+  // Cue the first step but DON'T autoplay on task switch — the participant
+  // presses play themselves (it still pauses at the step end once they do).
   video.addEventListener("loadedmetadata", function once() {
     video.removeEventListener("loadedmetadata", once);
-    gotoStep(state.currentStepIdx, true);
+    gotoStep(state.currentStepIdx, false);
   }, { once: true });
 
   updateOverallProgress();
