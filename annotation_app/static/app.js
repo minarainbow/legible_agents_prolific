@@ -110,19 +110,44 @@ function wireInstructions() {
 // ------------------------------------------------------------------
 // Profile
 // ------------------------------------------------------------------
-const profile = { gender: null, experience: null };
+const profile = {
+  gender: null, occupation: "", education: null, english: null,
+  computer_freq: null, ai_tools: null, experience: null,
+};
 
 function buildProfileForm() {
+  const c = state.cfg;
+
+  // Gender (single-select + optional self-describe box).
   const genderBox = $("#p-gender");
-  state.cfg.gender_options.forEach((o) => {
+  c.gender_options.forEach((o) => {
     genderBox.appendChild(makeChoice("gender", o, (opt) => {
       profile.gender = opt.id;
       $("#p-gender-other").classList.toggle("hidden", opt.id !== "other");
     }));
   });
-  const expBox = $("#p-experience");
-  state.cfg.experience_options.forEach((o) => {
-    expBox.appendChild(makeChoice("experience", o, (opt) => (profile.experience = opt.id)));
+
+  // Occupation (free text).
+  $("#p-occupation-label").textContent = c.occupation_prompt || "Occupation";
+  $("#p-occupation").placeholder = c.occupation_placeholder || "";
+  $("#p-occupation").addEventListener("input", (e) => { profile.occupation = e.target.value; });
+
+  // English note (language requirement).
+  $("#p-english-note").textContent = c.english_note || "";
+
+  // Single-select groups, in display order.
+  buildProfileChoiceGroup("education", "p-education-label", "p-education", c.education_prompt, c.education_options);
+  buildProfileChoiceGroup("english", "p-english-label", "p-english", c.english_prompt, c.english_options);
+  buildProfileChoiceGroup("computer_freq", "p-compfreq-label", "p-compfreq", c.computer_freq_prompt, c.computer_freq_options);
+  buildProfileChoiceGroup("ai_tools", "p-aitools-label", "p-aitools", c.ai_tools_prompt, c.ai_tools_options);
+  buildProfileChoiceGroup("experience", "p-experience-label", "p-experience", c.experience_prompt, c.experience_options);
+}
+
+function buildProfileChoiceGroup(field, labelId, boxId, prompt, options) {
+  $("#" + labelId).textContent = prompt || "";
+  const box = $("#" + boxId);
+  (options || []).forEach((o) => {
+    box.appendChild(makeChoice(field, o, (opt) => (profile[field] = opt.id)));
   });
 }
 
@@ -150,19 +175,26 @@ function wireProfile() {
   $("#btn-profile-next").addEventListener("click", async () => {
     const age = $("#p-age").value.trim();
     const err = $("#profile-error");
-    if (!age || Number(age) < 18) {
-      err.textContent = "Please enter your age (18 or older).";
-      err.classList.remove("hidden");
-      return;
-    }
-    if (!profile.gender) { err.textContent = "Please select a gender option."; err.classList.remove("hidden"); return; }
-    if (!profile.experience) { err.textContent = "Please answer the experience question."; err.classList.remove("hidden"); return; }
+    const fail = (msg) => { err.textContent = msg; err.classList.remove("hidden"); };
+    if (!age || Number(age) < 18) return fail("Please enter your age (18 or older).");
+    if (!profile.gender) return fail("Please select a gender option.");
+    if (!profile.occupation.trim()) return fail("Please enter your occupation.");
+    if (!profile.education) return fail("Please select your highest level of education.");
+    if (!profile.english) return fail("Please select your English proficiency.");
+    if (!profile.computer_freq) return fail("Please answer how often you use a computer.");
+    if (!profile.ai_tools) return fail("Please answer the AI tools familiarity question.");
+    if (!profile.experience) return fail("Please answer the computer-use agent question.");
     err.classList.add("hidden");
 
     const profilePayload = {
       age: Number(age),
       gender: profile.gender,
       gender_self_describe: $("#p-gender-other").value.trim() || null,
+      occupation: profile.occupation.trim(),
+      education: profile.education,
+      english: profile.english,
+      computer_freq: profile.computer_freq,
+      ai_tools: profile.ai_tools,
       experience: profile.experience,
     };
 

@@ -80,7 +80,60 @@ GENDER_OPTIONS = [
     {"id": "other", "label": "Prefer to self-describe or not say"},
 ]
 
+# Occupation — free text.
+OCCUPATION_PROMPT = "What is your occupation?"
+OCCUPATION_PLACEHOLDER = "e.g. teacher, software developer, student"
+
+# Highest level of education completed.
+EDUCATION_PROMPT = "Highest level of education completed"
+EDUCATION_OPTIONS = [
+    {"id": "highschool", "label": "High school or less"},
+    {"id": "some_college", "label": "Some college, no degree"},
+    {"id": "associate", "label": "Associate / vocational degree"},
+    {"id": "bachelor", "label": "Bachelor's degree"},
+    {"id": "master", "label": "Master's degree"},
+    {"id": "doctorate", "label": "Doctorate or professional degree"},
+]
+
+# English proficiency. The note makes the language requirement explicit.
+ENGLISH_PROMPT = "How would you rate your English proficiency?"
+ENGLISH_NOTE = (
+    "This study involves reading and writing detailed English, so please take "
+    "part only if you are at a Proficient or Native / bilingual level."
+)
+ENGLISH_OPTIONS = [
+    {"id": "basic", "label": "Basic — simple words and phrases"},
+    {"id": "intermediate", "label": "Intermediate — everyday conversation"},
+    {"id": "proficient", "label": "Proficient — fluent in most situations"},
+    {"id": "native", "label": "Native / bilingual"},
+]
+
+# How often the person does computer tasks for work/study.
+COMPUTER_FREQ_PROMPT = "How often do you use a computer for work or study?"
+COMPUTER_FREQ_OPTIONS = [
+    {"id": "rarely", "label": "Rarely or never"},
+    {"id": "weekly", "label": "A few times a week"},
+    {"id": "daily", "label": "Most days"},
+    {"id": "allday", "label": "Nearly all day, every working day"},
+]
+
+# Familiarity with AI tools in general (asked BEFORE the computer-use question).
+AI_TOOLS_PROMPT = (
+    "How familiar are you with AI tools in general (e.g. ChatGPT, image "
+    "generators, AI assistants)?"
+)
+AI_TOOLS_OPTIONS = [
+    {"id": "never", "label": "Never used or heard of them"},
+    {"id": "seen", "label": "Heard of them / seen examples"},
+    {"id": "few", "label": "Used them a few times"},
+    {"id": "often", "label": "Use them regularly"},
+]
+
 # Experience with "computer use agents" (AI that controls a computer).
+EXPERIENCE_PROMPT = (
+    "How much experience do you have with computer-use AI agents (AI that "
+    "controls a computer on its own)?"
+)
 EXPERIENCE_OPTIONS = [
     {"id": "never", "label": "Never used or heard of them"},
     {"id": "seen", "label": "Heard of them / seen examples"},

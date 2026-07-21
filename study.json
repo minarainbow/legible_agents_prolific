@@ -25,6 +25,94 @@
         "label": "Prefer to self-describe or not say"
       }
     ],
+    "occupation_prompt": "What is your occupation?",
+    "occupation_placeholder": "e.g. teacher, software developer, student",
+    "education_prompt": "Highest level of education completed",
+    "education_options": [
+      {
+        "id": "highschool",
+        "label": "High school or less"
+      },
+      {
+        "id": "some_college",
+        "label": "Some college, no degree"
+      },
+      {
+        "id": "associate",
+        "label": "Associate / vocational degree"
+      },
+      {
+        "id": "bachelor",
+        "label": "Bachelor's degree"
+      },
+      {
+        "id": "master",
+        "label": "Master's degree"
+      },
+      {
+        "id": "doctorate",
+        "label": "Doctorate or professional degree"
+      }
+    ],
+    "english_prompt": "How would you rate your English proficiency?",
+    "english_note": "This study involves reading and writing detailed English, so please take part only if you are at a Proficient or Native / bilingual level.",
+    "english_options": [
+      {
+        "id": "basic",
+        "label": "Basic — simple words and phrases"
+      },
+      {
+        "id": "intermediate",
+        "label": "Intermediate — everyday conversation"
+      },
+      {
+        "id": "proficient",
+        "label": "Proficient — fluent in most situations"
+      },
+      {
+        "id": "native",
+        "label": "Native / bilingual"
+      }
+    ],
+    "computer_freq_prompt": "How often do you use a computer for work or study?",
+    "computer_freq_options": [
+      {
+        "id": "rarely",
+        "label": "Rarely or never"
+      },
+      {
+        "id": "weekly",
+        "label": "A few times a week"
+      },
+      {
+        "id": "daily",
+        "label": "Most days"
+      },
+      {
+        "id": "allday",
+        "label": "Nearly all day, every working day"
+      }
+    ],
+    "ai_tools_prompt": "How familiar are you with AI tools in general (e.g. ChatGPT, image generators, AI assistants)?",
+    "ai_tools_options": [
+      {
+        "id": "never",
+        "label": "Never used or heard of them"
+      },
+      {
+        "id": "seen",
+        "label": "Heard of them / seen examples"
+      },
+      {
+        "id": "few",
+        "label": "Used them a few times"
+      },
+      {
+        "id": "often",
+        "label": "Use them regularly"
+      }
+    ],
+    "experience_prompt": "How much experience do you have with computer-use AI agents (AI that controls a computer on its own)?",
     "experience_options": [
       {
         "id": "never",
