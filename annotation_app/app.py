@@ -156,6 +156,9 @@ def _build_task(run: dict):
         action = step.get("action", "") or ""
         m = _SLEEP_RE.search(action)
         is_sleep = bool(m) and "\n" not in action.strip() and action.strip().startswith("pyautogui.sleep")
+        # Terminal marker (the agent signalling it is finished) — no real action
+        # to describe, so treat it like a sleep step (auto-filled, not annotated).
+        is_done = action.strip().upper() in ("DONE", "FAIL", "WAIT") and not is_sleep
         seg_start = round(boundaries[i], 3)
         seg_end = round(max(boundaries[i + 1], seg_start + 0.2), 3)
         step_num = step.get("step_num", i + 1)
@@ -163,6 +166,7 @@ def _build_task(run: dict):
             "index": i,
             "step_num": step_num,
             "is_sleep": is_sleep,
+            "is_done": is_done,
             "sleep_seconds": (float(m.group(1)) if m else None) if is_sleep else None,
             "seg_start": seg_start,
             "seg_end": seg_end,
@@ -186,7 +190,7 @@ def _build_task(run: dict):
         "video_url": "/media/" + rel + "/recording.mp4",
         "duration": round(float(duration), 3),
         "num_steps": len(client_steps),
-        "num_annotatable": sum(1 for s in client_steps if not s["is_sleep"]),
+        "num_annotatable": sum(1 for s in client_steps if not s["is_sleep"] and not s["is_done"]),
         "steps": client_steps,
     }
 

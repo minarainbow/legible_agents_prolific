@@ -68,6 +68,9 @@ function isFlagged(taskId) {
   return state.flaggedTasks.has(taskId);
 }
 
+// Steps that need no annotation (agent just waited, or signalled it finished).
+const isAuto = (s) => !!(s.is_sleep || s.is_done);
+
 // ------------------------------------------------------------------
 // Boot
 // ------------------------------------------------------------------
@@ -282,10 +285,13 @@ function ensureAnnotation(task) {
   ["familiarity", "success", "efficiency", "understanding"].forEach((k) => {
     if (!(k in a)) a[k] = null;
   });
-  // Pre-fill sleep steps as auto-complete "wait".
+  // Pre-fill auto steps (waiting / task finished) so they need no annotation.
   task.steps.forEach((s) => {
-    if (s.is_sleep && !a.steps[s.index]) {
-      a.steps[s.index] = { answer: "(agent waited)", cant_tell: false, note: "", auto: true };
+    if (isAuto(s) && !a.steps[s.index]) {
+      a.steps[s.index] = {
+        answer: s.is_done ? "(agent signalled the task was finished)" : "(agent waited)",
+        cant_tell: false, note: "", auto: true,
+      };
     }
   });
   return a;
@@ -294,7 +300,7 @@ function ensureAnnotation(task) {
 function stepStatus(task, step) {
   const a = state.annotations[task.id];
   const s = a && a.steps[step.index];
-  if (step.is_sleep) return "sleep";
+  if (isAuto(step)) return "sleep";
   if (!s) return "missing";
   if (s.cant_tell) return "cant";
   if (s.answer && s.answer.trim()) return "done";
@@ -325,9 +331,9 @@ function updatePostTaskVisibility(task) {
 }
 
 function taskProgress(task) {
-  // annotated non-sleep steps / total non-sleep steps
-  const total = task.steps.filter((s) => !s.is_sleep).length;
-  const done = task.steps.filter((s) => !s.is_sleep && stepStatus(task, s) !== "missing").length;
+  // annotated steps / total steps that actually need annotation
+  const total = task.steps.filter((s) => !isAuto(s)).length;
+  const done = task.steps.filter((s) => !isAuto(s) && stepStatus(task, s) !== "missing").length;
   return { done, total };
 }
 
@@ -372,7 +378,7 @@ function openTask(idx) {
   video.load();
 
   // Jump to first not-yet-annotated step, else the first step.
-  const firstMissing = task.steps.find((s) => !s.is_sleep && stepStatus(task, s) === "missing");
+  const firstMissing = task.steps.find((s) => !isAuto(s) && stepStatus(task, s) === "missing");
   state.currentStepIdx = firstMissing ? firstMissing.index : 0;
 
   buildTimeline(task);
@@ -484,11 +490,13 @@ function buildTimeline(task) {
     seg.style.left = left + "%";
     seg.style.width = `calc(${width}% - 1px)`;
     seg.dataset.index = String(s.index);
-    seg.title = s.is_sleep
+    seg.title = s.is_done
+      ? `Task finished (${fmtTime(s.seg_start)})`
+      : s.is_sleep
       ? `Waited (${fmtTime(s.seg_start)})`
       : `Action ${s.step_num} (${fmtTime(s.seg_start)})`;
-    seg.appendChild(el("span", null, s.is_sleep ? "z" : String(s.step_num)));
-    if (!s.is_sleep || true) seg.addEventListener("click", () => gotoStep(s.index, true));
+    seg.appendChild(el("span", null, s.is_done ? "✓" : s.is_sleep ? "z" : String(s.step_num)));
+    seg.addEventListener("click", () => gotoStep(s.index, true));
     track.appendChild(seg);
   });
   wrap.appendChild(track);
@@ -561,7 +569,9 @@ function gotoStep(idx, autoplay) {
 function renderStepPanel(task, step) {
   const a = state.annotations[task.id];
   const saved = a.steps[step.index] || {};
-  $("#step-title").textContent = step.is_sleep
+  $("#step-title").textContent = step.is_done
+    ? `Step ${step.step_num} · Finished`
+    : step.is_sleep
     ? `Step ${step.step_num} · Waiting`
     : `Action ${step.step_num}`;
 
@@ -569,9 +579,13 @@ function renderStepPanel(task, step) {
 
   const sleepNote = $("#sleep-note");
   const body = $("#annotate-body");
-  if (step.is_sleep) {
-    const secs = step.sleep_seconds != null ? ` (${step.sleep_seconds}s)` : "";
-    sleepNote.textContent = `The agent simply paused / waited here${secs}. Nothing to describe — press "Next action" to continue.`;
+  if (isAuto(step)) {
+    if (step.is_done) {
+      sleepNote.textContent = 'The agent signalled that it had finished the task here. Nothing to describe — press "Next" to continue.';
+    } else {
+      const secs = step.sleep_seconds != null ? ` (${step.sleep_seconds}s)` : "";
+      sleepNote.textContent = `The agent simply paused / waited here${secs}. Nothing to describe — press "Next action" to continue.`;
+    }
     sleepNote.classList.remove("hidden");
     body.classList.add("hidden");
     return;
@@ -673,7 +687,7 @@ function updateStepStatusBadge(task, step) {
     done: "Annotated",
     cant: "Marked unclear",
     missing: "Not annotated",
-    sleep: "Auto (wait)",
+    sleep: step.is_done ? "Auto (finished)" : "Auto (wait)",
   }[st];
 }
 
@@ -723,7 +737,7 @@ function onNext() {
     state.flaggedTasks.add(task.id);
     paintTimeline(task);
     const firstMissing = task.steps.find(
-      (s) => !s.is_sleep && stepStatus(task, s) === "missing");
+      (s) => !isAuto(s) && stepStatus(task, s) === "missing");
     if (firstMissing) gotoStep(firstMissing.index, true);
     return;
   }
@@ -822,7 +836,7 @@ function openReview() {
     row.addEventListener("click", () => {
       showScreen("screen-work");
       openTask(i);
-      const firstMissing = t.steps.find((s) => !s.is_sleep && stepStatus(t, s) === "missing");
+      const firstMissing = t.steps.find((s) => !isAuto(s) && stepStatus(t, s) === "missing");
       if (firstMissing) setTimeout(() => gotoStep(firstMissing.index, false), 60);
     });
     list.appendChild(row);

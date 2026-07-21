@@ -226,6 +226,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 18.0
@@ -234,6 +235,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 18.0,
           "seg_end": 28.61
@@ -242,6 +244,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 28.61,
           "seg_end": 41.063
@@ -250,6 +253,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 41.063,
           "seg_end": 59.313
@@ -258,6 +262,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 59.313,
           "seg_end": 138.204
@@ -266,6 +271,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 138.204,
           "seg_end": 412.344
@@ -274,6 +280,7 @@
           "index": 6,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 412.344,
           "seg_end": 431.719
@@ -282,6 +289,7 @@
           "index": 7,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 431.719,
           "seg_end": 446.313
@@ -290,6 +298,7 @@
           "index": 8,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 446.313,
           "seg_end": 464.125
@@ -298,6 +307,7 @@
           "index": 9,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 464.125,
           "seg_end": 479.485
@@ -306,6 +316,7 @@
           "index": 10,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 479.485,
           "seg_end": 496.563
@@ -314,6 +325,7 @@
           "index": 11,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 496.563,
           "seg_end": 512.266
@@ -322,6 +334,7 @@
           "index": 12,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 512.266,
           "seg_end": 528.938
@@ -330,6 +343,7 @@
           "index": 13,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 528.938,
           "seg_end": 547.079
@@ -338,6 +352,7 @@
           "index": 14,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 547.079,
           "seg_end": 564.094
@@ -346,6 +361,7 @@
           "index": 15,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 564.094,
           "seg_end": 584.063
@@ -354,6 +370,7 @@
           "index": 16,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 584.063,
           "seg_end": 604.563
@@ -362,6 +379,7 @@
           "index": 17,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 604.563,
           "seg_end": 625.625
@@ -370,6 +388,7 @@
           "index": 18,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 625.625,
           "seg_end": 652.094
@@ -378,6 +397,7 @@
           "index": 19,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 652.094,
           "seg_end": 673.454
@@ -386,6 +406,7 @@
           "index": 20,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 673.454,
           "seg_end": 696.969
@@ -394,6 +415,7 @@
           "index": 21,
           "step_num": 24,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 696.969,
           "seg_end": 718.563
@@ -402,6 +424,7 @@
           "index": 22,
           "step_num": 25,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 718.563,
           "seg_end": 743.829
@@ -410,6 +433,7 @@
           "index": 23,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 743.829,
           "seg_end": 768.313
@@ -418,6 +442,7 @@
           "index": 24,
           "step_num": 27,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 768.313,
           "seg_end": 791.125
@@ -426,6 +451,7 @@
           "index": 25,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 791.125,
           "seg_end": 817.735
@@ -434,6 +460,7 @@
           "index": 26,
           "step_num": 29,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 817.735,
           "seg_end": 851.141
@@ -442,6 +469,7 @@
           "index": 27,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 851.141,
           "seg_end": 878.985
@@ -456,12 +484,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/chrome/030eeff7-b492-4218-b312-701ec99ee0cc/recording.mp4",
       "duration": 142.375,
       "num_steps": 11,
-      "num_annotatable": 11,
+      "num_annotatable": 10,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 10.25
@@ -470,6 +499,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 10.25,
           "seg_end": 19.985
@@ -478,6 +508,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 19.985,
           "seg_end": 28.703
@@ -486,6 +517,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 28.703,
           "seg_end": 37.766
@@ -494,6 +526,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 37.766,
           "seg_end": 47.438
@@ -502,6 +535,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 47.438,
           "seg_end": 58.86
@@ -510,6 +544,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 58.86,
           "seg_end": 72.25
@@ -518,6 +553,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 72.25,
           "seg_end": 84.266
@@ -526,6 +562,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 84.266,
           "seg_end": 98.313
@@ -534,6 +571,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 98.313,
           "seg_end": 114.016
@@ -542,6 +580,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 114.016,
           "seg_end": 142.375
@@ -556,12 +595,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/gimp/06ca5602-62ca-47f6-ad4f-da151cde54cc/recording.mp4",
       "duration": 218.984,
       "num_steps": 12,
-      "num_annotatable": 9,
+      "num_annotatable": 8,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 10.547
@@ -570,6 +610,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 10.547,
           "seg_end": 21.25
@@ -578,6 +619,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 21.25,
           "seg_end": 33.375
@@ -586,6 +628,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 33.375,
           "seg_end": 45.641
@@ -594,6 +637,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 45.641,
           "seg_end": 61.063
@@ -602,6 +646,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 61.063,
           "seg_end": 75.078
@@ -610,6 +655,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 75.078,
           "seg_end": 96.344
@@ -618,6 +664,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 96.344,
           "seg_end": 110.078
@@ -626,6 +673,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 110.078,
           "seg_end": 129.578
@@ -634,6 +682,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 129.578,
           "seg_end": 147.844
@@ -642,6 +691,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 147.844,
           "seg_end": 170.0
@@ -650,6 +700,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 170.0,
           "seg_end": 218.984
@@ -670,6 +721,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 0.0,
           "seg_end": 7.984
@@ -678,6 +730,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 7.984,
           "seg_end": 16.937
@@ -686,6 +739,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 16.937,
           "seg_end": 29.062
@@ -694,6 +748,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 29.062,
           "seg_end": 43.453
@@ -702,6 +757,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 43.453,
           "seg_end": 54.375
@@ -710,6 +766,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 54.375,
           "seg_end": 64.031
@@ -718,6 +775,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 64.031,
           "seg_end": 73.937
@@ -726,6 +784,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 73.937,
           "seg_end": 86.391
@@ -734,6 +793,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 86.391,
           "seg_end": 98.437
@@ -742,6 +802,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 98.437,
           "seg_end": 112.375
@@ -750,6 +811,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 112.375,
           "seg_end": 125.312
@@ -758,6 +820,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 125.312,
           "seg_end": 137.578
@@ -766,6 +829,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 137.578,
           "seg_end": 153.625
@@ -774,6 +838,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 153.625,
           "seg_end": 171.516
@@ -782,6 +847,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 171.516,
           "seg_end": 187.187
@@ -790,6 +856,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 187.187,
           "seg_end": 204.391
@@ -798,6 +865,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 204.391,
           "seg_end": 225.812
@@ -806,6 +874,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 225.812,
           "seg_end": 250.094
@@ -814,6 +883,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 250.094,
           "seg_end": 272.375
@@ -822,6 +892,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 272.375,
           "seg_end": 297.656
@@ -830,6 +901,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 297.656,
           "seg_end": 322.656
@@ -838,6 +910,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 322.656,
           "seg_end": 347.422
@@ -846,6 +919,7 @@
           "index": 22,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 347.422,
           "seg_end": 380.781
@@ -854,6 +928,7 @@
           "index": 23,
           "step_num": 24,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 380.781,
           "seg_end": 406.531
@@ -862,6 +937,7 @@
           "index": 24,
           "step_num": 25,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 406.531,
           "seg_end": 439.453
@@ -870,6 +946,7 @@
           "index": 25,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 439.453,
           "seg_end": 475.141
@@ -878,6 +955,7 @@
           "index": 26,
           "step_num": 27,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 475.141,
           "seg_end": 516.984
@@ -886,6 +964,7 @@
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 516.984,
           "seg_end": 558.172
@@ -894,6 +973,7 @@
           "index": 28,
           "step_num": 29,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 558.172,
           "seg_end": 598.437
@@ -902,6 +982,7 @@
           "index": 29,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 598.437,
           "seg_end": 651.344
@@ -922,6 +1003,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 0.0,
           "seg_end": 26.641
@@ -930,6 +1012,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 26.641,
           "seg_end": 37.594
@@ -938,6 +1021,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 37.594,
           "seg_end": 52.437
@@ -946,6 +1030,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 52.437,
           "seg_end": 64.125
@@ -954,6 +1039,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 64.125,
           "seg_end": 76.828
@@ -962,6 +1048,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 76.828,
           "seg_end": 89.766
@@ -970,6 +1057,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 89.766,
           "seg_end": 104.797
@@ -978,6 +1066,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 104.797,
           "seg_end": 123.906
@@ -986,6 +1075,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 123.906,
           "seg_end": 139.687
@@ -994,6 +1084,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 139.687,
           "seg_end": 156.641
@@ -1002,6 +1093,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 156.641,
           "seg_end": 176.25
@@ -1010,6 +1102,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 176.25,
           "seg_end": 201.719
@@ -1018,6 +1111,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 201.719,
           "seg_end": 226.578
@@ -1026,6 +1120,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 226.578,
           "seg_end": 251.094
@@ -1034,6 +1129,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 251.094,
           "seg_end": 275.391
@@ -1042,6 +1138,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 275.391,
           "seg_end": 301.359
@@ -1050,6 +1147,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 301.359,
           "seg_end": 327.266
@@ -1058,6 +1156,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 327.266,
           "seg_end": 356.875
@@ -1066,6 +1165,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 356.875,
           "seg_end": 386.75
@@ -1074,6 +1174,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 386.75,
           "seg_end": 414.578
@@ -1082,6 +1183,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 414.578,
           "seg_end": 444.328
@@ -1090,6 +1192,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 444.328,
           "seg_end": 474.969
@@ -1098,6 +1201,7 @@
           "index": 22,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 474.969,
           "seg_end": 508.703
@@ -1106,6 +1210,7 @@
           "index": 23,
           "step_num": 24,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 508.703,
           "seg_end": 542.859
@@ -1114,6 +1219,7 @@
           "index": 24,
           "step_num": 25,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 542.859,
           "seg_end": 577.953
@@ -1122,6 +1228,7 @@
           "index": 25,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 577.953,
           "seg_end": 613.641
@@ -1130,6 +1237,7 @@
           "index": 26,
           "step_num": 27,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 613.641,
           "seg_end": 650.297
@@ -1138,6 +1246,7 @@
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 650.297,
           "seg_end": 688.797
@@ -1146,6 +1255,7 @@
           "index": 28,
           "step_num": 29,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 688.797,
           "seg_end": 728.031
@@ -1154,6 +1264,7 @@
           "index": 29,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 728.031,
           "seg_end": 754.562
@@ -1174,6 +1285,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 0.0,
           "seg_end": 11.109
@@ -1182,6 +1294,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 11.109,
           "seg_end": 20.609
@@ -1190,6 +1303,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 20.609,
           "seg_end": 30.906
@@ -1198,6 +1312,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 30.906,
           "seg_end": 42.422
@@ -1206,6 +1321,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 42.422,
           "seg_end": 55.797
@@ -1214,6 +1330,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 55.797,
           "seg_end": 78.578
@@ -1222,6 +1339,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 78.578,
           "seg_end": 104.5
@@ -1230,6 +1348,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 104.5,
           "seg_end": 119.516
@@ -1238,6 +1357,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 119.516,
           "seg_end": 137.766
@@ -1246,6 +1366,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 137.766,
           "seg_end": 154.703
@@ -1254,6 +1375,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 154.703,
           "seg_end": 173.375
@@ -1262,6 +1384,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 173.375,
           "seg_end": 195.359
@@ -1270,6 +1393,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 195.359,
           "seg_end": 217.813
@@ -1278,6 +1402,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 217.813,
           "seg_end": 239.984
@@ -1286,6 +1411,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 239.984,
           "seg_end": 263.094
@@ -1294,6 +1420,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 263.094,
           "seg_end": 290.719
@@ -1302,6 +1429,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 290.719,
           "seg_end": 316.0
@@ -1310,6 +1438,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 316.0,
           "seg_end": 340.344
@@ -1318,6 +1447,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 340.344,
           "seg_end": 366.328
@@ -1326,6 +1456,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 366.328,
           "seg_end": 393.875
@@ -1334,6 +1465,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 393.875,
           "seg_end": 422.016
@@ -1342,6 +1474,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 422.016,
           "seg_end": 454.0
@@ -1350,6 +1483,7 @@
           "index": 22,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 454.0,
           "seg_end": 483.891
@@ -1358,6 +1492,7 @@
           "index": 23,
           "step_num": 24,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 483.891,
           "seg_end": 518.391
@@ -1366,6 +1501,7 @@
           "index": 24,
           "step_num": 25,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 518.391,
           "seg_end": 552.094
@@ -1374,6 +1510,7 @@
           "index": 25,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 552.094,
           "seg_end": 587.438
@@ -1382,6 +1519,7 @@
           "index": 26,
           "step_num": 27,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 587.438,
           "seg_end": 624.203
@@ -1390,6 +1528,7 @@
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 624.203,
           "seg_end": 661.156
@@ -1398,6 +1537,7 @@
           "index": 28,
           "step_num": 29,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 661.156,
           "seg_end": 714.203
@@ -1406,6 +1546,7 @@
           "index": 29,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 714.203,
           "seg_end": 740.609
@@ -1426,6 +1567,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 0.0,
           "seg_end": 9.047
@@ -1434,6 +1576,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 9.047,
           "seg_end": 19.281
@@ -1442,6 +1585,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 19.281,
           "seg_end": 29.641
@@ -1450,6 +1594,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 29.641,
           "seg_end": 40.375
@@ -1458,6 +1603,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 40.375,
           "seg_end": 51.75
@@ -1466,6 +1612,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 51.75,
           "seg_end": 67.797
@@ -1474,6 +1621,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 67.797,
           "seg_end": 83.359
@@ -1482,6 +1630,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 83.359,
           "seg_end": 97.937
@@ -1490,6 +1639,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 97.937,
           "seg_end": 112.609
@@ -1498,6 +1648,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 112.609,
           "seg_end": 131.016
@@ -1506,6 +1657,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 131.016,
           "seg_end": 148.672
@@ -1514,6 +1666,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 148.672,
           "seg_end": 166.812
@@ -1522,6 +1675,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 166.812,
           "seg_end": 183.875
@@ -1530,6 +1684,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 183.875,
           "seg_end": 203.453
@@ -1538,6 +1693,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 203.453,
           "seg_end": 226.266
@@ -1546,6 +1702,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 226.266,
           "seg_end": 248.156
@@ -1554,6 +1711,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 248.156,
           "seg_end": 271.797
@@ -1562,6 +1720,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 271.797,
           "seg_end": 296.062
@@ -1570,6 +1729,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 296.062,
           "seg_end": 324.641
@@ -1578,6 +1738,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 324.641,
           "seg_end": 350.625
@@ -1586,6 +1747,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 350.625,
           "seg_end": 381.453
@@ -1594,6 +1756,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 381.453,
           "seg_end": 411.625
@@ -1602,6 +1765,7 @@
           "index": 22,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 411.625,
           "seg_end": 443.187
@@ -1610,6 +1774,7 @@
           "index": 23,
           "step_num": 24,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 443.187,
           "seg_end": 474.234
@@ -1618,6 +1783,7 @@
           "index": 24,
           "step_num": 25,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 474.234,
           "seg_end": 507.547
@@ -1626,6 +1792,7 @@
           "index": 25,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 507.547,
           "seg_end": 539.297
@@ -1634,6 +1801,7 @@
           "index": 26,
           "step_num": 27,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 539.297,
           "seg_end": 574.922
@@ -1642,6 +1810,7 @@
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 574.922,
           "seg_end": 612.219
@@ -1650,6 +1819,7 @@
           "index": 28,
           "step_num": 29,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 612.219,
           "seg_end": 650.516
@@ -1658,6 +1828,7 @@
           "index": 29,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 650.516,
           "seg_end": 685.094
@@ -1678,6 +1849,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 11.156
@@ -1686,6 +1858,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 11.156,
           "seg_end": 22.438
@@ -1694,6 +1867,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 22.438,
           "seg_end": 32.922
@@ -1702,6 +1876,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 32.922,
           "seg_end": 44.922
@@ -1710,6 +1885,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 44.922,
           "seg_end": 59.422
@@ -1718,6 +1894,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 59.422,
           "seg_end": 72.875
@@ -1726,6 +1903,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 72.875,
           "seg_end": 89.859
@@ -1734,6 +1912,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 89.859,
           "seg_end": 106.484
@@ -1742,6 +1921,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 106.484,
           "seg_end": 123.906
@@ -1750,6 +1930,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 123.906,
           "seg_end": 143.563
@@ -1758,6 +1939,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 143.563,
           "seg_end": 161.563
@@ -1766,6 +1948,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 161.563,
           "seg_end": 182.734
@@ -1774,6 +1957,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 182.734,
           "seg_end": 203.516
@@ -1782,6 +1966,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 203.516,
           "seg_end": 224.219
@@ -1790,6 +1975,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 224.219,
           "seg_end": 248.266
@@ -1798,6 +1984,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 248.266,
           "seg_end": 272.828
@@ -1806,6 +1993,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 272.828,
           "seg_end": 296.422
@@ -1814,6 +2002,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 296.422,
           "seg_end": 323.969
@@ -1822,6 +2011,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 323.969,
           "seg_end": 351.5
@@ -1830,6 +2020,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 351.5,
           "seg_end": 377.906
@@ -1838,6 +2029,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 377.906,
           "seg_end": 407.391
@@ -1846,6 +2038,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 407.391,
           "seg_end": 437.375
@@ -1854,6 +2047,7 @@
           "index": 22,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 437.375,
           "seg_end": 469.266
@@ -1862,6 +2056,7 @@
           "index": 23,
           "step_num": 24,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 469.266,
           "seg_end": 500.922
@@ -1870,6 +2065,7 @@
           "index": 24,
           "step_num": 25,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 500.922,
           "seg_end": 533.609
@@ -1878,6 +2074,7 @@
           "index": 25,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 533.609,
           "seg_end": 568.453
@@ -1886,6 +2083,7 @@
           "index": 26,
           "step_num": 27,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 568.453,
           "seg_end": 602.469
@@ -1894,6 +2092,7 @@
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 602.469,
           "seg_end": 639.234
@@ -1902,6 +2101,7 @@
           "index": 28,
           "step_num": 29,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 639.234,
           "seg_end": 676.891
@@ -1910,6 +2110,7 @@
           "index": 29,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 676.891,
           "seg_end": 705.156
@@ -1924,12 +2125,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_writer/3ef2b351-8a84-4ff2-8724-d86eae9b842e/recording.mp4",
       "duration": 45.281,
       "num_steps": 3,
-      "num_annotatable": 3,
+      "num_annotatable": 2,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 10.187
@@ -1938,6 +2140,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 10.187,
           "seg_end": 19.078
@@ -1946,6 +2149,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 19.078,
           "seg_end": 45.281
@@ -1960,12 +2164,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_writer/4bcb1253-a636-4df4-8cb0-a35c04dfef31/recording.mp4",
       "duration": 417.609,
       "num_steps": 19,
-      "num_annotatable": 19,
+      "num_annotatable": 18,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 12.125
@@ -1974,6 +2179,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 12.125,
           "seg_end": 20.593
@@ -1982,6 +2188,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 20.593,
           "seg_end": 30.156
@@ -1990,6 +2197,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 30.156,
           "seg_end": 41.5
@@ -1998,6 +2206,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 41.5,
           "seg_end": 55.437
@@ -2006,6 +2215,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 55.437,
           "seg_end": 72.843
@@ -2014,6 +2224,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 72.843,
           "seg_end": 85.921
@@ -2022,6 +2233,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 85.921,
           "seg_end": 101.843
@@ -2030,6 +2242,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 101.843,
           "seg_end": 122.296
@@ -2038,6 +2251,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 122.296,
           "seg_end": 137.093
@@ -2046,6 +2260,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 137.093,
           "seg_end": 160.625
@@ -2054,6 +2269,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 160.625,
           "seg_end": 183.984
@@ -2062,6 +2278,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 183.984,
           "seg_end": 201.218
@@ -2070,6 +2287,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 201.218,
           "seg_end": 221.421
@@ -2078,6 +2296,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 221.421,
           "seg_end": 252.14
@@ -2086,6 +2305,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 252.14,
           "seg_end": 270.75
@@ -2094,6 +2314,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 270.75,
           "seg_end": 312.359
@@ -2102,6 +2323,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 312.359,
           "seg_end": 333.5
@@ -2110,6 +2332,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 333.5,
           "seg_end": 417.609
@@ -2130,6 +2353,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 10.766
@@ -2138,6 +2362,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 10.766,
           "seg_end": 19.906
@@ -2146,6 +2371,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 19.906,
           "seg_end": 36.031
@@ -2154,6 +2380,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 36.031,
           "seg_end": 46.656
@@ -2162,6 +2389,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 46.656,
           "seg_end": 97.594
@@ -2170,6 +2398,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 97.594,
           "seg_end": 109.125
@@ -2178,6 +2407,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 109.125,
           "seg_end": 159.234
@@ -2186,6 +2416,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 159.234,
           "seg_end": 170.703
@@ -2194,6 +2425,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 170.703,
           "seg_end": 183.641
@@ -2202,6 +2434,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 183.641,
           "seg_end": 232.906
@@ -2210,6 +2443,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 232.906,
           "seg_end": 247.047
@@ -2218,6 +2452,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 247.047,
           "seg_end": 260.625
@@ -2226,6 +2461,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 260.625,
           "seg_end": 274.453
@@ -2234,6 +2470,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 274.453,
           "seg_end": 289.75
@@ -2242,6 +2479,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 289.75,
           "seg_end": 309.078
@@ -2250,6 +2488,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 309.078,
           "seg_end": 327.422
@@ -2258,6 +2497,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 327.422,
           "seg_end": 346.109
@@ -2266,6 +2506,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 346.109,
           "seg_end": 381.937
@@ -2274,6 +2515,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 381.937,
           "seg_end": 400.187
@@ -2282,6 +2524,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 400.187,
           "seg_end": 424.25
@@ -2290,6 +2533,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 424.25,
           "seg_end": 443.484
@@ -2298,6 +2542,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 443.484,
           "seg_end": 469.937
@@ -2306,6 +2551,7 @@
           "index": 22,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 469.937,
           "seg_end": 493.75
@@ -2314,6 +2560,7 @@
           "index": 23,
           "step_num": 24,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 493.75,
           "seg_end": 518.766
@@ -2322,6 +2569,7 @@
           "index": 24,
           "step_num": 25,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 518.766,
           "seg_end": 542.062
@@ -2330,6 +2578,7 @@
           "index": 25,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 542.062,
           "seg_end": 566.609
@@ -2338,6 +2587,7 @@
           "index": 26,
           "step_num": 27,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 566.609,
           "seg_end": 591.422
@@ -2346,6 +2596,7 @@
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 591.422,
           "seg_end": 617.156
@@ -2354,6 +2605,7 @@
           "index": 28,
           "step_num": 29,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 617.156,
           "seg_end": 647.469
@@ -2362,6 +2614,7 @@
           "index": 29,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 647.469,
           "seg_end": 687.109
@@ -2382,6 +2635,7 @@
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 10.11
@@ -2390,6 +2644,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 10.11,
           "seg_end": 17.407
@@ -2398,6 +2653,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 17.407,
           "seg_end": 29.594
@@ -2406,6 +2662,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 29.594,
           "seg_end": 36.438
@@ -2414,6 +2671,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 36.438,
           "seg_end": 43.985
@@ -2422,6 +2680,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 43.985,
           "seg_end": 56.907
@@ -2430,6 +2689,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 56.907,
           "seg_end": 66.188
@@ -2438,6 +2698,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 66.188,
           "seg_end": 74.938
@@ -2446,6 +2707,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 74.938,
           "seg_end": 84.657
@@ -2454,6 +2716,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 84.657,
           "seg_end": 92.782
@@ -2462,6 +2725,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 92.782,
           "seg_end": 103.313
@@ -2470,6 +2734,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 103.313,
           "seg_end": 117.094
@@ -2478,6 +2743,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 117.094,
           "seg_end": 125.266
@@ -2486,6 +2752,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 125.266,
           "seg_end": 134.985
@@ -2494,6 +2761,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 134.985,
           "seg_end": 145.235
@@ -2502,6 +2770,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 145.235,
           "seg_end": 154.407
@@ -2510,6 +2779,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 154.407,
           "seg_end": 163.907
@@ -2518,6 +2788,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 163.907,
           "seg_end": 175.86
@@ -2526,6 +2797,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 175.86,
           "seg_end": 185.844
@@ -2534,6 +2806,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 185.844,
           "seg_end": 195.75
@@ -2542,6 +2815,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 195.75,
           "seg_end": 206.36
@@ -2550,6 +2824,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 206.36,
           "seg_end": 216.266
@@ -2558,6 +2833,7 @@
           "index": 22,
           "step_num": 23,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 216.266,
           "seg_end": 226.282
@@ -2566,6 +2842,7 @@
           "index": 23,
           "step_num": 24,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 226.282,
           "seg_end": 235.782
@@ -2574,6 +2851,7 @@
           "index": 24,
           "step_num": 25,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 235.782,
           "seg_end": 247.297
@@ -2582,6 +2860,7 @@
           "index": 25,
           "step_num": 26,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 247.297,
           "seg_end": 258.422
@@ -2590,6 +2869,7 @@
           "index": 26,
           "step_num": 27,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 258.422,
           "seg_end": 269.11
@@ -2598,6 +2878,7 @@
           "index": 27,
           "step_num": 28,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 269.11,
           "seg_end": 280.469
@@ -2606,6 +2887,7 @@
           "index": 28,
           "step_num": 29,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 280.469,
           "seg_end": 293.329
@@ -2614,6 +2896,7 @@
           "index": 29,
           "step_num": 30,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 293.329,
           "seg_end": 317.985
@@ -2628,12 +2911,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/vlc/215dfd39-f493-4bc3-a027-8a97d72c61bf/recording.mp4",
       "duration": 172.172,
       "num_steps": 13,
-      "num_annotatable": 12,
+      "num_annotatable": 11,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 10.609
@@ -2642,6 +2926,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 10.609,
           "seg_end": 18.656
@@ -2650,6 +2935,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.5,
           "seg_start": 18.656,
           "seg_end": 27.391
@@ -2658,6 +2944,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 27.391,
           "seg_end": 38.75
@@ -2666,6 +2953,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 38.75,
           "seg_end": 48.984
@@ -2674,6 +2962,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 48.984,
           "seg_end": 62.453
@@ -2682,6 +2971,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 62.453,
           "seg_end": 74.297
@@ -2690,6 +2980,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 74.297,
           "seg_end": 87.438
@@ -2698,6 +2989,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 87.438,
           "seg_end": 99.984
@@ -2706,6 +2998,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 99.984,
           "seg_end": 114.922
@@ -2714,6 +3007,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 114.922,
           "seg_end": 130.344
@@ -2722,6 +3016,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 130.344,
           "seg_end": 146.594
@@ -2730,6 +3025,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 146.594,
           "seg_end": 172.172
@@ -2744,12 +3040,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/vlc/386dbd0e-0241-4a0a-b6a2-6704fba26b1c/recording.mp4",
       "duration": 122.063,
       "num_steps": 10,
-      "num_annotatable": 10,
+      "num_annotatable": 9,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 9.828
@@ -2758,6 +3055,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 9.828,
           "seg_end": 19.0
@@ -2766,6 +3064,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 19.0,
           "seg_end": 28.5
@@ -2774,6 +3073,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 28.5,
           "seg_end": 37.25
@@ -2782,6 +3082,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 37.25,
           "seg_end": 47.453
@@ -2790,6 +3091,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 47.453,
           "seg_end": 57.797
@@ -2798,6 +3100,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 57.797,
           "seg_end": 69.266
@@ -2806,6 +3109,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 69.266,
           "seg_end": 81.094
@@ -2814,6 +3118,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 81.094,
           "seg_end": 96.922
@@ -2822,6 +3127,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 96.922,
           "seg_end": 122.063
@@ -2836,12 +3142,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/vs_code/0512bb38-d531-4acf-9e7e-0add90816068/recording.mp4",
       "duration": 116.313,
       "num_steps": 9,
-      "num_annotatable": 9,
+      "num_annotatable": 8,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 14.032
@@ -2850,6 +3157,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 14.032,
           "seg_end": 22.125
@@ -2858,6 +3166,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 22.125,
           "seg_end": 31.579
@@ -2866,6 +3175,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 31.579,
           "seg_end": 42.047
@@ -2874,6 +3184,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 42.047,
           "seg_end": 53.297
@@ -2882,6 +3193,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 53.297,
           "seg_end": 65.532
@@ -2890,6 +3202,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 65.532,
           "seg_end": 77.954
@@ -2898,6 +3211,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 77.954,
           "seg_end": 91.485
@@ -2906,6 +3220,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 91.485,
           "seg_end": 116.313
@@ -2920,12 +3235,13 @@
       "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/vs_code/276cc624-87ea-4f08-ab93-f770e3790175/recording.mp4",
       "duration": 361.781,
       "num_steps": 22,
-      "num_annotatable": 21,
+      "num_annotatable": 20,
       "steps": [
         {
           "index": 0,
           "step_num": 1,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 0.0,
           "seg_end": 9.297
@@ -2934,6 +3250,7 @@
           "index": 1,
           "step_num": 2,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 9.297,
           "seg_end": 17.906
@@ -2942,6 +3259,7 @@
           "index": 2,
           "step_num": 3,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 17.906,
           "seg_end": 26.406
@@ -2950,6 +3268,7 @@
           "index": 3,
           "step_num": 4,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 26.406,
           "seg_end": 35.64
@@ -2958,6 +3277,7 @@
           "index": 4,
           "step_num": 5,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 35.64,
           "seg_end": 46.406
@@ -2966,6 +3286,7 @@
           "index": 5,
           "step_num": 6,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 46.406,
           "seg_end": 58.125
@@ -2974,6 +3295,7 @@
           "index": 6,
           "step_num": 7,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 58.125,
           "seg_end": 75.625
@@ -2982,6 +3304,7 @@
           "index": 7,
           "step_num": 8,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 75.625,
           "seg_end": 88.812
@@ -2990,6 +3313,7 @@
           "index": 8,
           "step_num": 9,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 88.812,
           "seg_end": 102.437
@@ -2998,6 +3322,7 @@
           "index": 9,
           "step_num": 10,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 102.437,
           "seg_end": 116.719
@@ -3006,6 +3331,7 @@
           "index": 10,
           "step_num": 11,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 116.719,
           "seg_end": 132.047
@@ -3014,6 +3340,7 @@
           "index": 11,
           "step_num": 12,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 132.047,
           "seg_end": 153.14
@@ -3022,6 +3349,7 @@
           "index": 12,
           "step_num": 13,
           "is_sleep": true,
+          "is_done": false,
           "sleep_seconds": 0.1,
           "seg_start": 153.14,
           "seg_end": 172.859
@@ -3030,6 +3358,7 @@
           "index": 13,
           "step_num": 14,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 172.859,
           "seg_end": 189.594
@@ -3038,6 +3367,7 @@
           "index": 14,
           "step_num": 15,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 189.594,
           "seg_end": 208.39
@@ -3046,6 +3376,7 @@
           "index": 15,
           "step_num": 16,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 208.39,
           "seg_end": 230.625
@@ -3054,6 +3385,7 @@
           "index": 16,
           "step_num": 17,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 230.625,
           "seg_end": 250.828
@@ -3062,6 +3394,7 @@
           "index": 17,
           "step_num": 18,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 250.828,
           "seg_end": 272.062
@@ -3070,6 +3403,7 @@
           "index": 18,
           "step_num": 19,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 272.062,
           "seg_end": 293.187
@@ -3078,6 +3412,7 @@
           "index": 19,
           "step_num": 20,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 293.187,
           "seg_end": 315.344
@@ -3086,6 +3421,7 @@
           "index": 20,
           "step_num": 21,
           "is_sleep": false,
+          "is_done": false,
           "sleep_seconds": null,
           "seg_start": 315.344,
           "seg_end": 337.281
@@ -3094,6 +3430,7 @@
           "index": 21,
           "step_num": 22,
           "is_sleep": false,
+          "is_done": true,
           "sleep_seconds": null,
           "seg_start": 337.281,
           "seg_end": 361.781
