@@ -39,17 +39,23 @@ DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 # --------------------------------------------------------------------------
 # Every participant gets the same fixed set: TASKS_PER_DOMAIN recordings from
 # each application domain (chrome, gimp, vs_code, ...). No randomization.
-TASKS_PER_DOMAIN: int | None = 2
+TASKS_PER_DOMAIN: int | None = 1
 
 # Do NOT shuffle the assigned task order (keep it grouped by domain).
 RANDOMIZE_TASKS = False
 
 # Specific recordings to force-include (and place first) within a domain,
-# keyed by domain -> list of example_ids. Anything pinned here is guaranteed to
-# be in the selection even if TASKS_PER_DOMAIN would otherwise skip it.
+# keyed by domain -> list of example_ids. With TASKS_PER_DOMAIN = 1 this picks
+# exactly the one recording listed per domain.
 PINNED_TASKS = {
-    # Chrome: always use "Find Dota 2 game and add all DLC to cart."
-    "chrome": ["121ba48f-9e17-48ce-9bc6-a4fb17a7ebba"],
+    "chrome": ["030eeff7-b492-4218-b312-701ec99ee0cc"],            # Enable 'Do Not Track'
+    "gimp": ["06ca5602-62ca-47f6-ad4f-da151cde54cc"],             # Set image to Palette-Based
+    "libreoffice_calc": ["01b269ae-2111-4a07-81fd-3fcd711993b0"], # Fill blank cells with value above
+    "libreoffice_impress": ["04578141-1d42-4146-b9cf-6fab4ce5fd74"],  # Change textbox colors on slide 1
+    "libreoffice_writer": ["4bcb1253-a636-4df4-8cb0-a35c04dfef31"],   # Export document to PDF
+    "os": ["3ce045a0-877b-42aa-8d2c-b4a863336ab8"],               # Accessibility magnifier
+    "vlc": ["215dfd39-f493-4bc3-a027-8a97d72c61bf"],              # Disable cone splash icon
+    "vs_code": ["57242fad-77ca-454f-b71b-f187181a9f23"],          # Create new python file test.py
 }
 
 # --------------------------------------------------------------------------

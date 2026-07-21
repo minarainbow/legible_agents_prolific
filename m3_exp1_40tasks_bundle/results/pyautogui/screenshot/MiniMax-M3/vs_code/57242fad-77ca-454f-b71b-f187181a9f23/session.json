@@ -1,0 +1,14 @@
+{
+  "instruction": "Please help me create a new python file named \"test.py\" via VS Code and save it at \"/home/user/Desktop\".",
+  "example_id": "57242fad-77ca-454f-b71b-f187181a9f23",
+  "run_started_at": "2026-07-14T22:35:04.321490Z",
+  "recording_started_at": "2026-07-14T22:35:04.349513Z",
+  "recording_ended_at": "2026-07-14T22:38:23.446105Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "vs_code",
+  "recording_duration_sec": 199.094
+}
