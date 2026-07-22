@@ -32,7 +32,7 @@
  *     task_order/ [taskId, ...]
  *     annotations/{taskId}
  *        familiarity, success, efficiency, understanding, task_comment
- *        steps/{stepIndex} { answer, cant_tell, note, auto, rewinds }
+ *        steps/{stepNum} (1-based, matches the UI) { answer, cant_tell, note, auto, rewinds }
  * ------------------------------------------------------------------------- */
 
 (function () {

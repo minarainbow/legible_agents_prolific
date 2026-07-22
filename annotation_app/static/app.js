@@ -55,7 +55,7 @@ const state = {
   cfg: null,
   participantId: null,
   tasks: [],
-  annotations: {},   // { taskId: { familiarity, task_comment, steps: {idx:{label,cant_tell,note}} } }
+  annotations: {},   // { taskId: { familiarity, task_comment, steps: {stepNum(1-based):{answer,cant_tell,note,rewinds}} } }
   currentTaskIdx: 0,
   currentStepIdx: 0,
   stopAt: null,      // video pause target for the active clip
@@ -287,8 +287,8 @@ function ensureAnnotation(task) {
   });
   // Pre-fill auto steps (waiting / task finished) so they need no annotation.
   task.steps.forEach((s) => {
-    if (isAuto(s) && !a.steps[s.index]) {
-      a.steps[s.index] = {
+    if (isAuto(s) && !a.steps[s.step_num]) {
+      a.steps[s.step_num] = {
         answer: s.is_done ? "(agent signalled the task was finished)" : "(agent waited)",
         cant_tell: false, note: "", auto: true, rewinds: 0,
       };
@@ -299,7 +299,7 @@ function ensureAnnotation(task) {
 
 function stepStatus(task, step) {
   const a = state.annotations[task.id];
-  const s = a && a.steps[step.index];
+  const s = a && a.steps[step.step_num];
   if (isAuto(step)) return "sleep";
   if (!s) return "missing";
   if (s.cant_tell) return "cant";
@@ -573,7 +573,7 @@ function gotoStep(idx, autoplay) {
 
 function renderStepPanel(task, step) {
   const a = state.annotations[task.id];
-  const saved = a.steps[step.index] || {};
+  const saved = a.steps[step.step_num] || {};
   $("#step-title").textContent = step.is_done
     ? `Step ${step.step_num} · Finished`
     : step.is_sleep
@@ -644,8 +644,8 @@ function renderStepPanel(task, step) {
 
 function ensureStep(task, step) {
   const a = state.annotations[task.id];
-  if (!a.steps[step.index]) a.steps[step.index] = { answer: "", cant_tell: false, note: "", rewinds: 0 };
-  return a.steps[step.index];
+  if (!a.steps[step.step_num]) a.steps[step.step_num] = { answer: "", cant_tell: false, note: "", rewinds: 0 };
+  return a.steps[step.step_num];
 }
 
 // Count a replay ("rewind") of the current step's clip.
