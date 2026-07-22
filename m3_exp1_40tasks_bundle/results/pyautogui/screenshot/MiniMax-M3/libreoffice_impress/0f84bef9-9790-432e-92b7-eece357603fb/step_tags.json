@@ -1,0 +1,27 @@
+{
+  "1": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "2": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "3": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "4": {
+    "tier": "effect_only",
+    "category": "click",
+    "modality": "human_like"
+  },
+  "5": {
+    "tier": "meta",
+    "category": "control",
+    "modality": "meta"
+  }
+}

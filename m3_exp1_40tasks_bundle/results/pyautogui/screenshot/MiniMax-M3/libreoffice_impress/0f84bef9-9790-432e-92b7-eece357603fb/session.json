@@ -1,0 +1,14 @@
+{
+  "instruction": "On it Whenever I launch a LibreOffice Impress, it uses both screens, one for current slide and next slide and another for actual presentation. What I want is to use only one monitor which shows presentation. I dont want the screen with Current slide and Next slide so that it can be used for other purposes. How should I achieve this?",
+  "example_id": "0f84bef9-9790-432e-92b7-eece357603fb",
+  "run_started_at": "2026-07-14T20:31:43.351462Z",
+  "recording_started_at": "2026-07-14T20:31:43.383491Z",
+  "recording_ended_at": "2026-07-14T20:32:55.713715Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "libreoffice_impress",
+  "recording_duration_sec": 72.344
+}

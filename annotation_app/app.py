@@ -311,6 +311,17 @@ def _study_config() -> dict:
     }
 
 
+def _practice_tasks() -> list[dict]:
+    """Short tasks available for the guided practice walkthrough."""
+    out = []
+    for tid in getattr(config, "PRACTICE_TASK_POOL", []) or []:
+        if tid in MANIFEST_BY_ID:
+            t = dict(MANIFEST_BY_ID[tid])
+            t["is_practice"] = True
+            out.append(t)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Routes
 # ---------------------------------------------------------------------------
@@ -375,6 +386,7 @@ def api_participant():
         "profile": record.get("profile") or {},
         "submitted_at": record.get("submitted_at"),
         "tasks": tasks,
+        "practice_tasks": _practice_tasks(),
         "annotations": record.get("annotations") or {},
     })
 

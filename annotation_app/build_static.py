@@ -30,17 +30,24 @@ BUNDLE_NAME = os.path.basename(config.BUNDLE_DIR.rstrip("/"))
 STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 
 
+def _staticize(task: dict, *, is_practice: bool = False) -> dict:
+    task = copy.deepcopy(task)
+    task["video_url"] = f"{BUNDLE_NAME}/{task['path']}/recording.mp4"
+    if is_practice:
+        task["is_practice"] = True
+    for step in task.get("steps", []):
+        step.pop("gt", None)  # never publish answers in the static bundle
+    return task
+
+
 def build_tasks() -> list[dict]:
-    """Assigned tasks with STATIC video paths and no ground-truth leakage."""
-    tasks = []
-    for tid in app._assign_tasks():
-        task = copy.deepcopy(app.MANIFEST_BY_ID[tid])
-        # /media/<path>/recording.mp4  ->  <bundle>/<path>/recording.mp4
-        task["video_url"] = f"{BUNDLE_NAME}/{task['path']}/recording.mp4"
-        for step in task.get("steps", []):
-            step.pop("gt", None)  # never publish answers in the static bundle
-        tasks.append(task)
-    return tasks
+    """Assigned study tasks with STATIC video paths and no ground-truth leakage."""
+    return [_staticize(app.MANIFEST_BY_ID[tid]) for tid in app._assign_tasks()
+            if tid in app.MANIFEST_BY_ID]
+
+
+def build_practice_tasks() -> list[dict]:
+    return [_staticize(t, is_practice=True) for t in app._practice_tasks()]
 
 
 def build_study_json() -> dict:
@@ -49,6 +56,7 @@ def build_study_json() -> dict:
         "completion_url": config.PROLIFIC_COMPLETION_URL or None,
         "completion_code": config.COMPLETION_CODE,
         "tasks": build_tasks(),
+        "practice_tasks": build_practice_tasks(),
     }
 
 
@@ -77,8 +85,9 @@ def main() -> None:
         f.write(build_index_html())
 
     n_steps = sum(len(t["steps"]) for t in study["tasks"])
-    print(f"Wrote study.json ({len(study['tasks'])} tasks, {n_steps} steps) "
-          f"and index.html to {REPO_ROOT}")
+    n_prac = len(study.get("practice_tasks") or [])
+    print(f"Wrote study.json ({len(study['tasks'])} tasks, {n_steps} steps, "
+          f"{n_prac} practice) and index.html to {REPO_ROOT}")
     if study["config"].get("dev_mode"):
         print("WARNING: DEV_MODE is True — but ground truth is stripped from "
               "study.json anyway. Set DEV_MODE=False for the real study.")

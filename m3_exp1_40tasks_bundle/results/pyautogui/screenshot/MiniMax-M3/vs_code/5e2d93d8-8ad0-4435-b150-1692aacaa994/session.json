@@ -1,0 +1,14 @@
+{
+  "instruction": "Please help me save current project as workspace \"project\" at \"/home/user/project/\".",
+  "example_id": "5e2d93d8-8ad0-4435-b150-1692aacaa994",
+  "run_started_at": "2026-07-14T22:39:52.536226Z",
+  "recording_started_at": "2026-07-14T22:39:52.577780Z",
+  "recording_ended_at": "2026-07-14T22:41:03.919935Z",
+  "recording_fps": 30,
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "vs_code",
+  "recording_duration_sec": 71.344
+}

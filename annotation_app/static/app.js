@@ -54,13 +54,24 @@ async function submitReq(body) {
 const state = {
   cfg: null,
   participantId: null,
-  tasks: [],
+  tasks: [],                 // scored study recordings
+  practiceTasks: [],         // short pool for guided practice
   annotations: {},   // { taskId: { familiarity, task_comment, steps: {stepNum(1-based):{answer,cant_tell,note,rewinds}} } }
   currentTaskIdx: 0,
   currentStepIdx: 0,
   stopAt: null,      // video pause target for the active clip
   flaggedTasks: new Set(), // task ids where we've tried to finish -> highlight gaps
+  inPractice: false,
+  practiceTask: null,
+  tourActive: false,
+  tourIdx: 0,
+  lastVideoTime: 0,  // for detecting native-player rewinds
 };
+
+function currentTask() {
+  if (state.inPractice && state.practiceTask) return state.practiceTask;
+  return state.tasks[state.currentTaskIdx];
+}
 
 // Whether to highlight missing answers for a given task (only after the
 // participant has attempted to move on / finish that specific recording).
@@ -93,6 +104,7 @@ async function init() {
   wireProfile();
   wireWorkspace();
   wireReview();
+  wireTour();
   showScreen("screen-welcome");
 }
 
@@ -246,6 +258,7 @@ function wireProfile() {
 }
 
 // Create/resume the participant and open the workspace.
+// Create/resume the participant and open the workspace (practice first).
 async function startSession(profilePayload) {
   const data = await participantReq({
     // Prefer the ID entered on the welcome screen; fall back to the URL param.
@@ -255,12 +268,22 @@ async function startSession(profilePayload) {
     profile: profilePayload,
   });
   state.participantId = data.participant_id;
-  state.tasks = data.tasks;
+  state.tasks = data.tasks || [];
+  state.practiceTasks = data.practice_tasks
+    || (window.__STUDY && window.__STUDY.practice_tasks)
+    || [];
   state.annotations = data.annotations || {};
   state.tasks.forEach((t) => ensureAnnotation(t));
+  state.practiceTasks.forEach((t) => ensureAnnotation(t));
   buildTaskSelect();
-  openTask(0);
-  showScreen("screen-work");
+
+  // Start with a random short practice recording + UI walkthrough when available.
+  if (state.practiceTasks.length) {
+    const pick = state.practiceTasks[Math.floor(Math.random() * state.practiceTasks.length)];
+    openPractice(pick);
+  } else {
+    openTask(0);
+  }
 }
 
 // DEV ONLY: skip consent/instructions/profile with a dummy profile.
@@ -299,10 +322,12 @@ function ensureAnnotation(task) {
       efficiency: null,
       understanding: null,
       task_comment: "",
+      is_practice: !!task.is_practice,
       steps: {},
     };
     state.annotations[task.id] = a;
   }
+  if (task.is_practice) a.is_practice = true;
   // Backfill fields for records saved by an earlier version.
   ["familiarity", "success", "efficiency", "understanding"].forEach((k) => {
     if (!(k in a)) a[k] = null;
@@ -372,24 +397,75 @@ function buildTaskSelect() {
     opt.textContent = `${i + 1}. [${t.domain}] ${short}`;
     sel.appendChild(opt);
   });
-  sel.addEventListener("change", (e) => openTask(Number(e.target.value)));
+  // Only allow jumping to already-completed recordings (or the current one).
+  // Future incomplete ones stay locked until the participant finishes in order.
+  sel.onchange = (e) => {
+    const idx = Number(e.target.value);
+    const maxUnlocked = firstIncompleteTaskIdx();
+    if (idx > maxUnlocked) {
+      sel.value = String(state.currentTaskIdx);
+      return;
+    }
+    openTask(idx);
+  };
+}
+
+function firstIncompleteTaskIdx() {
+  const idx = state.tasks.findIndex((t) => !taskComplete(t));
+  return idx === -1 ? state.tasks.length - 1 : idx;
 }
 
 function refreshTaskSelectLabels() {
   const sel = $("#task-select");
+  if (!sel || state.inPractice) return;
+  const maxUnlocked = firstIncompleteTaskIdx();
   state.tasks.forEach((t, i) => {
     const done = taskComplete(t);
+    const locked = i > maxUnlocked;
+    const prefix = done ? "✓" : locked ? "🔒" : "•";
     sel.options[i].textContent =
-      `${done ? "✓" : "•"} ${i + 1}. [${t.domain}] ` +
+      `${prefix} ${i + 1}. [${t.domain}] ` +
       (t.instruction.length > 55 ? t.instruction.slice(0, 52) + "…" : t.instruction);
+    sel.options[i].disabled = locked;
   });
 }
 
+function openPractice(task) {
+  state.inPractice = true;
+  state.practiceTask = task;
+  state.currentTaskIdx = -1;
+  ensureAnnotation(task);
+  $("#task-switch").classList.add("hidden");
+  $("#practice-badge").classList.remove("hidden");
+  loadTaskIntoWorkspace(task);
+  showScreen("screen-work");
+  // Start the coachmark tour once the layout is visible.
+  setTimeout(startTour, 250);
+}
+
+function finishPracticeAndStartStudy() {
+  endTour();
+  state.inPractice = false;
+  state.practiceTask = null;
+  $("#task-switch").classList.remove("hidden");
+  $("#practice-badge").classList.add("hidden");
+  openTask(0);
+}
+
 function openTask(idx) {
+  state.inPractice = false;
+  state.practiceTask = null;
   state.currentTaskIdx = idx;
+  $("#task-switch").classList.remove("hidden");
+  $("#practice-badge").classList.add("hidden");
   const task = state.tasks[idx];
   ensureAnnotation(task);
   $("#task-select").value = String(idx);
+  loadTaskIntoWorkspace(task);
+  showScreen("screen-work");
+}
+
+function loadTaskIntoWorkspace(task) {
   $("#task-domain").textContent = task.domain;
   $("#task-instruction").textContent = task.instruction;
   buildQuestions(task);
@@ -398,8 +474,8 @@ function openTask(idx) {
   const video = $("#video");
   video.src = task.video_url;
   video.load();
+  state.lastVideoTime = 0;
 
-  // Jump to first not-yet-annotated step, else the first step.
   const firstMissing = task.steps.find((s) => !isAuto(s) && stepStatus(task, s) === "missing");
   state.currentStepIdx = firstMissing ? firstMissing.index : 0;
 
@@ -555,7 +631,7 @@ function paintTimeline(task) {
 
 function updatePlayhead(t) {
   const ph = $("#tl-playhead");
-  const task = state.tasks[state.currentTaskIdx];
+  const task = currentTask();
   if (!ph || !task) return;
   const dur = task.duration || 1;
   const video = $("#video");
@@ -577,7 +653,8 @@ function updatePlayhead(t) {
 // Step / clip playback + annotation panel
 // ------------------------------------------------------------------
 function gotoStep(idx, autoplay) {
-  const task = state.tasks[state.currentTaskIdx];
+  const task = currentTask();
+  if (!task) return;
   state.currentStepIdx = idx;
   const step = task.steps[idx];
 
@@ -588,6 +665,7 @@ function gotoStep(idx, autoplay) {
   const video = $("#video");
   state.stopAt = step.seg_end;
   try { video.currentTime = step.seg_start; } catch (e) {}
+  state.lastVideoTime = step.seg_start;
   if (autoplay) {
     video.play().catch(() => {});
   }
@@ -672,7 +750,7 @@ function ensureStep(task, step) {
 
 // Count a replay ("rewind") of the current step's clip.
 function bumpRewind() {
-  const task = state.tasks[state.currentTaskIdx];
+  const task = currentTask();
   const step = task && task.steps[state.currentStepIdx];
   if (!step) return;
   const s = ensureStep(task, step);
@@ -742,6 +820,27 @@ function wireWorkspace() {
       state.stopAt = null;
       showBadge("Paused — describe this action →");
     }
+    state.lastVideoTime = video.currentTime;
+  });
+  // Native controls: scrubbing backward inside the current step counts as a rewind.
+  video.addEventListener("seeked", () => {
+    const task = currentTask();
+    const step = task && task.steps[state.currentStepIdx];
+    if (!step || state.tourActive) {
+      state.lastVideoTime = video.currentTime;
+      return;
+    }
+    const t = video.currentTime;
+    const jumpedBack = t + 0.35 < state.lastVideoTime;
+    const inStep = t >= step.seg_start - 0.05 && t <= step.seg_end + 0.05;
+    // Ignore the programmatic seeks we do in gotoStep / pause-at-end.
+    const nearSegStart = Math.abs(t - step.seg_start) < 0.12;
+    const nearSegEnd = Math.abs(t - step.seg_end) < 0.12;
+    if (jumpedBack && inStep && !nearSegStart && !nearSegEnd) {
+      bumpRewind();
+    }
+    state.lastVideoTime = t;
+    updatePlayhead(t);
   });
   video.addEventListener("seeking", () => updatePlayhead(video.currentTime));
   video.addEventListener("play", () => hideBadge());
@@ -751,20 +850,23 @@ function wireWorkspace() {
     if (state.currentStepIdx > 0) gotoStep(state.currentStepIdx - 1, true);
   });
   $("#btn-next").addEventListener("click", onNext);
-  $("#btn-finish").addEventListener("click", openReview);
 }
 
 function updateNavButtons(task) {
   const isLast = state.currentStepIdx >= task.steps.length - 1;
-  const isLastTask = state.currentTaskIdx >= state.tasks.length - 1;
-  $("#btn-next").textContent = isLast
-    ? (isLastTask ? "Review & finish →" : "Next recording →")
-    : "Next action →";
+  let label = "Next action →";
+  if (isLast) {
+    if (state.inPractice) label = "Finish practice →";
+    else if (state.currentTaskIdx >= state.tasks.length - 1) label = "Submit study →";
+    else label = "Next recording →";
+  }
+  $("#btn-next").textContent = label;
   $("#btn-prev").disabled = state.currentStepIdx === 0;
 }
 
 function onNext() {
-  const task = state.tasks[state.currentTaskIdx];
+  const task = currentTask();
+  if (!task) return;
   if (state.currentStepIdx < task.steps.length - 1) {
     gotoStep(state.currentStepIdx + 1, true);
     return;
@@ -784,6 +886,10 @@ function onNext() {
     state.flaggedTasks.add(task.id);
     updateNeedsFlags(task);
     $("#posttask-card").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  if (state.inPractice) {
+    finishPracticeAndStartStudy();
     return;
   }
   const nextIdx = state.currentTaskIdx + 1;
@@ -806,14 +912,17 @@ function hideBadge() { $("#video-badge").classList.add("hidden"); }
 // Progress + autosave
 // ------------------------------------------------------------------
 function updateOverallProgress() {
+  if (state.inPractice) {
+    $("#overall-progress").textContent = "Practice recording";
+    const task = state.practiceTask;
+    if (task) $("#task-count").textContent = `${task.num_annotatable} actions to describe`;
+    return;
+  }
   const totalTasks = state.tasks.length;
-  const doneTasks = state.tasks.filter(taskComplete).length;
-  const task = state.tasks[state.currentTaskIdx];
-  const p = taskProgress(task);
   $("#overall-progress").textContent =
-    `Recording ${state.currentTaskIdx + 1}/${totalTasks} · ` +
-    `${p.done}/${p.total} actions · ${doneTasks}/${totalTasks} done`;
-  $("#task-count").textContent = `${task.num_annotatable} actions to describe`;
+    `Recording ${state.currentTaskIdx + 1} of ${totalTasks}`;
+  const task = state.tasks[state.currentTaskIdx];
+  if (task) $("#task-count").textContent = `${task.num_annotatable} actions to describe`;
 }
 
 let saveTimers = {};
@@ -840,6 +949,107 @@ function setSaveStatus(kind) {
   const s = $("#save-status");
   s.className = "save-status " + (kind === "saving" ? "saving" : kind === "saved" ? "saved" : "");
   s.textContent = { saving: "Saving…", saved: "Saved", error: "Save failed" }[kind] || "";
+}
+
+// ------------------------------------------------------------------
+// Guided walkthrough (practice recording)
+// ------------------------------------------------------------------
+const TOUR_STEPS = [
+  {
+    sel: ".task-card",
+    title: "Task description",
+    body: "This is the instruction the agent was given. Keep it in mind while you watch — you're describing what the agent does to carry it out.",
+  },
+  {
+    sel: ".video-wrap",
+    title: "Video player",
+    body: "Press play to watch. The recording pauses after each action so you can describe it. You can also use the player controls to scrub within a step.",
+  },
+  {
+    sel: "#timeline",
+    title: "Step timeline",
+    body: "Each colored segment is one action. Click a segment to jump to that step and replay it. Green = described, orange = still missing.",
+  },
+  {
+    sel: "#annotate-card",
+    title: "Describe the action",
+    body: "When the video pauses, write what the agent just did in your own words. Use \"I can't tell\" only when it's genuinely unclear.",
+  },
+  {
+    sel: "#familiarity-card",
+    title: "Familiarity + wrap-up",
+    body: "Answer how familiar you are with this kind of task. After you've described every action, questions about the whole recording unlock at the bottom — then you can move on.",
+  },
+];
+
+function wireTour() {
+  $("#tour-next").addEventListener("click", () => {
+    if (state.tourIdx >= TOUR_STEPS.length - 1) endTour();
+    else showTourStep(state.tourIdx + 1);
+  });
+  $("#tour-skip").addEventListener("click", endTour);
+  window.addEventListener("resize", () => {
+    if (state.tourActive) positionTour(TOUR_STEPS[state.tourIdx]);
+  });
+}
+
+function startTour() {
+  state.tourActive = true;
+  state.tourIdx = 0;
+  $("#tour-overlay").classList.remove("hidden");
+  showTourStep(0);
+}
+
+function endTour() {
+  state.tourActive = false;
+  clearTourHighlight();
+  $("#tour-overlay").classList.add("hidden");
+}
+
+function clearTourHighlight() {
+  document.querySelectorAll(".tour-target-pulse").forEach((n) => n.classList.remove("tour-target-pulse"));
+}
+
+function showTourStep(idx) {
+  state.tourIdx = idx;
+  const step = TOUR_STEPS[idx];
+  $("#tour-step-num").textContent = `${idx + 1} / ${TOUR_STEPS.length}`;
+  $("#tour-title").textContent = step.title;
+  $("#tour-body").textContent = step.body;
+  $("#tour-next").textContent = idx >= TOUR_STEPS.length - 1 ? "Got it — start practicing" : "Next";
+  clearTourHighlight();
+  positionTour(step);
+}
+
+function positionTour(step) {
+  const target = document.querySelector(step.sel);
+  const spot = $("#tour-spotlight");
+  const tip = $("#tour-tooltip");
+  if (!target || !spot || !tip) return;
+  target.classList.add("tour-target-pulse");
+  target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+  const r = target.getBoundingClientRect();
+  const pad = 8;
+  spot.style.top = `${Math.max(8, r.top - pad)}px`;
+  spot.style.left = `${Math.max(8, r.left - pad)}px`;
+  spot.style.width = `${Math.min(window.innerWidth - 16, r.width + pad * 2)}px`;
+  spot.style.height = `${Math.min(window.innerHeight - 16, r.height + pad * 2)}px`;
+
+  // Place tooltip below the target when possible, otherwise above.
+  const tipW = Math.min(340, window.innerWidth - 32);
+  tip.style.width = tipW + "px";
+  let top = r.bottom + 14;
+  let left = Math.min(Math.max(16, r.left), window.innerWidth - tipW - 16);
+  // Measure after setting content
+  tip.style.top = "0px";
+  tip.style.left = left + "px";
+  const th = tip.offsetHeight || 160;
+  if (top + th > window.innerHeight - 16) {
+    top = Math.max(16, r.top - th - 14);
+  }
+  tip.style.top = top + "px";
+  tip.style.left = left + "px";
 }
 
 // ------------------------------------------------------------------

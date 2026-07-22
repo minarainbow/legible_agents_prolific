@@ -58,6 +58,14 @@ PINNED_TASKS = {
     "vs_code": ["57242fad-77ca-454f-b71b-f187181a9f23"],          # Create new python file test.py
 }
 
+# Short recordings used for the one-time guided practice walkthrough.
+# The frontend picks ONE at random per participant (not part of the scored set).
+PRACTICE_TASK_POOL = [
+    "3ef2b351-8a84-4ff2-8724-d86eae9b842e",  # writer · center-align heading (~45s, 2 actions)
+    "5e2d93d8-8ad0-4435-b150-1692aacaa994",  # vs_code · save as workspace (~71s, 4 actions)
+    "0f84bef9-9790-432e-92b7-eece357603fb",  # impress · dual-screen launch (~72s, 4 actions)
+]
+
 # --------------------------------------------------------------------------
 # Annotators WRITE DOWN (free text) what the agent did in each step, rather
 # than picking from a list. These strings tune the write-in prompt shown above

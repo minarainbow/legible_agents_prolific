@@ -154,15 +154,15 @@
       <header class="topbar">
         <div class="topbar-left">
           <span class="brand small">Agent Action Annotation</span>
-          <div class="task-switch">
+          <div class="task-switch" id="task-switch">
             <label for="task-select">Recording</label>
             <select id="task-select"></select>
           </div>
+          <div id="practice-badge" class="practice-badge hidden">Practice</div>
         </div>
         <div class="topbar-right">
           <div id="overall-progress" class="progress-pill"></div>
           <span id="save-status" class="save-status">Saved</span>
-          <button id="btn-finish" class="btn primary sm">Finish &amp; submit</button>
         </div>
       </header>
 
@@ -270,6 +270,21 @@
         <a id="done-link" class="btn primary hidden" href="#">Return to Prolific</a>
       </div>
     </section>
+  </div>
+
+  <!-- Guided walkthrough overlay (practice recording) -->
+  <div id="tour-overlay" class="tour-overlay hidden" aria-live="polite">
+    <div class="tour-backdrop"></div>
+    <div id="tour-spotlight" class="tour-spotlight"></div>
+    <div id="tour-tooltip" class="tour-tooltip">
+      <div class="tour-meta"><span id="tour-step-num">1 / 5</span></div>
+      <h3 id="tour-title"></h3>
+      <p id="tour-body"></p>
+      <div class="tour-actions">
+        <button type="button" id="tour-skip" class="btn ghost sm">Skip tour</button>
+        <button type="button" id="tour-next" class="btn primary sm">Next</button>
+      </div>
+    </div>
   </div>
 
   <script src="/static/app.js"></script>

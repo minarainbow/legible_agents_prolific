@@ -1613,5 +1613,172 @@
         }
       ]
     }
+  ],
+  "practice_tasks": [
+    {
+      "id": "3ef2b351-8a84-4ff2-8724-d86eae9b842e",
+      "path": "results/pyautogui/screenshot/MiniMax-M3/libreoffice_writer/3ef2b351-8a84-4ff2-8724-d86eae9b842e",
+      "domain": "libreoffice_writer",
+      "instruction": "Help me center align the heading in LibreOffice.",
+      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_writer/3ef2b351-8a84-4ff2-8724-d86eae9b842e/recording.mp4",
+      "duration": 45.281,
+      "num_steps": 3,
+      "num_annotatable": 2,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 10.187
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 10.187,
+          "seg_end": 19.078
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 19.078,
+          "seg_end": 45.281
+        }
+      ],
+      "is_practice": true
+    },
+    {
+      "id": "5e2d93d8-8ad0-4435-b150-1692aacaa994",
+      "path": "results/pyautogui/screenshot/MiniMax-M3/vs_code/5e2d93d8-8ad0-4435-b150-1692aacaa994",
+      "domain": "vs_code",
+      "instruction": "Please help me save current project as workspace \"project\" at \"/home/user/project/\".",
+      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/vs_code/5e2d93d8-8ad0-4435-b150-1692aacaa994/recording.mp4",
+      "duration": 71.344,
+      "num_steps": 6,
+      "num_annotatable": 4,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": true,
+          "is_done": false,
+          "sleep_seconds": 0.1,
+          "seg_start": 0.0,
+          "seg_end": 9.844
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 9.844,
+          "seg_end": 18.829
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 18.829,
+          "seg_end": 26.454
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 26.454,
+          "seg_end": 37.829
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 37.829,
+          "seg_end": 46.75
+        },
+        {
+          "index": 5,
+          "step_num": 6,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 46.75,
+          "seg_end": 71.344
+        }
+      ],
+      "is_practice": true
+    },
+    {
+      "id": "0f84bef9-9790-432e-92b7-eece357603fb",
+      "path": "results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/0f84bef9-9790-432e-92b7-eece357603fb",
+      "domain": "libreoffice_impress",
+      "instruction": "On it Whenever I launch a LibreOffice Impress, it uses both screens, one for current slide and next slide and another for actual presentation. What I want is to use only one monitor which shows presentation. I dont want the screen with Current slide and Next slide so that it can be used for other purposes. How should I achieve this?",
+      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/0f84bef9-9790-432e-92b7-eece357603fb/recording.mp4",
+      "duration": 72.344,
+      "num_steps": 5,
+      "num_annotatable": 4,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 11.75
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 11.75,
+          "seg_end": 23.203
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 23.203,
+          "seg_end": 34.672
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 34.672,
+          "seg_end": 47.938
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 47.938,
+          "seg_end": 72.344
+        }
+      ],
+      "is_practice": true
+    }
   ]
 }

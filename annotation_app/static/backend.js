@@ -86,6 +86,7 @@
     configure(study) {
       STUDY = {
         tasks: study.tasks || [],
+        practice_tasks: study.practice_tasks || [],
         completion_url: study.completion_url || null,
         completion_code: study.completion_code || "STUDY-COMPLETE",
       };
@@ -119,6 +120,7 @@
         profile: record.profile || {},
         submitted_at: record.submitted_at,
         tasks: STUDY.tasks,
+        practice_tasks: STUDY.practice_tasks,
         annotations: record.annotations || {},
       };
     },
