@@ -24,10 +24,18 @@
           interested in how clearly people can follow what the agent is doing.
         </p>
         <p class="lead muted">It will take about 20–30 minutes.</p>
+
+        <div class="field">
+          <label for="p-prolific">Your Prolific ID</label>
+          <p class="field-note">Enter the Prolific ID you use to receive payment. It is normally filled in automatically when you open the study from Prolific.</p>
+          <input type="text" id="p-prolific" placeholder="e.g. 5f1a2b3c4d5e6f7a8b9c0d1e" autocomplete="off" spellcheck="false" />
+        </div>
+
         <label class="consent">
           <input type="checkbox" id="consent-check" />
           <span>I understand and agree to take part in this study.</span>
         </label>
+        <p id="welcome-error" class="error hidden"></p>
         <button id="btn-start" class="btn primary" disabled>Continue</button>
         <button id="btn-devstart" class="btn ghost sm dev-btn hidden">⚡ Dev: quick start (skip questions)</button>
       </div>

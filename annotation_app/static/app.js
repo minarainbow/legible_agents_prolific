@@ -100,10 +100,28 @@ async function init() {
 // Welcome / consent  →  Instructions  →  Profile
 // ------------------------------------------------------------------
 function wireWelcome() {
+  // Prolific ID up front (prefilled from ?PROLIFIC_PID=... when Prolific opens the study).
+  const prolificInput = $("#p-prolific");
+  const urlPid = (qs("PROLIFIC_PID") || "").trim();
+  if (urlPid) { prolificInput.value = urlPid; profile.prolific_pid = urlPid; }
+  prolificInput.addEventListener("input", (e) => { profile.prolific_pid = e.target.value; });
+
   $("#consent-check").addEventListener("change", (e) => {
     $("#btn-start").disabled = !e.target.checked;
   });
-  $("#btn-start").addEventListener("click", () => showScreen("screen-instructions"));
+  $("#btn-start").addEventListener("click", () => {
+    const err = $("#welcome-error");
+    const pid = $("#p-prolific").value.trim();
+    if (!pid) {
+      err.textContent = "Please enter your Prolific ID to continue.";
+      err.classList.remove("hidden");
+      $("#p-prolific").focus();
+      return;
+    }
+    profile.prolific_pid = pid;
+    err.classList.add("hidden");
+    showScreen("screen-instructions");
+  });
 
   const dev = $("#btn-devstart");
   if (dev && state.cfg.dev_mode) {
@@ -120,7 +138,7 @@ function wireInstructions() {
 // Profile
 // ------------------------------------------------------------------
 const profile = {
-  gender: null, occupation: "", education: null, english: null,
+  prolific_pid: "", gender: null, occupation: "", education: null, english: null,
   computer_freq: null, ai_tools: null, experience: null,
 };
 
@@ -195,6 +213,7 @@ function wireProfile() {
     const age = $("#p-age").value.trim();
     const err = $("#profile-error");
     const fail = (msg) => { err.textContent = msg; err.classList.remove("hidden"); };
+    if (!profile.prolific_pid.trim()) return fail("Please go back and enter your Prolific ID.");
     if (!age || Number(age) < 18) return fail("Please enter your age (18 or older).");
     if (!profile.gender) return fail("Please select a gender option.");
     if (!profile.occupation.trim()) return fail("Please enter your occupation.");
@@ -229,7 +248,8 @@ function wireProfile() {
 // Create/resume the participant and open the workspace.
 async function startSession(profilePayload) {
   const data = await participantReq({
-    prolific_pid: qs("PROLIFIC_PID"),
+    // Prefer the ID entered on the welcome screen; fall back to the URL param.
+    prolific_pid: (profile.prolific_pid || qs("PROLIFIC_PID") || "").trim(),
     study_id: qs("STUDY_ID"),
     session_id: qs("SESSION_ID"),
     profile: profilePayload,
@@ -247,6 +267,8 @@ async function startSession(profilePayload) {
 async function devQuickStart() {
   const c = state.cfg;
   const first = (opts) => (opts && opts[0] ? opts[0].id : null);
+  // Dummy Prolific ID so the session has a stable participant key.
+  profile.prolific_pid = profile.prolific_pid.trim() || ("dev-" + Date.now().toString(36));
   try {
     await startSession({
       age: 30,
