@@ -162,6 +162,7 @@
         </div>
         <div class="topbar-right">
           <div id="overall-progress" class="progress-pill"></div>
+          <button type="button" id="btn-continue-study" class="btn primary sm hidden">Continue to study →</button>
           <span id="save-status" class="save-status">Saved</span>
         </div>
       </header>
@@ -193,13 +194,8 @@
           <div class="timeline" id="timeline"></div>
         </div>
 
-        <!-- RIGHT: familiarity + current action annotation -->
+        <!-- RIGHT: action annotation + familiarity / wrap-up -->
         <div class="col-form">
-          <div class="familiarity-card" id="familiarity-card">
-            <label id="familiarity-prompt" class="section-label"></label>
-            <div id="familiarity-options" class="options stack"></div>
-          </div>
-
           <div class="annotate-card" id="annotate-card">
             <div class="step-header">
               <span class="step-title" id="step-title">Action 1</span>
@@ -222,6 +218,11 @@
               <textarea id="step-note" rows="2"
                 placeholder="Optional: extra explanation, or why it was hard to tell..."></textarea>
             </div>
+          </div>
+
+          <div class="familiarity-card" id="familiarity-card">
+            <label id="familiarity-prompt" class="section-label"></label>
+            <div id="familiarity-options" class="options stack"></div>
           </div>
 
           <div class="posttask-locked" id="posttask-locked">
@@ -281,7 +282,7 @@
       <h3 id="tour-title"></h3>
       <p id="tour-body"></p>
       <div class="tour-actions">
-        <button type="button" id="tour-prev" class="btn ghost sm" disabled>← Back</button>
+        <button type="button" id="tour-prev" class="btn ghost sm hidden">← Back</button>
         <button type="button" id="tour-next" class="btn primary sm">Next</button>
       </div>
     </div>

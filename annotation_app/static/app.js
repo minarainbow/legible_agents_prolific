@@ -105,6 +105,10 @@ async function init() {
   wireWorkspace();
   wireReview();
   wireTour();
+  const continueBtn = $("#btn-continue-study");
+  if (continueBtn) continueBtn.addEventListener("click", finishPracticeAndStartStudy);
+  const startStudy = $("#btn-start-study");
+  if (startStudy) startStudy.addEventListener("click", finishPracticeAndStartStudy);
   showScreen("screen-welcome");
 }
 
@@ -445,11 +449,18 @@ function openPractice(task) {
 
 function finishPracticeAndStartStudy() {
   endTour();
-  $("#practice-done").classList.add("hidden");
+  const done = $("#practice-done");
+  if (done) done.classList.add("hidden");
+  const cont = $("#btn-continue-study");
+  if (cont) cont.classList.add("hidden");
   state.inPractice = false;
   state.practiceTask = null;
   $("#task-switch").classList.remove("hidden");
   $("#practice-badge").classList.add("hidden");
+  if (!state.tasks.length) {
+    alert("No study recordings are available. Please refresh and try again.");
+    return;
+  }
   openTask(0);
 }
 
@@ -919,8 +930,13 @@ function updateOverallProgress() {
     $("#overall-progress").textContent = "Practice recording";
     const task = state.practiceTask;
     if (task) $("#task-count").textContent = `${task.num_annotatable} actions to describe`;
+    // Keep the continue CTA visible once practice is complete.
+    const cont = $("#btn-continue-study");
+    if (cont && task && taskComplete(task)) cont.classList.remove("hidden");
     return;
   }
+  const cont = $("#btn-continue-study");
+  if (cont) cont.classList.add("hidden");
   const totalTasks = state.tasks.length;
   $("#overall-progress").textContent =
     `Recording ${state.currentTaskIdx + 1} of ${totalTasks}`;
@@ -986,14 +1002,19 @@ const TOUR_STEPS = [
 ];
 
 function wireTour() {
-  $("#tour-next").addEventListener("click", () => {
-    if (state.tourIdx >= TOUR_STEPS.length - 1) endTour();
-    else showTourStep(state.tourIdx + 1);
-  });
-  $("#tour-prev").addEventListener("click", () => {
-    if (state.tourIdx > 0) showTourStep(state.tourIdx - 1);
-  });
-  $("#btn-start-study").addEventListener("click", finishPracticeAndStartStudy);
+  const next = $("#tour-next");
+  const prev = $("#tour-prev");
+  if (next) {
+    next.addEventListener("click", () => {
+      if (state.tourIdx >= TOUR_STEPS.length - 1) endTour();
+      else showTourStep(state.tourIdx + 1);
+    });
+  }
+  if (prev) {
+    prev.addEventListener("click", () => {
+      if (state.tourIdx > 0) showTourStep(state.tourIdx - 1);
+    });
+  }
   window.addEventListener("resize", () => {
     if (state.tourActive) positionTour(TOUR_STEPS[state.tourIdx]);
   });
@@ -1017,8 +1038,14 @@ function showTourStep(idx) {
   $("#tour-step-num").textContent = `${idx + 1} / ${TOUR_STEPS.length}`;
   $("#tour-title").textContent = step.title;
   $("#tour-body").textContent = step.body;
-  $("#tour-prev").disabled = idx === 0;
+  const prev = $("#tour-prev");
+  if (prev) {
+    // No Back on the first tip — only Next.
+    prev.classList.toggle("hidden", idx === 0);
+    prev.disabled = idx === 0;
+  }
   $("#tour-next").textContent = idx >= TOUR_STEPS.length - 1 ? "Got it — start practicing" : "Next";
+  $("#tour-tooltip").classList.toggle("tour-first", idx === 0);
   positionTour(step);
 }
 
@@ -1053,7 +1080,10 @@ function positionTour(step) {
 
 function showPracticeDone() {
   endTour();
-  $("#practice-done").classList.remove("hidden");
+  const done = $("#practice-done");
+  if (done) done.classList.remove("hidden");
+  const cont = $("#btn-continue-study");
+  if (cont) cont.classList.remove("hidden");
 }
 
 function maybeShowPracticeDone(task) {

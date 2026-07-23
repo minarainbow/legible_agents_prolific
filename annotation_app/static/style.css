@@ -534,6 +534,7 @@ textarea { resize: vertical; }
 .tour-tooltip h3 { margin: 0 0 8px; font-size: 1.05rem; }
 .tour-tooltip p { margin: 0 0 14px; font-size: 0.92rem; line-height: 1.45; color: #334155; }
 .tour-actions { display: flex; justify-content: space-between; gap: 10px; }
+.tour-tooltip.tour-first .tour-actions { justify-content: flex-end; }
 
 .practice-done {
   position: fixed;
