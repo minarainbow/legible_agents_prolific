@@ -389,7 +389,13 @@ textarea { resize: vertical; }
 .tl-seg.done { background: #46c479; color: #08341b; }
 .tl-seg.cant { background: #f0a13a; color: #4a2c04; }
 .tl-seg.missing { background: #dfe4ee; color: #6b7385; }
-.tl-seg.missing.flag { background: #f2726f; color: #4a0c0c; }
+/* Flagged missing: keep gray fill so it doesn't look like "can't tell" orange */
+.tl-seg.missing.flag {
+  background: #dfe4ee;
+  color: #6b7385;
+  box-shadow: inset 0 0 0 2.5px #dc2626;
+  z-index: 2;
+}
 .tl-seg.sleep {
   background: repeating-linear-gradient(45deg, #e3e8f1, #e3e8f1 5px, #f4f6fb 5px, #f4f6fb 10px);
   color: var(--muted); cursor: default;

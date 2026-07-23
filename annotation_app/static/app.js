@@ -350,11 +350,12 @@ function ensureAnnotation(task) {
 
 function stepStatus(task, step) {
   const a = state.annotations[task.id];
-  const s = a && a.steps[step.step_num];
+  const s = a && a.steps ? a.steps[step.step_num] : null;
   if (isAuto(step)) return "sleep";
-  if (!s) return "missing";
-  if (s.cant_tell) return "cant";
-  if (s.answer && s.answer.trim()) return "done";
+  if (!s || typeof s !== "object") return "missing";
+  // Strict true — avoid truthy leftovers from bad/partial resumes.
+  if (s.cant_tell === true) return "cant";
+  if (s.answer && String(s.answer).trim()) return "done";
   return "missing";
 }
 
@@ -455,6 +456,12 @@ function finishPracticeAndStartStudy() {
   if (cont) cont.classList.add("hidden");
   state.inPractice = false;
   state.practiceTask = null;
+  // Practice "Finish" attempts must not paint the first real recording as all-orange.
+  state.flaggedTasks.clear();
+  const fam = $("#familiarity-card");
+  const post = $("#posttask-card");
+  if (fam) fam.classList.remove("needs");
+  if (post) post.classList.remove("needs");
   $("#task-switch").classList.remove("hidden");
   $("#practice-badge").classList.add("hidden");
   if (!state.tasks.length) {
