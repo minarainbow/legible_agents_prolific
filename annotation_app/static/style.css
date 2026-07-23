@@ -534,9 +534,26 @@ textarea { resize: vertical; }
 .tour-tooltip h3 { margin: 0 0 8px; font-size: 1.05rem; }
 .tour-tooltip p { margin: 0 0 14px; font-size: 0.92rem; line-height: 1.45; color: #334155; }
 .tour-actions { display: flex; justify-content: space-between; gap: 10px; }
-.tour-target-pulse {
-  outline: 3px solid #3b82f6 !important;
-  outline-offset: 3px;
-  position: relative;
-  z-index: 30;
+
+.practice-done {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(18, 24, 38, 0.55);
 }
+.practice-done.hidden { display: none; }
+.practice-done-card {
+  width: min(440px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 26px;
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.3);
+  border: 1px solid var(--border);
+}
+.practice-done-card h2 { margin: 6px 0 12px; font-size: 1.35rem; }
+.practice-done-card p { margin: 0 0 20px; color: #445; line-height: 1.5; }
+.practice-done-card .btn { width: 100%; justify-content: center; }

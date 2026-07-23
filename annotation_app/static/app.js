@@ -445,6 +445,7 @@ function openPractice(task) {
 
 function finishPracticeAndStartStudy() {
   endTour();
+  $("#practice-done").classList.add("hidden");
   state.inPractice = false;
   state.practiceTask = null;
   $("#task-switch").classList.remove("hidden");
@@ -535,6 +536,7 @@ function buildQuestionGroup(task, a, g) {
       updateNeedsFlags(task);
       updateOverallProgress();
       refreshTaskSelectLabels();
+      maybeShowPracticeDone(task);
     });
     box.appendChild(wrap);
   });
@@ -792,6 +794,7 @@ function afterAnnotate(task, step) {
   updateOverallProgress();
   refreshTaskSelectLabels();
   scheduleSave(task.id);
+  maybeShowPracticeDone(task);
 }
 
 function updateStepStatusBadge(task, step) {
@@ -889,7 +892,7 @@ function onNext() {
     return;
   }
   if (state.inPractice) {
-    finishPracticeAndStartStudy();
+    showPracticeDone();
     return;
   }
   const nextIdx = state.currentTaskIdx + 1;
@@ -968,7 +971,7 @@ const TOUR_STEPS = [
   {
     sel: "#timeline",
     title: "Step timeline",
-    body: "Each colored segment is one action. Click a segment to jump to that step and replay it. Green = described, orange = still missing.",
+    body: "Each segment is one step — click any of them to jump there and replay it. Green = you've described it, orange = you marked \"I can't tell\", gray = still missing. Striped steps are when the agent was just waiting — no annotation needed, but you can still click them to replay.",
   },
   {
     sel: "#annotate-card",
@@ -987,7 +990,10 @@ function wireTour() {
     if (state.tourIdx >= TOUR_STEPS.length - 1) endTour();
     else showTourStep(state.tourIdx + 1);
   });
-  $("#tour-skip").addEventListener("click", endTour);
+  $("#tour-prev").addEventListener("click", () => {
+    if (state.tourIdx > 0) showTourStep(state.tourIdx - 1);
+  });
+  $("#btn-start-study").addEventListener("click", finishPracticeAndStartStudy);
   window.addEventListener("resize", () => {
     if (state.tourActive) positionTour(TOUR_STEPS[state.tourIdx]);
   });
@@ -1002,12 +1008,7 @@ function startTour() {
 
 function endTour() {
   state.tourActive = false;
-  clearTourHighlight();
   $("#tour-overlay").classList.add("hidden");
-}
-
-function clearTourHighlight() {
-  document.querySelectorAll(".tour-target-pulse").forEach((n) => n.classList.remove("tour-target-pulse"));
 }
 
 function showTourStep(idx) {
@@ -1016,8 +1017,8 @@ function showTourStep(idx) {
   $("#tour-step-num").textContent = `${idx + 1} / ${TOUR_STEPS.length}`;
   $("#tour-title").textContent = step.title;
   $("#tour-body").textContent = step.body;
+  $("#tour-prev").disabled = idx === 0;
   $("#tour-next").textContent = idx >= TOUR_STEPS.length - 1 ? "Got it — start practicing" : "Next";
-  clearTourHighlight();
   positionTour(step);
 }
 
@@ -1026,7 +1027,6 @@ function positionTour(step) {
   const spot = $("#tour-spotlight");
   const tip = $("#tour-tooltip");
   if (!target || !spot || !tip) return;
-  target.classList.add("tour-target-pulse");
   target.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
   const r = target.getBoundingClientRect();
@@ -1041,7 +1041,6 @@ function positionTour(step) {
   tip.style.width = tipW + "px";
   let top = r.bottom + 14;
   let left = Math.min(Math.max(16, r.left), window.innerWidth - tipW - 16);
-  // Measure after setting content
   tip.style.top = "0px";
   tip.style.left = left + "px";
   const th = tip.offsetHeight || 160;
@@ -1050,6 +1049,15 @@ function positionTour(step) {
   }
   tip.style.top = top + "px";
   tip.style.left = left + "px";
+}
+
+function showPracticeDone() {
+  endTour();
+  $("#practice-done").classList.remove("hidden");
+}
+
+function maybeShowPracticeDone(task) {
+  if (state.inPractice && task && taskComplete(task)) showPracticeDone();
 }
 
 // ------------------------------------------------------------------

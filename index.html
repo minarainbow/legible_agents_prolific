@@ -282,9 +282,19 @@
       <h3 id="tour-title"></h3>
       <p id="tour-body"></p>
       <div class="tour-actions">
-        <button type="button" id="tour-skip" class="btn ghost sm">Skip tour</button>
+        <button type="button" id="tour-prev" class="btn ghost sm" disabled>← Back</button>
         <button type="button" id="tour-next" class="btn primary sm">Next</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Shown when the practice recording is fully complete -->
+  <div id="practice-done" class="practice-done hidden" role="dialog" aria-labelledby="practice-done-title">
+    <div class="practice-done-card">
+      <div class="brand">Practice complete</div>
+      <h2 id="practice-done-title">You're ready for the real recordings</h2>
+      <p>That was a short practice run so you could learn the interface. Next you'll annotate the full set of recordings — same controls, same flow.</p>
+      <button type="button" id="btn-start-study" class="btn primary">Continue to the study →</button>
     </div>
   </div>
 
