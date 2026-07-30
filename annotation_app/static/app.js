@@ -1011,20 +1011,22 @@ function timingCanRun() {
   );
 }
 
-/** Credit elapsed wall-clock to the active step; restart the segment clock. */
+/** Credit elapsed wall-clock to the active step; restart the segment clock.
+ *  Returns ms credited (0 if nothing was added). */
 function flushTiming() {
   const t = state.timing;
-  if (t.startedAt == null || t.taskId == null || t.stepNum == null) return;
+  if (t.startedAt == null || t.taskId == null || t.stepNum == null) return 0;
   const delta = Math.max(0, Math.round(performance.now() - t.startedAt));
   t.startedAt = timingCanRun() ? performance.now() : null;
-  if (delta < 1) return;
+  if (delta < 1) return 0;
   const task = findTaskById(t.taskId);
-  if (!task) return;
+  if (!task) return 0;
   const step = (task.steps || []).find((s) => s.step_num === t.stepNum);
-  if (!step) return;
+  if (!step) return 0;
   const s = ensureStep(task, step);
   s.time_spent_ms = (Number(s.time_spent_ms) || 0) + delta;
   recomputeTaskTiming(task);
+  return delta;
 }
 
 function startTimingFor(task, step) {
@@ -1074,12 +1076,13 @@ function wireTiming() {
       } catch (e) { /* ignore */ }
     }
   });
-  // Periodic flush so long pauses on one step still get saved.
+  // Periodic flush so long stays on one step still get persisted (silent — no "Saving…" flicker).
   setInterval(() => {
     if (!state.participantId || !state.timing.startedAt) return;
-    flushTiming();
+    const credited = flushTiming();
+    if (credited < 1) return;
     const task = findTaskById(state.timing.taskId);
-    if (task) scheduleSave(task.id);
+    if (task) scheduleSave(task.id, { quiet: true });
   }, 15000);
 }
 
@@ -1332,15 +1335,17 @@ function updateOverallProgress() {
 }
 
 let saveTimers = {};
-function scheduleSave(taskId) {
+function scheduleSave(taskId, opts) {
   flushTiming();
-  setSaveStatus("saving");
+  const quiet = !!(opts && opts.quiet);
+  if (!quiet) setSaveStatus("saving");
   clearTimeout(saveTimers[taskId]);
-  saveTimers[taskId] = setTimeout(() => doSave(taskId), 600);
+  saveTimers[taskId] = setTimeout(() => doSave(taskId, { quiet }), 600);
 }
 
-async function doSave(taskId) {
+async function doSave(taskId, opts) {
   flushTiming();
+  const quiet = !!(opts && opts.quiet);
   const task = findTaskById(taskId);
   if (task) recomputeTaskTiming(task);
   try {
@@ -1349,9 +1354,9 @@ async function doSave(taskId) {
       task_id: taskId,
       annotation: state.annotations[taskId],
     });
-    setSaveStatus("saved");
+    if (!quiet) setSaveStatus("saved");
   } catch (e) {
-    setSaveStatus("error");
+    if (!quiet) setSaveStatus("error");
   }
 }
 
