@@ -528,7 +528,32 @@ def _load_participant(pid: str) -> dict | None:
         return json.load(f)
 
 
+def _attach_timing_totals(record: dict) -> None:
+    """Roll up per-step / per-task dwell times onto the participant record."""
+    study = 0
+    practice = 0
+    for ann in (record.get("annotations") or {}).values():
+        if not isinstance(ann, dict):
+            continue
+        ms = int(ann.get("time_spent_ms") or 0)
+        if not ms and isinstance(ann.get("steps"), dict):
+            ms = sum(
+                int(s.get("time_spent_ms") or 0)
+                for s in ann["steps"].values()
+                if isinstance(s, dict)
+            )
+            ann["time_spent_ms"] = ms
+        if ann.get("is_practice"):
+            practice += ms
+        else:
+            study += ms
+    record["time_spent_ms"] = study
+    record["time_spent_ms_practice"] = practice
+    record["time_spent_ms_total"] = study + practice
+
+
 def _save_participant(record: dict) -> None:
+    _attach_timing_totals(record)
     os.makedirs(config.DATA_DIR, exist_ok=True)
     path = _participant_path(record["participant_id"])
     tmp = path + ".tmp"

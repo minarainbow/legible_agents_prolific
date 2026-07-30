@@ -31,12 +31,17 @@
  *                 english, computer_freq, ai_tools, experience }
  *     task_order/ [taskId, ...]
  *     annotations/{taskId}
- *        familiarity, success, efficiency, understanding, task_comment
+ *        familiarity, success, efficiency, understanding, task_comment,
+ *        time_spent_ms  (wall-clock ms while this task's steps were active)
  *        steps/{stepNum} (1-based, matches the UI)
- *          { answer, cant_tell, confidence, note, auto, rewinds }
+ *          { answer, cant_tell, confidence, note, auto, rewinds, time_spent_ms }
  *            rewinds = times this step's clip was played (1 = first Play;
  *            +1 for Replay or re-clicking the timeline segment). Native
  *            video scrubbing is disabled.
+ *            time_spent_ms = wall-clock ms on this step (tab visible, not in tour)
+ *     time_spent_ms            sum over non-practice tasks
+ *     time_spent_ms_practice   practice task only
+ *     time_spent_ms_total      study + practice
  *
  * participant_id is typically "<prolific_pid>__<condition>__<log|nolog>"
  * so the four arms never overwrite each other.
@@ -79,7 +84,31 @@
     }).catch((e) => console.warn("RTDB write failed", e));
   }
 
+  function attachTimingTotals(record) {
+    let study = 0;
+    let practice = 0;
+    const anns = record.annotations || {};
+    Object.keys(anns).forEach((tid) => {
+      const ann = anns[tid];
+      if (!ann || typeof ann !== "object") return;
+      let ms = Number(ann.time_spent_ms) || 0;
+      if (!ms && ann.steps && typeof ann.steps === "object") {
+        ms = Object.keys(ann.steps).reduce((acc, k) => {
+          const s = ann.steps[k];
+          return acc + (s && typeof s === "object" ? (Number(s.time_spent_ms) || 0) : 0);
+        }, 0);
+        ann.time_spent_ms = ms;
+      }
+      if (ann.is_practice) practice += ms;
+      else study += ms;
+    });
+    record.time_spent_ms = study;
+    record.time_spent_ms_practice = practice;
+    record.time_spent_ms_total = study + practice;
+  }
+
   function persist(record) {
+    attachTimingTotals(record);
     record.updated_at = nowIso();
     try {
       localStorage.setItem(lsKey(record.participant_id), JSON.stringify(record));

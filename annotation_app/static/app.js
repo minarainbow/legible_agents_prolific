@@ -14,6 +14,10 @@ function showScreen(id) {
   document.querySelectorAll(".screen").forEach((s) => s.classList.add("hidden"));
   $("#" + id).classList.remove("hidden");
   window.scrollTo(0, 0);
+  if (typeof pauseTimingClock === "function") {
+    if (id === "screen-work") resumeTimingClock();
+    else pauseTimingClock();
+  }
 }
 function qs(name) {
   return new URLSearchParams(window.location.search).get(name) || "";
@@ -104,6 +108,13 @@ const state = {
   lastVideoTime: 0,
   ignoreSeek: false,
   countNextPlayAsRewatch: false, // Replay / re-click timeline → +1 when play starts
+  // Dwell timing: wall-clock while a step is active, tab visible, tour not showing.
+  timing: {
+    taskId: null,
+    stepNum: null,
+    startedAt: null, // performance.now() when the current segment began
+    pageVisible: typeof document !== "undefined" ? !document.hidden : true,
+  },
 };
 
 function currentTask() {
@@ -156,6 +167,7 @@ async function init() {
   wireWorkspace();
   wireReview();
   wireTour();
+  wireTiming();
   const continueBtn = $("#btn-continue-study");
   if (continueBtn) continueBtn.addEventListener("click", finishPracticeAndStartStudy);
   const startStudy = $("#btn-start-study");
@@ -384,11 +396,13 @@ function ensureAnnotation(task) {
       understanding: null,
       task_comment: "",
       is_practice: !!task.is_practice,
+      time_spent_ms: 0,
       steps: {},
     };
     state.annotations[task.id] = a;
   }
   if (task.is_practice) a.is_practice = true;
+  if (!("time_spent_ms" in a)) a.time_spent_ms = 0;
   // Backfill fields for records saved by an earlier version.
   ["familiarity", "success", "efficiency", "understanding"].forEach((k) => {
     if (!(k in a)) a[k] = null;
@@ -400,6 +414,7 @@ function ensureAnnotation(task) {
       a.steps[s.step_num] = {
         answer: s.is_done ? "(agent signalled the task was finished)" : "(agent waited)",
         cant_tell: false, confidence: null, note: "", auto: true, rewinds: 0,
+        time_spent_ms: 0,
       };
     }
   });
@@ -756,6 +771,7 @@ function updatePlayhead(t) {
 function gotoStep(idx, autoplay) {
   const task = currentTask();
   if (!task) return;
+  flushTiming();
   state.currentStepIdx = idx;
   const step = task.steps[idx];
 
@@ -770,6 +786,7 @@ function gotoStep(idx, autoplay) {
   try { video.currentTime = step.seg_start; } catch (e) { state.ignoreSeek = false; }
   setTimeout(() => { state.ignoreSeek = false; }, 350);
   state.lastVideoTime = step.seg_start;
+  startTimingFor(task, step);
   if (autoplay) {
     video.play().catch(() => {});
   } else {
@@ -956,12 +973,114 @@ function ensureStep(task, step) {
   if (!a.steps[step.step_num]) {
     a.steps[step.step_num] = {
       // rewinds = play count (1 = first Play; +1 via Replay / timeline re-click).
+      // time_spent_ms = wall-clock ms while this step was the active step.
       answer: "", cant_tell: false, confidence: null, note: "", rewinds: 0,
+      time_spent_ms: 0,
     };
   }
   if (!("confidence" in a.steps[step.step_num])) a.steps[step.step_num].confidence = null;
   if (!("rewinds" in a.steps[step.step_num])) a.steps[step.step_num].rewinds = 0;
+  if (!("time_spent_ms" in a.steps[step.step_num])) a.steps[step.step_num].time_spent_ms = 0;
   return a.steps[step.step_num];
+}
+
+function findTaskById(taskId) {
+  if (!taskId) return null;
+  if (state.practiceTask && state.practiceTask.id === taskId) return state.practiceTask;
+  return (state.tasks || []).find((t) => t.id === taskId) || null;
+}
+
+function recomputeTaskTiming(task) {
+  if (!task) return;
+  const a = ensureAnnotation(task);
+  let sum = 0;
+  Object.keys(a.steps || {}).forEach((k) => {
+    const s = a.steps[k];
+    if (s && typeof s === "object") sum += Number(s.time_spent_ms) || 0;
+  });
+  a.time_spent_ms = sum;
+}
+
+function timingCanRun() {
+  return !!(
+    state.timing.pageVisible
+    && !state.tourActive
+    && state.participantId
+    && $("#screen-work")
+    && !$("#screen-work").classList.contains("hidden")
+  );
+}
+
+/** Credit elapsed wall-clock to the active step; restart the segment clock. */
+function flushTiming() {
+  const t = state.timing;
+  if (t.startedAt == null || t.taskId == null || t.stepNum == null) return;
+  const delta = Math.max(0, Math.round(performance.now() - t.startedAt));
+  t.startedAt = timingCanRun() ? performance.now() : null;
+  if (delta < 1) return;
+  const task = findTaskById(t.taskId);
+  if (!task) return;
+  const step = (task.steps || []).find((s) => s.step_num === t.stepNum);
+  if (!step) return;
+  const s = ensureStep(task, step);
+  s.time_spent_ms = (Number(s.time_spent_ms) || 0) + delta;
+  recomputeTaskTiming(task);
+}
+
+function startTimingFor(task, step) {
+  flushTiming();
+  if (!task || !step) {
+    state.timing.taskId = null;
+    state.timing.stepNum = null;
+    state.timing.startedAt = null;
+    return;
+  }
+  ensureStep(task, step);
+  state.timing.taskId = task.id;
+  state.timing.stepNum = step.step_num;
+  state.timing.startedAt = timingCanRun() ? performance.now() : null;
+}
+
+function pauseTimingClock() {
+  flushTiming();
+  state.timing.startedAt = null;
+}
+
+function resumeTimingClock() {
+  if (
+    timingCanRun()
+    && state.timing.taskId != null
+    && state.timing.stepNum != null
+    && state.timing.startedAt == null
+  ) {
+    state.timing.startedAt = performance.now();
+  }
+}
+
+function wireTiming() {
+  document.addEventListener("visibilitychange", () => {
+    state.timing.pageVisible = !document.hidden;
+    if (document.hidden) pauseTimingClock();
+    else resumeTimingClock();
+  });
+  window.addEventListener("pagehide", () => {
+    flushTiming();
+    // Best-effort persist of the active task before unload.
+    const task = findTaskById(state.timing.taskId);
+    if (task && state.participantId) {
+      try {
+        // Synchronous-ish path: kick save without waiting.
+        doSave(task.id);
+      } catch (e) { /* ignore */ }
+    }
+  });
+  // Periodic flush so long pauses on one step still get saved.
+  setInterval(() => {
+    if (!state.participantId || !state.timing.startedAt) return;
+    flushTiming();
+    const task = findTaskById(state.timing.taskId);
+    if (task) scheduleSave(task.id);
+  }, 15000);
 }
 
 // First actual playback of a step → count as 1 view.
@@ -1214,12 +1333,16 @@ function updateOverallProgress() {
 
 let saveTimers = {};
 function scheduleSave(taskId) {
+  flushTiming();
   setSaveStatus("saving");
   clearTimeout(saveTimers[taskId]);
   saveTimers[taskId] = setTimeout(() => doSave(taskId), 600);
 }
 
 async function doSave(taskId) {
+  flushTiming();
+  const task = findTaskById(taskId);
+  if (task) recomputeTaskTiming(task);
   try {
     await saveReq({
       participant_id: state.participantId,
@@ -1314,6 +1437,7 @@ function wireTour() {
 }
 
 function startTour() {
+  pauseTimingClock();
   state.tourActive = true;
   state.tourIdx = 0;
   $("#tour-overlay").classList.remove("hidden");
@@ -1329,6 +1453,7 @@ function startTour() {
 function endTour() {
   state.tourActive = false;
   $("#tour-overlay").classList.add("hidden");
+  resumeTimingClock();
 }
 
 function showTourStep(idx) {
@@ -1455,6 +1580,12 @@ function openReview() {
 
 async function submitAll() {
   try {
+    flushTiming();
+    Object.keys(state.annotations || {}).forEach((tid) => {
+      const task = findTaskById(tid);
+      if (task) recomputeTaskTiming(task);
+    });
+    pauseTimingClock();
     const res = await submitReq({
       participant_id: state.participantId,
       annotations: state.annotations,
@@ -1471,5 +1602,6 @@ async function submitAll() {
     showScreen("screen-done");
   } catch (e) {
     alert("Submission failed. Please try again.");
+    resumeTimingClock();
   }
 }
