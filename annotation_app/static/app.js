@@ -18,6 +18,40 @@ function showScreen(id) {
 function qs(name) {
   return new URLSearchParams(window.location.search).get(name) || "";
 }
+
+/** Between-subjects arm: native vs osworld (same quiz, different videos). */
+function resolveCondition() {
+  const raw = (qs("condition") || qs("scaffold") || "").trim().toLowerCase();
+  const aliases = {
+    native: "native",
+    claude_native: "native",
+    "claude-native": "native",
+    osworld: "osworld",
+    os_world: "osworld",
+    "os-world": "osworld",
+    claude_osworld: "osworld",
+    "claude-osworld": "osworld",
+  };
+  if (aliases[raw]) return aliases[raw];
+  if (window.__STUDY && window.__STUDY.condition) return window.__STUDY.condition;
+  if (state.cfg && state.cfg.condition) return state.cfg.condition;
+  return "native";
+}
+
+/** Between-subjects: show agent action+reasoning log to participants. */
+function resolveShowLog() {
+  const raw = (qs("log") || qs("show_log") || "").trim().toLowerCase();
+  if (["1", "true", "yes", "on", "log", "show"].includes(raw)) return true;
+  if (["0", "false", "no", "off", "nolog", "no_log", "hide"].includes(raw)) return false;
+  if (window.__STUDY && typeof window.__STUDY.show_log === "boolean") return window.__STUDY.show_log;
+  if (state.cfg && typeof state.cfg.show_log === "boolean") return state.cfg.show_log;
+  return false;
+}
+
+function resolveStudyUrl(condition, showLog) {
+  if (window.STUDY_URL) return window.STUDY_URL;
+  return "study_" + condition + "_" + (showLog ? "log" : "nolog") + ".json";
+}
 async function api(path, body) {
   const res = await fetch(path, {
     method: "POST",
@@ -53,10 +87,12 @@ async function submitReq(body) {
 // ------------------------------------------------------------------
 const state = {
   cfg: null,
+  condition: "native",       // "native" | "osworld"
+  showLog: false,            // participant-visible agent output
   participantId: null,
   tasks: [],                 // scored study recordings
   practiceTasks: [],         // short pool for guided practice
-  annotations: {},   // { taskId: { familiarity, task_comment, steps: {stepNum(1-based):{answer,cant_tell,note,rewinds}} } }
+  annotations: {},   // { taskId: { familiarity, ..., steps: {stepNum:{answer,cant_tell,confidence,note,rewinds}} } }
   currentTaskIdx: 0,
   currentStepIdx: 0,
   stopAt: null,      // video pause target for the active clip
@@ -65,7 +101,9 @@ const state = {
   practiceTask: null,
   tourActive: false,
   tourIdx: 0,
-  lastVideoTime: 0,  // for detecting native-player rewinds
+  lastVideoTime: 0,
+  ignoreSeek: false,
+  countNextPlayAsRewatch: false, // Replay / re-click timeline → +1 when play starts
 };
 
 function currentTask() {
@@ -88,15 +126,28 @@ const isAuto = (s) => !!(s.is_sleep || s.is_done);
 window.addEventListener("DOMContentLoaded", init);
 
 async function init() {
+  state.condition = resolveCondition();
+  state.showLog = resolveShowLog();
   if (STATIC) {
-    const study = await (await fetch(window.STUDY_URL || "study.json")).json();
+    const studyUrl = resolveStudyUrl(state.condition, state.showLog);
+    const study = await (await fetch(studyUrl)).json();
     window.__STUDY = study;
     state.cfg = study.config;
+    if (study.condition) state.condition = study.condition;
+    else if (study.config && study.config.condition) state.condition = study.config.condition;
+    if (typeof study.show_log === "boolean") state.showLog = study.show_log;
+    else if (study.config && typeof study.config.show_log === "boolean") {
+      state.showLog = study.config.show_log;
+    }
     if (window.StudyBackend && window.StudyBackend.configure) {
       window.StudyBackend.configure(study);
     }
   } else {
-    state.cfg = await (await fetch("/api/config")).json();
+    const q = "condition=" + encodeURIComponent(state.condition)
+      + "&log=" + (state.showLog ? "1" : "0");
+    state.cfg = await (await fetch("/api/config?" + q)).json();
+    if (state.cfg.condition) state.condition = state.cfg.condition;
+    if (typeof state.cfg.show_log === "boolean") state.showLog = state.cfg.show_log;
   }
   buildProfileForm();
   wireWelcome();
@@ -269,9 +320,13 @@ async function startSession(profilePayload) {
     prolific_pid: (profile.prolific_pid || qs("PROLIFIC_PID") || "").trim(),
     study_id: qs("STUDY_ID"),
     session_id: qs("SESSION_ID"),
+    condition: state.condition,
+    show_log: state.showLog,
     profile: profilePayload,
   });
   state.participantId = data.participant_id;
+  if (data.condition) state.condition = data.condition;
+  if (typeof data.show_log === "boolean") state.showLog = data.show_log;
   state.tasks = data.tasks || [];
   state.practiceTasks = data.practice_tasks
     || (window.__STUDY && window.__STUDY.practice_tasks)
@@ -281,9 +336,11 @@ async function startSession(profilePayload) {
   state.practiceTasks.forEach((t) => ensureAnnotation(t));
   buildTaskSelect();
 
-  // Start with a random short practice recording + UI walkthrough when available.
+  // Always the same practice recording (config pool is a single fixed task).
   if (state.practiceTasks.length) {
-    const pick = state.practiceTasks[Math.floor(Math.random() * state.practiceTasks.length)];
+    const preferred = "0f84bef9-9790-432e-92b7-eece357603fb";
+    const pick = state.practiceTasks.find((t) => t.id === preferred)
+      || state.practiceTasks[0];
     openPractice(pick);
   } else {
     openTask(0);
@@ -337,15 +394,20 @@ function ensureAnnotation(task) {
     if (!(k in a)) a[k] = null;
   });
   // Pre-fill auto steps (waiting / task finished) so they need no annotation.
+  // rewinds stay 0 until the participant actually plays that step.
   task.steps.forEach((s) => {
     if (isAuto(s) && !a.steps[s.step_num]) {
       a.steps[s.step_num] = {
         answer: s.is_done ? "(agent signalled the task was finished)" : "(agent waited)",
-        cant_tell: false, note: "", auto: true, rewinds: 0,
+        cant_tell: false, confidence: null, note: "", auto: true, rewinds: 0,
       };
     }
   });
   return a;
+}
+
+function stepHasAnswer(s) {
+  return !!(s && (s.cant_tell === true || (s.answer && String(s.answer).trim())));
 }
 
 function stepStatus(task, step) {
@@ -353,10 +415,12 @@ function stepStatus(task, step) {
   const s = a && a.steps ? a.steps[step.step_num] : null;
   if (isAuto(step)) return "sleep";
   if (!s || typeof s !== "object") return "missing";
-  // Strict true — avoid truthy leftovers from bad/partial resumes.
+  // Description (or can't-tell) without confidence is still incomplete, but we
+  // surface a distinct "partial" state so typing / can't-tell clearly register.
+  if (!stepHasAnswer(s)) return "missing";
+  if (!s.confidence) return "partial";
   if (s.cant_tell === true) return "cant";
-  if (s.answer && String(s.answer).trim()) return "done";
-  return "missing";
+  return "done";
 }
 
 function questionsComplete(task) {
@@ -369,6 +433,11 @@ function allStepsAnnotated(task) {
     const st = stepStatus(task, s);
     return st === "done" || st === "cant" || st === "sleep";
   });
+}
+
+function stepNeedsWork(task, step) {
+  const st = stepStatus(task, step);
+  return !isAuto(step) && (st === "missing" || st === "partial");
 }
 
 function taskComplete(task) {
@@ -385,7 +454,10 @@ function updatePostTaskVisibility(task) {
 function taskProgress(task) {
   // annotated steps / total steps that actually need annotation
   const total = task.steps.filter((s) => !isAuto(s)).length;
-  const done = task.steps.filter((s) => !isAuto(s) && stepStatus(task, s) !== "missing").length;
+  const done = task.steps.filter((s) => {
+    const st = stepStatus(task, s);
+    return !isAuto(s) && (st === "done" || st === "cant");
+  }).length;
   return { done, total };
 }
 
@@ -458,9 +530,7 @@ function finishPracticeAndStartStudy() {
   state.practiceTask = null;
   // Practice "Finish" attempts must not paint the first real recording as all-orange.
   state.flaggedTasks.clear();
-  const fam = $("#familiarity-card");
   const post = $("#posttask-card");
-  if (fam) fam.classList.remove("needs");
   if (post) post.classList.remove("needs");
   $("#task-switch").classList.remove("hidden");
   $("#practice-badge").classList.add("hidden");
@@ -495,7 +565,7 @@ function loadTaskIntoWorkspace(task) {
   video.load();
   state.lastVideoTime = 0;
 
-  const firstMissing = task.steps.find((s) => !isAuto(s) && stepStatus(task, s) === "missing");
+  const firstMissing = task.steps.find((s) => stepNeedsWork(task, s));
   state.currentStepIdx = firstMissing ? firstMissing.index : 0;
 
   buildTimeline(task);
@@ -554,6 +624,7 @@ function buildQuestionGroup(task, a, g) {
       updateNeedsFlags(task);
       updateOverallProgress();
       refreshTaskSelectLabels();
+      updateAdvanceButton(task);
       maybeShowPracticeDone(task);
     });
     box.appendChild(wrap);
@@ -565,9 +636,8 @@ function buildQuestionGroup(task, a, g) {
 function updateNeedsFlags(task) {
   const a = state.annotations[task.id];
   const flag = isFlagged(task.id);
-  $("#familiarity-card").classList.toggle("needs", flag && !a.familiarity);
-  $("#posttask-card").classList.toggle(
-    "needs", flag && (!a.success || !a.efficiency || !a.understanding));
+  const missingQ = !a.familiarity || !a.success || !a.efficiency || !a.understanding;
+  $("#posttask-card").classList.toggle("needs", flag && missingQ);
 }
 
 // ------------------------------------------------------------------
@@ -617,8 +687,11 @@ function buildTimeline(task) {
       : `Action ${s.step_num} (${fmtTime(s.seg_start)})`;
     seg.appendChild(el("span", null, s.is_done ? "✓" : s.is_sleep ? "z" : String(s.step_num)));
     seg.addEventListener("click", () => {
-      if (s.index === state.currentStepIdx) bumpRewind(); // re-watching the same step
-      gotoStep(s.index, true);
+      if (s.index === state.currentStepIdx) {
+        requestRewatchPlay();
+      } else {
+        gotoStep(s.index, true);
+      }
     });
     track.appendChild(seg);
   });
@@ -640,11 +713,19 @@ function paintTimeline(task) {
   const track = $("#tl-track");
   if (!track) return;
   const segs = track.querySelectorAll(".tl-seg");
+  const a = state.annotations[task.id];
   task.steps.forEach((s, i) => {
     const seg = segs[i];
     if (!seg) return;
-    seg.className = "tl-seg " + stepStatus(task, s);
-    if (isFlagged(task.id) && stepStatus(task, s) === "missing") seg.classList.add("flag");
+    const st = stepStatus(task, s);
+    // Missing confidence: show green/amber lightly (same hue as final state).
+    let cls = st;
+    if (st === "partial") {
+      const saved = a && a.steps ? a.steps[s.step_num] : null;
+      cls = (saved && saved.cant_tell) ? "cant soft" : "done soft";
+    }
+    seg.className = "tl-seg " + cls;
+    if (isFlagged(task.id) && stepNeedsWork(task, s)) seg.classList.add("flag");
     if (s.index === state.currentStepIdx) seg.classList.add("current");
   });
 }
@@ -684,15 +765,20 @@ function gotoStep(idx, autoplay) {
 
   const video = $("#video");
   state.stopAt = step.seg_end;
-  try { video.currentTime = step.seg_start; } catch (e) {}
+  // Mark programmatic seek so seeked/play bookkeeping stays clean.
+  state.ignoreSeek = true;
+  try { video.currentTime = step.seg_start; } catch (e) { state.ignoreSeek = false; }
+  setTimeout(() => { state.ignoreSeek = false; }, 350);
   state.lastVideoTime = step.seg_start;
   if (autoplay) {
     video.play().catch(() => {});
+  } else {
+    syncPlayPauseButton();
   }
 }
 
 function renderStepPanel(task, step) {
-  const a = state.annotations[task.id];
+  const a = ensureAnnotation(task);
   const saved = a.steps[step.step_num] || {};
   $("#step-title").textContent = step.is_done
     ? `Step ${step.step_num} · Finished`
@@ -706,10 +792,10 @@ function renderStepPanel(task, step) {
   const body = $("#annotate-body");
   if (isAuto(step)) {
     if (step.is_done) {
-      sleepNote.textContent = 'The agent signalled that it had finished the task here. Nothing to describe — press "Next" to continue.';
+      sleepNote.textContent = 'The agent signalled that it had finished the task here. Nothing to describe — click the next step on the timeline, or finish the wrap-up questions when ready.';
     } else {
       const secs = step.sleep_seconds != null ? ` (${step.sleep_seconds}s)` : "";
-      sleepNote.textContent = `The agent simply paused / waited here${secs}. Nothing to describe — press "Next action" to continue.`;
+      sleepNote.textContent = `The agent simply paused / waited here${secs}. Nothing to describe — click the next step on the timeline to continue.`;
     }
     sleepNote.classList.remove("hidden");
     body.classList.add("hidden");
@@ -721,24 +807,8 @@ function renderStepPanel(task, step) {
   // free-text write-in answer
   $("#answer-prompt").textContent = state.cfg.answer_prompt;
 
-  // dev-mode ground truth (hidden for real participants)
-  const dev = $("#dev-gt");
-  dev.innerHTML = "";
-  if (step.gt) {
-    dev.appendChild(el("span", "dev-tag", "DEV · ground truth"));
-    dev.appendChild(el("code", "dev-action", step.gt.action || "(none)"));
-    if (step.gt.category) dev.appendChild(el("span", "dev-cat", step.gt.category));
-    if (step.gt.tier) dev.appendChild(el("span", "dev-cat", "tier: " + step.gt.tier));
-    if (step.gt.response) {
-      const details = el("details", "dev-resp");
-      details.appendChild(el("summary", null, "model reasoning / output log"));
-      details.appendChild(el("pre", "dev-resp-body", step.gt.response));
-      dev.appendChild(details);
-    }
-    dev.classList.remove("hidden");
-  } else {
-    dev.classList.add("hidden");
-  }
+  // Agent output (log arm) and/or researcher DEV ground truth
+  renderStepGt(step);
 
   const answer = $("#step-answer");
   answer.placeholder = state.cfg.answer_placeholder;
@@ -752,6 +822,10 @@ function renderStepPanel(task, step) {
   cant.onclick = () => selectCantTell(task, step);
   $("#cant-tell-caution").textContent = state.cfg.cant_tell_caution || "";
 
+  // Per-step confidence (4-point scale, before optional notes).
+  buildStepConfidence(task, step, saved);
+  highlightConfidenceIfNeeded(task, step);
+
   // optional extra notes
   const note = $("#step-note");
   note.value = saved.note || "";
@@ -762,20 +836,195 @@ function renderStepPanel(task, step) {
   };
 }
 
+function formatElementHit(hit, idx, total) {
+  const parts = [];
+  if (Array.isArray(hit.pixel_xy) && hit.pixel_xy.length >= 2) {
+    parts.push(`@ (${Math.round(hit.pixel_xy[0])}, ${Math.round(hit.pixel_xy[1])})`);
+  }
+  const widget = [hit.role, hit.name].filter(Boolean).join(": ");
+  if (widget) parts.push(widget);
+  if (hit.app && hit.app !== hit.window) parts.push(`in ${hit.app}`);
+  else if (hit.window) parts.push(`in ${hit.window}`);
+  if (hit.coarse) parts.push("(coarse — window/container only)");
+  const prefix = total > 1 ? `#${idx + 1} ` : "";
+  return prefix + (parts.join(" · ") || "(element logged, no details)");
+}
+
+/** Participant-facing agent log (log=1 arms). */
+function renderAgentOutput(step) {
+  const box = $("#dev-gt");
+  box.innerHTML = "";
+  const gt = step.gt;
+  if (!gt || (!gt.action && !gt.response)) {
+    box.classList.add("hidden");
+    return;
+  }
+  box.className = "agent-output";
+  box.appendChild(el("div", "agent-output-label", "Agent log"));
+  const parts = [];
+  if (gt.action) parts.push(String(gt.action).trim());
+  if (gt.response) parts.push(String(gt.response).trim());
+  box.appendChild(el("pre", "agent-output-body", parts.join("\n\n")));
+  box.classList.remove("hidden");
+}
+
+/** Researcher-only DEV panel (STUDY_DEV + log=0): action + element hits. */
+function renderDevGt(step) {
+  const dev = $("#dev-gt");
+  dev.innerHTML = "";
+  const gt = step.gt;
+  if (!gt) {
+    dev.classList.add("hidden");
+    return;
+  }
+  dev.className = "dev-gt";
+  dev.appendChild(el("span", "dev-tag", "DEV · ground truth"));
+  if (gt.action) {
+    dev.appendChild(el("code", "dev-action", gt.action));
+  }
+
+  const elems = gt.elements || [];
+  if (elems.length) {
+    const box = el("div", "dev-elements");
+    box.appendChild(el("div", "dev-elements-title", "Element clicked (accessibility tree)"));
+    elems.forEach((hit, i) => {
+      box.appendChild(el("div", "dev-element-hit", formatElementHit(hit, i, elems.length)));
+    });
+    dev.appendChild(box);
+  }
+
+  if (gt.response) {
+    const details = el("details", "dev-resp");
+    details.open = true;
+    details.appendChild(el("summary", null, "model reasoning / output log"));
+    details.appendChild(el("pre", "dev-resp-body", gt.response));
+    dev.appendChild(details);
+  }
+  dev.classList.remove("hidden");
+}
+
+function renderStepGt(step) {
+  const showLog = !!(state.showLog || (state.cfg && state.cfg.show_log));
+  // Yellow "DEV · ground truth" is opt-in via ?dev_gt=1 (not merely STUDY_DEV /
+  // the Quick start button). Participant log arms always use Agent log.
+  const showDevPanel = /^(1|true|yes|on)$/i.test(qs("dev_gt") || qs("dev_panel") || "");
+  if (showLog) {
+    renderAgentOutput(step);
+  } else if (showDevPanel) {
+    renderDevGt(step);
+  } else {
+    const box = $("#dev-gt");
+    if (box) {
+      box.innerHTML = "";
+      box.classList.add("hidden");
+    }
+  }
+}
+
+function buildStepConfidence(task, step, saved) {
+  const prompt = $("#confidence-prompt");
+  const box = $("#confidence-options");
+  prompt.textContent = state.cfg.confidence_prompt || "How confident are you?";
+  box.innerHTML = "";
+  (state.cfg.confidence_options || []).forEach((o) => {
+    const wrap = el("label", "opt");
+    const input = el("input");
+    input.type = "radio";
+    input.name = "confidence-" + task.id + "-" + step.step_num;
+    input.value = o.id;
+    input.checked = saved.confidence === o.id;
+    if (input.checked) wrap.classList.add("selected");
+    wrap.appendChild(input);
+    const lh = splitLabelHint(o);
+    const tw = el("div", "opt-text");
+    tw.appendChild(el("span", "opt-label", lh.label));
+    if (lh.hint) tw.appendChild(el("span", "opt-hint", lh.hint));
+    wrap.appendChild(tw);
+    input.addEventListener("change", () => {
+      box.querySelectorAll(".opt").forEach((x) => x.classList.remove("selected"));
+      wrap.classList.add("selected");
+      const s = ensureStep(task, step);
+      s.confidence = o.id;
+      afterAnnotate(task, step);
+    });
+    box.appendChild(wrap);
+  });
+}
+
 function ensureStep(task, step) {
-  const a = state.annotations[task.id];
-  if (!a.steps[step.step_num]) a.steps[step.step_num] = { answer: "", cant_tell: false, note: "", rewinds: 0 };
+  const a = ensureAnnotation(task);
+  if (!a.steps[step.step_num]) {
+    a.steps[step.step_num] = {
+      // rewinds = play count (1 = first Play; +1 via Replay / timeline re-click).
+      answer: "", cant_tell: false, confidence: null, note: "", rewinds: 0,
+    };
+  }
+  if (!("confidence" in a.steps[step.step_num])) a.steps[step.step_num].confidence = null;
+  if (!("rewinds" in a.steps[step.step_num])) a.steps[step.step_num].rewinds = 0;
   return a.steps[step.step_num];
 }
 
-// Count a replay ("rewind") of the current step's clip.
-function bumpRewind() {
+// First actual playback of a step → count as 1 view.
+// Counts on the play event immediately (no minimum watch time).
+function markStepPlayed() {
   const task = currentTask();
   const step = task && task.steps[state.currentStepIdx];
-  if (!step) return;
+  if (!task || !step) return;
   const s = ensureStep(task, step);
-  s.rewinds = (s.rewinds || 0) + 1;
-  scheduleSave(task.id);
+  if (state.countNextPlayAsRewatch) {
+    state.countNextPlayAsRewatch = false;
+    s.rewinds = Math.max(1, s.rewinds || 0) + 1;
+    scheduleSave(task.id);
+    return;
+  }
+  if ((s.rewinds || 0) < 1) {
+    s.rewinds = 1;
+    scheduleSave(task.id);
+  }
+}
+
+// Extra watch via Replay / re-clicking the timeline (play starts afterward).
+function requestRewatchPlay() {
+  state.countNextPlayAsRewatch = true;
+  gotoStep(state.currentStepIdx, true);
+}
+
+function syncPlayPauseButton() {
+  const btn = $("#btn-play");
+  const video = $("#video");
+  if (!btn || !video) return;
+  if (video.paused) {
+    btn.textContent = "▶";
+    btn.setAttribute("aria-label", "Play");
+    btn.classList.remove("is-playing");
+  } else {
+    btn.textContent = "⏸";
+    btn.setAttribute("aria-label", "Pause");
+    btn.classList.add("is-playing");
+  }
+}
+
+/** Pause / resume / start this step without scrubbing. Resume does not re-count. */
+function togglePlayPause() {
+  const video = $("#video");
+  const task = currentTask();
+  const step = task && task.steps[state.currentStepIdx];
+  if (!video || !step) return;
+
+  if (!video.paused) {
+    video.pause();
+    return;
+  }
+
+  // Resume mid-clip if still inside this step's window; otherwise start from seg_start.
+  const t = video.currentTime;
+  const inWindow = t >= step.seg_start - 0.05 && t < step.seg_end - 0.05;
+  if (inWindow) {
+    state.stopAt = step.seg_end;
+    video.play().catch(() => {});
+  } else {
+    gotoStep(state.currentStepIdx, true);
+  }
 }
 
 function onAnswerInput(task, step, text) {
@@ -803,6 +1052,7 @@ function selectCantTell(task, step) {
 function afterAnnotate(task, step) {
   updateStepStatusBadge(task, step);
   paintTimeline(task);
+  highlightConfidenceIfNeeded(task, step);
   const wasUnlocked = !$("#posttask-card").classList.contains("hidden");
   updatePostTaskVisibility(task);
   const nowUnlocked = !$("#posttask-card").classList.contains("hidden");
@@ -812,16 +1062,33 @@ function afterAnnotate(task, step) {
   updateOverallProgress();
   refreshTaskSelectLabels();
   scheduleSave(task.id);
+  updateAdvanceButton(task);
   maybeShowPracticeDone(task);
+}
+
+function highlightConfidenceIfNeeded(task, step) {
+  const box = $("#confidence-options");
+  const prompt = $("#confidence-prompt");
+  if (!box || !prompt) return;
+  const needs = stepStatus(task, step) === "partial";
+  box.classList.toggle("needs-confidence", needs);
+  prompt.classList.toggle("needs-confidence", needs);
 }
 
 function updateStepStatusBadge(task, step) {
   const badge = $("#step-status");
   const st = stepStatus(task, step);
-  badge.className = "step-status " + (st === "sleep" ? "done" : st);
+  let cls = st === "sleep" ? "done" : st;
+  if (st === "partial") {
+    const a = state.annotations[task.id];
+    const saved = a && a.steps ? a.steps[step.step_num] : null;
+    cls = (saved && saved.cant_tell) ? "cant soft" : "done soft";
+  }
+  badge.className = "step-status " + cls;
   badge.textContent = {
     done: "Annotated",
     cant: "Marked unclear",
+    partial: "Pick a confidence rating ↓",
     missing: "Not annotated",
     sleep: step.is_done ? "Auto (finished)" : "Auto (wait)",
   }[st];
@@ -832,83 +1099,72 @@ function updateStepStatusBadge(task, step) {
 // ------------------------------------------------------------------
 function wireWorkspace() {
   const video = $("#video");
+  // No native scrubber — play/pause via button or clicking the video; Replay / timeline for navigation.
+  video.removeAttribute("controls");
+  video.controls = false;
+
   video.addEventListener("timeupdate", () => {
     updatePlayhead(video.currentTime);
     if (state.stopAt != null && video.currentTime >= state.stopAt) {
       video.pause();
+      state.ignoreSeek = true;
       video.currentTime = state.stopAt;
+      setTimeout(() => { state.ignoreSeek = false; }, 350);
       updatePlayhead(state.stopAt);
       state.stopAt = null;
       showBadge("Paused — describe this action →");
+      syncPlayPauseButton();
     }
     state.lastVideoTime = video.currentTime;
   });
-  // Native controls: scrubbing backward inside the current step counts as a rewind.
   video.addEventListener("seeked", () => {
-    const task = currentTask();
-    const step = task && task.steps[state.currentStepIdx];
-    if (!step || state.tourActive) {
-      state.lastVideoTime = video.currentTime;
-      return;
-    }
-    const t = video.currentTime;
-    const jumpedBack = t + 0.35 < state.lastVideoTime;
-    const inStep = t >= step.seg_start - 0.05 && t <= step.seg_end + 0.05;
-    // Ignore the programmatic seeks we do in gotoStep / pause-at-end.
-    const nearSegStart = Math.abs(t - step.seg_start) < 0.12;
-    const nearSegEnd = Math.abs(t - step.seg_end) < 0.12;
-    if (jumpedBack && inStep && !nearSegStart && !nearSegEnd) {
-      bumpRewind();
-    }
-    state.lastVideoTime = t;
-    updatePlayhead(t);
+    if (state.ignoreSeek) state.ignoreSeek = false;
+    state.lastVideoTime = video.currentTime;
+    updatePlayhead(video.currentTime);
   });
   video.addEventListener("seeking", () => updatePlayhead(video.currentTime));
-  video.addEventListener("play", () => hideBadge());
-
-  $("#btn-replay").addEventListener("click", () => { bumpRewind(); gotoStep(state.currentStepIdx, true); });
-  $("#btn-prev").addEventListener("click", () => {
-    if (state.currentStepIdx > 0) gotoStep(state.currentStepIdx - 1, true);
+  video.addEventListener("play", () => {
+    hideBadge();
+    markStepPlayed();
+    syncPlayPauseButton();
   });
-  $("#btn-next").addEventListener("click", onNext);
+  video.addEventListener("pause", () => syncPlayPauseButton());
+
+  // Click the picture to pause / resume (not a scrubber).
+  video.addEventListener("click", (e) => {
+    e.preventDefault();
+    togglePlayPause();
+  });
+
+  const playBtn = $("#btn-play");
+  if (playBtn) {
+    playBtn.addEventListener("click", () => togglePlayPause());
+  }
+  const advance = $("#btn-advance-task");
+  if (advance) advance.addEventListener("click", advanceAfterTaskComplete);
 }
 
 function updateNavButtons(task) {
-  const isLast = state.currentStepIdx >= task.steps.length - 1;
-  let label = "Next action →";
-  if (isLast) {
-    if (state.inPractice) label = "Finish practice →";
-    else if (state.currentTaskIdx >= state.tasks.length - 1) label = "Submit study →";
-    else label = "Next recording →";
-  }
-  $("#btn-next").textContent = label;
-  $("#btn-prev").disabled = state.currentStepIdx === 0;
+  updateAdvanceButton(task);
 }
 
-function onNext() {
+function updateAdvanceButton(task) {
+  const btn = $("#btn-advance-task");
+  if (!btn || !task) return;
+  const ready = taskComplete(task);
+  btn.classList.toggle("hidden", !ready || state.inPractice);
+  if (!ready) return;
+  if (state.currentTaskIdx >= state.tasks.length - 1) {
+    btn.textContent = "Review & submit →";
+  } else {
+    btn.textContent = "Next recording →";
+  }
+}
+
+/** After all steps + wrap-up are done: practice done, next recording, or review. */
+function advanceAfterTaskComplete() {
   const task = currentTask();
-  if (!task) return;
-  if (state.currentStepIdx < task.steps.length - 1) {
-    gotoStep(state.currentStepIdx + 1, true);
-    return;
-  }
-  // On the last step. First make sure every action has been described.
-  if (!allStepsAnnotated(task)) {
-    state.flaggedTasks.add(task.id);
-    paintTimeline(task);
-    const firstMissing = task.steps.find(
-      (s) => !isAuto(s) && stepStatus(task, s) === "missing");
-    if (firstMissing) gotoStep(firstMissing.index, true);
-    return;
-  }
-  // Then make sure the (now unlocked) wrap-up questions are answered.
-  updatePostTaskVisibility(task);
-  if (!questionsComplete(task)) {
-    state.flaggedTasks.add(task.id);
-    updateNeedsFlags(task);
-    $("#posttask-card").scrollIntoView({ behavior: "smooth", block: "center" });
-    return;
-  }
+  if (!task || !taskComplete(task)) return;
   if (state.inPractice) {
     showPracticeDone();
     return;
@@ -919,6 +1175,11 @@ function onNext() {
   } else {
     openReview();
   }
+}
+
+function onNext() {
+  // Kept for any leftover callers; step nav is via the timeline.
+  advanceAfterTaskComplete();
 }
 
 let badgeTimer = null;
@@ -980,7 +1241,7 @@ function setSaveStatus(kind) {
 // ------------------------------------------------------------------
 // Guided walkthrough (practice recording)
 // ------------------------------------------------------------------
-const TOUR_STEPS = [
+const TOUR_BASE_STEPS = [
   {
     sel: ".task-card",
     title: "Task description",
@@ -989,31 +1250,56 @@ const TOUR_STEPS = [
   {
     sel: ".video-wrap",
     title: "Video player",
-    body: "Press play to watch. The recording pauses after each action so you can describe it. You can also use the player controls to scrub within a step.",
+    body: "Press the round Play button under the video (or click the video) to watch. You can Pause and resume anytime. The recording also pauses after each action so you can describe it. To rewatch a step, click that step on the timeline again.",
   },
   {
     sel: "#timeline",
     title: "Step timeline",
-    body: "Each segment is one step — click any of them to jump there and replay it. Green = you've described it, orange = you marked \"I can't tell\", gray = still missing. Striped steps are when the agent was just waiting — no annotation needed, but you can still click them to replay.",
+    body: "Each segment is one step — click any of them to jump there and play it. Click the current step again to replay it. Green = described (lighter green until you pick confidence), orange = \"I can't tell\" (lighter until confidence), gray = still empty. Striped steps are when the agent was just waiting — no annotation needed.",
   },
   {
     sel: "#annotate-card",
     title: "Describe the action",
-    body: "When the video pauses, write what the agent just did in your own words. Use \"I can't tell\" only when it's genuinely unclear.",
-  },
-  {
-    sel: "#familiarity-card",
-    title: "Familiarity + wrap-up",
-    body: "Answer how familiar you are with this kind of task. After you've described every action, questions about the whole recording unlock at the bottom — then you can move on.",
+    body: "When the video pauses, write what the agent just did in your own words, then pick how confident you are. Use \"I can't tell\" only when it's genuinely unclear (you'll still rate confidence).",
   },
 ];
+
+const TOUR_ANNOTATE_BODY_LOG =
+  "When the video pauses, write what the agent just did in your own words, then pick how confident you are. Use \"I can't tell\" only when it's genuinely unclear (you'll still rate confidence). First try to judge the action from the video alone; you can use the agent log as a hint afterward, but logs can be wrong or incomplete — trust what you see on screen when they disagree.";
+
+const TOUR_LOG_STEP = {
+  sel: "#dev-gt",
+  title: "Agent log",
+  body: "In this version of the study you also see the agent's own log for each step — the action it planned (for example a click) and any reasoning it wrote. Treat the video as the primary evidence of what happened on screen; the agent log is extra context that may help (or sometimes disagree with what you see).",
+  place: "left",
+};
+
+const TOUR_END_STEPS = [
+  {
+    sel: "#posttask-locked",
+    title: "Wrap-up questions",
+    body: "After you've described every action, questions about the whole recording unlock here — familiarity with the task, whether the agent succeeded, efficiency, and how clear the actions were.",
+  },
+];
+
+function getTourSteps() {
+  const steps = TOUR_BASE_STEPS.map((s) => ({ ...s }));
+  const showLog = !!(state.showLog || (state.cfg && state.cfg.show_log));
+  if (showLog) {
+    const annotate = steps.find((s) => s.sel === "#annotate-card");
+    if (annotate) annotate.body = TOUR_ANNOTATE_BODY_LOG;
+    steps.push(TOUR_LOG_STEP);
+  }
+  return steps.concat(TOUR_END_STEPS);
+}
 
 function wireTour() {
   const next = $("#tour-next");
   const prev = $("#tour-prev");
   if (next) {
     next.addEventListener("click", () => {
-      if (state.tourIdx >= TOUR_STEPS.length - 1) endTour();
+      const steps = getTourSteps();
+      if (state.tourIdx >= steps.length - 1) endTour();
       else showTourStep(state.tourIdx + 1);
     });
   }
@@ -1023,7 +1309,7 @@ function wireTour() {
     });
   }
   window.addEventListener("resize", () => {
-    if (state.tourActive) positionTour(TOUR_STEPS[state.tourIdx]);
+    if (state.tourActive) positionTour(getTourSteps()[state.tourIdx]);
   });
 }
 
@@ -1031,6 +1317,12 @@ function startTour() {
   state.tourActive = true;
   state.tourIdx = 0;
   $("#tour-overlay").classList.remove("hidden");
+  // Ensure agent-output tip has a target on log arms (first annotatable step).
+  if (state.showLog || (state.cfg && state.cfg.show_log)) {
+    const task = currentTask();
+    const step = task && task.steps[state.currentStepIdx];
+    if (step) renderStepGt(step);
+  }
   showTourStep(0);
 }
 
@@ -1040,9 +1332,10 @@ function endTour() {
 }
 
 function showTourStep(idx) {
+  const steps = getTourSteps();
   state.tourIdx = idx;
-  const step = TOUR_STEPS[idx];
-  $("#tour-step-num").textContent = `${idx + 1} / ${TOUR_STEPS.length}`;
+  const step = steps[idx];
+  $("#tour-step-num").textContent = `${idx + 1} / ${steps.length}`;
   $("#tour-title").textContent = step.title;
   $("#tour-body").textContent = step.body;
   const prev = $("#tour-prev");
@@ -1051,7 +1344,7 @@ function showTourStep(idx) {
     prev.classList.toggle("hidden", idx === 0);
     prev.disabled = idx === 0;
   }
-  $("#tour-next").textContent = idx >= TOUR_STEPS.length - 1 ? "Got it — start practicing" : "Next";
+  $("#tour-next").textContent = idx >= steps.length - 1 ? "Got it — start practicing" : "Next";
   $("#tour-tooltip").classList.toggle("tour-first", idx === 0);
   positionTour(step);
 }
@@ -1061,7 +1354,10 @@ function positionTour(step) {
   const spot = $("#tour-spotlight");
   const tip = $("#tour-tooltip");
   if (!target || !spot || !tip) return;
-  target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  // Don't scroll the wrap-up lock into a bad place; only nudge other targets.
+  if (step.place !== "left" && step.sel !== "#posttask-locked") {
+    target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
 
   const r = target.getBoundingClientRect();
   const pad = 8;
@@ -1070,16 +1366,33 @@ function positionTour(step) {
   spot.style.width = `${Math.min(window.innerWidth - 16, r.width + pad * 2)}px`;
   spot.style.height = `${Math.min(window.innerHeight - 16, r.height + pad * 2)}px`;
 
-  // Place tooltip below the target when possible, otherwise above.
   const tipW = Math.min(340, window.innerWidth - 32);
   tip.style.width = tipW + "px";
-  let top = r.bottom + 14;
-  let left = Math.min(Math.max(16, r.left), window.innerWidth - tipW - 16);
+  // Measure with a temporary on-screen position.
   tip.style.top = "0px";
-  tip.style.left = left + "px";
+  tip.style.left = "0px";
   const th = tip.offsetHeight || 160;
-  if (top + th > window.innerHeight - 16) {
-    top = Math.max(16, r.top - th - 14);
+  const gap = 16;
+
+  let top;
+  let left;
+  if (step.place === "left") {
+    // Pin to the far left of the viewport so it never covers the right-hand panel.
+    left = 16;
+    top = Math.min(
+      Math.max(16, r.top),
+      Math.max(16, window.innerHeight - th - 16)
+    );
+  } else {
+    // Original default: prefer below; if that won't fit, place above.
+    left = Math.min(Math.max(16, r.left), window.innerWidth - tipW - 16);
+    top = r.bottom + gap;
+    if (top + th > window.innerHeight - 16) {
+      top = Math.max(16, r.top - th - gap);
+    }
+    // Keep the whole tooltip (and its Next button) on-screen.
+    top = Math.min(top, window.innerHeight - th - 16);
+    top = Math.max(16, top);
   }
   tip.style.top = top + "px";
   tip.style.left = left + "px";
@@ -1128,7 +1441,7 @@ function openReview() {
     row.addEventListener("click", () => {
       showScreen("screen-work");
       openTask(i);
-      const firstMissing = t.steps.find((s) => !isAuto(s) && stepStatus(t, s) === "missing");
+      const firstMissing = t.steps.find((s) => stepNeedsWork(t, s));
       if (firstMissing) setTimeout(() => gotoStep(firstMissing.index, false), 60);
     });
     list.appendChild(row);

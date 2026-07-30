@@ -11,7 +11,11 @@ venv/
 # Local participant submissions — never publish these
 annotation_app/data/
 
-# Raw results bundle is large. It is ignored by default; only the recordings
-# the study actually serves are force-added (git add -f) so the repo stays
-# small and self-contained. Everything else here remains untracked.
+# Raw results bundles are large. Ignored by default; only the recordings the
+# study actually serves are force-added (git add -f) so the repo stays small.
 /m3_exp1_40tasks_bundle/
+/prolific_bundle/
+/prolific_bundle.zip
+/prolific_bundle_element_log_fixed/
+/prolific_bundle_element_log_fixed.zip
+

@@ -25,21 +25,35 @@
  *
  * Stored record shape (clean, one node per participant):
  *   /responses/{participantId}
- *     participant_id, prolific_pid, study_id, session_id
+ *     participant_id, prolific_pid, condition, show_log, study_id, session_id
  *     created_at, updated_at, submitted_at
  *     profile/  { age, gender, gender_self_describe, occupation, education,
  *                 english, computer_freq, ai_tools, experience }
  *     task_order/ [taskId, ...]
  *     annotations/{taskId}
  *        familiarity, success, efficiency, understanding, task_comment
- *        steps/{stepNum} (1-based, matches the UI) { answer, cant_tell, note, auto, rewinds }
+ *        steps/{stepNum} (1-based, matches the UI)
+ *          { answer, cant_tell, confidence, note, auto, rewinds }
+ *            rewinds = times this step's clip was played (1 = first Play;
+ *            +1 for Replay or re-clicking the timeline segment). Native
+ *            video scrubbing is disabled.
+ *
+ * participant_id is typically "<prolific_pid>__<condition>__<log|nolog>"
+ * so the four arms never overwrite each other.
  * ------------------------------------------------------------------------- */
 
 (function () {
   // Realtime Database base URL (no trailing slash).
   const DB_URL = "https://legible-agents-pro-default-rtdb.firebaseio.com";
   const LS_PREFIX = "study_record:";
-  let STUDY = { tasks: [], completion_url: null, completion_code: "STUDY-COMPLETE" };
+  let STUDY = {
+    tasks: [],
+    practice_tasks: [],
+    condition: "native",
+    show_log: false,
+    completion_url: null,
+    completion_code: "STUDY-COMPLETE",
+  };
 
   const nowIso = () => new Date().toISOString();
   const lsKey = (pid) => LS_PREFIX + pid;
@@ -87,6 +101,8 @@
       STUDY = {
         tasks: study.tasks || [],
         practice_tasks: study.practice_tasks || [],
+        condition: study.condition || (study.config && study.config.condition) || "native",
+        show_log: !!(study.show_log || (study.config && study.config.show_log)),
         completion_url: study.completion_url || null,
         completion_code: study.completion_code || "STUDY-COMPLETE",
       };
@@ -95,12 +111,24 @@
     // Mirrors POST /api/participant.
     async participant(body) {
       body = body || {};
-      const pid = (body.prolific_pid || "").trim() || randomPid();
+      const condition = (body.condition || STUDY.condition || "native").trim().toLowerCase();
+      const showLog = typeof body.show_log === "boolean" ? body.show_log
+        : typeof body.log === "boolean" ? body.log
+        : !!STUDY.show_log;
+      const logTag = showLog ? "log" : "nolog";
+      const suffix = `${condition}__${logTag}`;
+      const prolific = (body.prolific_pid || "").trim();
+      const base = prolific || randomPid();
+      const pid = prolific
+        ? `${prolific}__${suffix}`
+        : (base.endsWith("__" + suffix) ? base : `${base}__${suffix}`);
       let record = loadRecord(pid);
       if (!record) {
         record = {
           participant_id: pid,
-          prolific_pid: (body.prolific_pid || "").trim(),
+          prolific_pid: prolific,
+          condition: condition,
+          show_log: showLog,
           study_id: (body.study_id || "").trim(),
           session_id: (body.session_id || "").trim(),
           created_at: nowIso(),
@@ -113,10 +141,14 @@
         if (body.study_id) record.study_id = body.study_id.trim();
         if (body.session_id) record.session_id = body.session_id.trim();
         if (body.profile) record.profile = body.profile;
+        record.condition = condition;
+        record.show_log = showLog;
       }
       persist(record);
       return {
         participant_id: record.participant_id,
+        condition: condition,
+        show_log: showLog,
         profile: record.profile || {},
         submitted_at: record.submitted_at,
         tasks: STUDY.tasks,

@@ -24,26 +24,49 @@ Then open http://127.0.0.1:8000
 
 - `annotation_app/` — Flask server, static frontend, and study config.
   - `config.py` — everything a researcher tweaks: questions, task selection,
-    completion link, playback tuning, and `DEV_MODE`.
+    completion link, playback tuning, scaffold conditions, and `DEV_MODE`.
   - `app.py` — server (serves the app, streams video with HTTP Range support,
     saves annotations to `annotation_app/data/`).
   - `static/` — the single-page frontend (`index.html`, `app.js`, `style.css`).
-- `m3_exp1_40tasks_bundle/` — only the recordings the study serves
-  (`recording.mp4` + `traj.jsonl` + `session.json` per task) plus the task
-  index (`results_viewer/index.json`).
+- `prolific_bundle_element_log_fixed/` — Claude Sonnet 4.6 recordings for both
+  scaffolds (`native` and `OSWorld`), 8 tasks each (same task IDs), with fixed
+  element-level click logs.
+- `m3_exp1_40tasks_bundle/` — short MiniMax clips used only for the guided
+  practice walkthrough.
+
+## Between-subjects arms (Prolific)
+
+Same quiz and same 8 task IDs. Split participants across **4 URLs**
+(scaffold × agent-log visibility):
+
+```
+https://<your-pages-host>/?condition=native&log=0&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://<your-pages-host>/?condition=native&log=1&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://<your-pages-host>/?condition=osworld&log=0&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://<your-pages-host>/?condition=osworld&log=1&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+```
+
+- `condition=native` → Claude Sonnet 4.6 native scaffold videos
+- `condition=osworld` → Claude Sonnet 4.6 OSWorld scaffold videos
+- `log=0` → video only (no agent text)
+- `log=1` → also show the agent's action + reasoning as “Agent output”
+
+Participant records store `condition` + `show_log` and are keyed as
+`<prolific_pid>__<condition>__<log|nolog>`.
 
 ## Host it on GitHub Pages (no server)
 
 The app also runs fully static, so you can host it on GitHub Pages. A prebuilt
-`index.html` + `study.json` at the repo root drive the study; saving goes through
-`annotation_app/static/backend.js` (localStorage by default, Firebase-ready).
+`index.html` + `study_native.json` / `study_osworld.json` at the repo root drive
+the study (`study.json` aliases the default arm); saving goes through
+`annotation_app/static/backend.js` (localStorage + Firebase).
 
 1. **Rebuild the static bundle** whenever `config.py`, task selection, or the
    frontend HTML changes:
 
    ```bash
    cd annotation_app
-   python3 build_static.py     # writes ../index.html and ../study.json
+   python3 build_static.py     # writes ../index.html and study_*.json
    ```
 
 2. **Enable Pages**: repo Settings → Pages → Deploy from a branch → `main` / root.
@@ -52,7 +75,7 @@ The app also runs fully static, so you can host it on GitHub Pages. A prebuilt
 
 Participant id comes from the Prolific `?PROLIFIC_PID=...` URL param (random
 fallback). The Flask app (`python3 app.py`) is unchanged and still works for
-local development.
+local development (`?condition=` works there too).
 
 ## Data storage (Firebase Realtime Database)
 
@@ -71,8 +94,8 @@ also caches to `localStorage` as an offline fallback / resume store.
 Stored structure (one node per participant):
 
 ```
-/responses/{participantId}
-  participant_id, prolific_pid, study_id, session_id
+/responses/{participantId}          # usually "<prolific_pid>__<condition>"
+  participant_id, prolific_pid, condition, study_id, session_id
   created_at, updated_at, submitted_at
   profile/       age, gender, gender_self_describe, occupation, education,
                  english, computer_freq, ai_tools, experience

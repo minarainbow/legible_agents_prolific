@@ -182,14 +182,12 @@
           </div>
 
           <div class="video-wrap">
-            <video id="video" preload="auto" playsinline muted controls controlsList="nodownload noplaybackrate"></video>
+            <video id="video" preload="auto" playsinline muted></video>
             <div id="video-badge" class="video-badge hidden"></div>
           </div>
 
           <div class="video-controls">
-            <button id="btn-replay" class="btn ghost">↻ Replay this step</button>
-            <button id="btn-prev" class="btn ghost">← Previous</button>
-            <button id="btn-next" class="btn primary">Next action →</button>
+            <button id="btn-play" class="btn-play-round" type="button" aria-label="Play">▶</button>
           </div>
 
           <div class="timeline" id="timeline"></div>
@@ -213,17 +211,15 @@
               <button id="btn-cant-tell" class="btn cant-tell"></button>
               <p id="cant-tell-caution" class="cant-caution"></p>
 
+              <label class="section-label spaced" id="confidence-prompt"></label>
+              <div id="confidence-options" class="options stack"></div>
+
               <label class="section-label spaced" for="step-note">
                 Anything else to add?
               </label>
               <textarea id="step-note" rows="2"
                 placeholder="Optional: extra explanation, or why it was hard to tell..."></textarea>
             </div>
-          </div>
-
-          <div class="familiarity-card" id="familiarity-card">
-            <label id="familiarity-prompt" class="section-label"></label>
-            <div id="familiarity-options" class="options stack"></div>
           </div>
 
           <div class="posttask-locked" id="posttask-locked">
@@ -235,7 +231,10 @@
             <div class="posttask-title">Now that you've described every action</div>
             <p class="posttask-sub">A few quick questions about this whole recording.</p>
 
-            <label class="section-label" id="success-prompt"></label>
+            <label class="section-label" id="familiarity-prompt"></label>
+            <div id="familiarity-options" class="options stack"></div>
+
+            <label class="section-label spaced" id="success-prompt"></label>
             <div id="success-options" class="options stack"></div>
 
             <label class="section-label spaced" id="efficiency-prompt"></label>
@@ -243,6 +242,10 @@
 
             <label class="section-label spaced" id="understanding-prompt"></label>
             <div id="understanding-options" class="options stack"></div>
+
+            <button type="button" id="btn-advance-task" class="btn primary advance-task hidden">
+              Next recording →
+            </button>
           </div>
         </div>
       </div>
@@ -299,7 +302,7 @@
     </div>
   </div>
 
-  <script>window.STUDY_STATIC=true;window.STUDY_URL="study.json";</script>
+  <script>window.STUDY_STATIC=true;</script>
   <script src="annotation_app/static/backend.js"></script>
   <script src="annotation_app/static/app.js"></script>
 </body>

@@ -15,9 +15,34 @@ import os
 # Root of the study repo (folder that contains this app and the results bundle).
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# The recordings bundle produced by the agent runs.
-BUNDLE_DIR = os.path.join(REPO_ROOT, "m3_exp1_40tasks_bundle")
-INDEX_JSON = os.path.join(BUNDLE_DIR, "results_viewer", "index.json")
+# Primary stimulus bundle: Claude Sonnet 4.6 under two scaffolds (native vs
+# OSWorld), with fixed element-level click logs.
+# Folder layout: <condition_folder>/<domain>__<id8>/recording.mp4
+BUNDLE_DIR = os.path.join(REPO_ROOT, "prolific_bundle_element_log_fixed")
+
+# Practice walkthrough still uses short MiniMax clips from the older bundle
+# (same quiz UX; not part of the scored Claude contrast).
+PRACTICE_BUNDLE_DIR = os.path.join(REPO_ROOT, "m3_exp1_40tasks_bundle")
+PRACTICE_INDEX_JSON = os.path.join(
+    PRACTICE_BUNDLE_DIR, "results_viewer", "index.json"
+)
+
+# Between-subjects scaffold conditions. Prolific study URLs differ by
+# ?condition=native|osworld  and  ?log=0|1  (4 arms total).
+# Each arm uses the same 8 task IDs / quiz; videos differ by scaffold, and
+# log=1 shows the agent's action text + reasoning to participants.
+CONDITIONS = {
+    "native": "Claude-sonnet-4.6 (native scaffold)",
+    "osworld": "Claude-sonnet-4.6 (OSWorld scaffold)",
+}
+# Default when the URL omits condition (local testing). Override with
+# STUDY_CONDITION=osworld python3 app.py
+DEFAULT_CONDITION = os.environ.get("STUDY_CONDITION", "native").strip().lower()
+
+# Default for ?log= when omitted. Override with STUDY_SHOW_LOG=1
+DEFAULT_SHOW_LOG = os.environ.get("STUDY_SHOW_LOG", "").lower() in (
+    "1", "true", "yes", "on", "log",
+)
 
 # --------------------------------------------------------------------------
 # DEV MODE
@@ -46,7 +71,7 @@ RANDOMIZE_TASKS = False
 
 # Specific recordings to force-include (and place first) within a domain,
 # keyed by domain -> list of example_ids. With TASKS_PER_DOMAIN = 1 this picks
-# exactly the one recording listed per domain.
+# exactly the one recording listed per domain. Same IDs in both scaffold arms.
 PINNED_TASKS = {
     "chrome": ["030eeff7-b492-4218-b312-701ec99ee0cc"],            # Enable 'Do Not Track'
     "gimp": ["06ca5602-62ca-47f6-ad4f-da151cde54cc"],             # Set image to Palette-Based
@@ -58,12 +83,11 @@ PINNED_TASKS = {
     "vs_code": ["57242fad-77ca-454f-b71b-f187181a9f23"],          # Create new python file test.py
 }
 
-# Short recordings used for the one-time guided practice walkthrough.
-# The frontend picks ONE at random per participant (not part of the scored set).
+# Short recording used for the one-time guided practice walkthrough.
+# Always the same task (not randomized) so the tutorial stays consistent.
+# Lives under PRACTICE_BUNDLE_DIR (MiniMax), not the Claude contrast bundle.
 PRACTICE_TASK_POOL = [
-    "3ef2b351-8a84-4ff2-8724-d86eae9b842e",  # writer · center-align heading (~45s, 2 actions)
-    "5e2d93d8-8ad0-4435-b150-1692aacaa994",  # vs_code · save as workspace (~71s, 4 actions)
-    "0f84bef9-9790-432e-92b7-eece357603fb",  # impress · dual-screen launch (~72s, 4 actions)
+    "0f84bef9-9790-432e-92b7-eece357603fb",  # impress · single-monitor presentation
 ]
 
 # --------------------------------------------------------------------------
@@ -159,7 +183,8 @@ EXPERIENCE_OPTIONS = [
 ]
 
 # --------------------------------------------------------------------------
-# Per-task familiarity question (asked before each recording).
+# Per-task familiarity question (asked with wrap-up questions after each
+# recording's actions are annotated).
 # --------------------------------------------------------------------------
 FAMILIARITY_PROMPT = (
     "How familiar are you with this kind of task — could you do it yourself in "
@@ -170,6 +195,15 @@ FAMILIARITY_OPTIONS = [
     {"id": "somewhat", "label": "Somewhat — I could do it, with some effort"},
     {"id": "slightly", "label": "A little — I'd struggle to do it myself"},
     {"id": "not", "label": "Not at all — I couldn't do this task"},
+]
+
+# Per-step confidence (asked after the write-in / can't-tell, before optional notes).
+CONFIDENCE_PROMPT = "How confident are you in your description of this action?"
+CONFIDENCE_OPTIONS = [
+    {"id": "very", "label": "Very confident — I'm sure that's what happened"},
+    {"id": "somewhat", "label": "Somewhat confident — mostly sure"},
+    {"id": "slightly", "label": "A little confident — I might be wrong"},
+    {"id": "not", "label": "Not confident — I'm guessing"},
 ]
 
 # --------------------------------------------------------------------------
@@ -211,6 +245,14 @@ UNDERSTANDING_OPTIONS = [
 PROLIFIC_COMPLETION_URL = ""
 # Fallback manual completion code (used if no completion URL is set).
 COMPLETION_CODE = "STUDY-COMPLETE"
+
+# Mirror participant records to Firebase Realtime Database (same path as the
+# static GitHub Pages backend). Empty string disables remote writes.
+# Local JSON under annotation_app/data/ is always written regardless.
+FIREBASE_DB_URL = os.environ.get(
+    "FIREBASE_DB_URL",
+    "https://legible-agents-pro-default-rtdb.firebaseio.com",
+).rstrip("/")
 
 # Playback tuning: each action fires almost exactly at its logged timestamp, so
 # clip boundaries are pulled this many seconds BEFORE the next action. This gives

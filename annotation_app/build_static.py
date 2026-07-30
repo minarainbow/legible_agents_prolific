@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Generate the static (GitHub Pages) build of the annotation study.
 
-Reuses the Flask app's config + task-assignment logic to emit two files at the
-repo root:
+Emits at the repo root (2×2 arms):
 
-  study.json   the study config + the assigned tasks (with per-step segment
-               timings and STATIC video paths). No ground truth is ever written.
-  index.html   a copy of annotation_app/static/index.html rewired to load the
-               static bundle (study.json + backend.js) instead of the /api/*
-               server. Videos, CSS and JS are referenced by repo-relative paths
-               so GitHub Pages can serve everything from the repo root.
+  study_native_nolog.json / study_native_log.json
+  study_osworld_nolog.json / study_osworld_log.json
+  study.json               alias of default arm (native + nolog)
+  index.html               loads study_<condition>_<log|nolog>.json from URL
 
-Run it whenever config.py, the task selection, or the frontend HTML changes:
+Same quiz / same 8 task IDs; videos differ by scaffold; log arms include
+agent action + reasoning on each step (no accessibility-tree elements).
+
+Run whenever config, task selection, or frontend HTML changes:
 
     cd annotation_app
     python3 build_static.py
@@ -21,42 +21,70 @@ from __future__ import annotations
 import copy
 import json
 import os
+from urllib.parse import quote, unquote
 
-import app  # noqa: E402  (imports config, builds MANIFEST)
+import app  # noqa: E402
 import config  # noqa: E402
 
 REPO_ROOT = config.REPO_ROOT
-BUNDLE_NAME = os.path.basename(config.BUNDLE_DIR.rstrip("/"))
 STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 
 
-def _staticize(task: dict, *, is_practice: bool = False) -> dict:
+def _to_static_video_url(task: dict) -> str:
+    url = task.get("video_url") or ""
+    if url.startswith("/media/"):
+        return url[len("/media/"):]
+    bundle = task.get("bundle") or os.path.basename(config.BUNDLE_DIR.rstrip("/"))
+    rel = (task.get("path") or "").replace("\\", "/")
+    parts = [bundle, *rel.split("/"), "recording.mp4"]
+    return "/".join(quote(p, safe="") for p in parts if p)
+
+
+def _staticize(task: dict, *, is_practice: bool = False, keep_agent_log: bool = False) -> dict:
     task = copy.deepcopy(task)
-    task["video_url"] = f"{BUNDLE_NAME}/{task['path']}/recording.mp4"
+    task["video_url"] = _to_static_video_url(task)
     if is_practice:
         task["is_practice"] = True
     for step in task.get("steps", []):
-        step.pop("gt", None)  # never publish answers in the static bundle
+        gt = step.get("gt")
+        if not keep_agent_log:
+            step.pop("gt", None)
+        elif gt:
+            # Participants get action + response only (strip researcher extras).
+            step["gt"] = {
+                "action": gt.get("action") or "",
+                "response": gt.get("response") or "",
+            }
     return task
 
 
-def build_tasks() -> list[dict]:
-    """Assigned study tasks with STATIC video paths and no ground-truth leakage."""
-    return [_staticize(app.MANIFEST_BY_ID[tid]) for tid in app._assign_tasks()
-            if tid in app.MANIFEST_BY_ID]
+def build_tasks(condition: str, show_log: bool) -> list[dict]:
+    by_id = app.get_manifest_by_id(condition, show_log)
+    return [
+        _staticize(by_id[tid], keep_agent_log=show_log)
+        for tid in app._assign_tasks(condition)
+        if tid in by_id
+    ]
 
 
-def build_practice_tasks() -> list[dict]:
-    return [_staticize(t, is_practice=True) for t in app._practice_tasks()]
+def build_practice_tasks(show_log: bool) -> list[dict]:
+    return [
+        _staticize(t, is_practice=True, keep_agent_log=show_log)
+        for t in app.get_practice_tasks(show_log)
+    ]
 
 
-def build_study_json() -> dict:
+def build_study_json(condition: str, show_log: bool) -> dict:
+    condition = app.normalize_condition(condition)
+    show_log = app.normalize_show_log(show_log)
     return {
-        "config": app._study_config(),
+        "config": app._study_config(condition, show_log),
+        "condition": condition,
+        "show_log": show_log,
         "completion_url": config.PROLIFIC_COMPLETION_URL or None,
         "completion_code": config.COMPLETION_CODE,
-        "tasks": build_tasks(),
-        "practice_tasks": build_practice_tasks(),
+        "tasks": build_tasks(condition, show_log),
+        "practice_tasks": build_practice_tasks(show_log),
     }
 
 
@@ -66,31 +94,68 @@ def build_index_html() -> str:
 
     html = html.replace('href="/static/', 'href="annotation_app/static/')
     bootstrap = (
-        '<script>window.STUDY_STATIC=true;window.STUDY_URL="study.json";</script>\n'
+        '<script>window.STUDY_STATIC=true;</script>\n'
         '  <script src="annotation_app/static/backend.js"></script>\n'
         '  <script src="annotation_app/static/app.js"></script>'
     )
     html = html.replace('<script src="/static/app.js"></script>', bootstrap)
-    banner = ("<!-- AUTO-GENERATED by annotation_app/build_static.py — do not edit "
-              "by hand. Edit annotation_app/static/index.html and rebuild. -->\n")
+    banner = (
+        "<!-- AUTO-GENERATED by annotation_app/build_static.py — do not edit "
+        "by hand. Edit annotation_app/static/index.html and rebuild. -->\n"
+    )
     return banner + html
 
 
 def main() -> None:
-    study = build_study_json()
-    with open(os.path.join(REPO_ROOT, "study.json"), "w", encoding="utf-8") as f:
-        json.dump(study, f, ensure_ascii=False, indent=2)
+    written = []
+    for condition in config.CONDITIONS:
+        for show_log in (False, True):
+            study = build_study_json(condition, show_log)
+            tag = "log" if show_log else "nolog"
+            out_name = f"study_{condition}_{tag}.json"
+            out_path = os.path.join(REPO_ROOT, out_name)
+            with open(out_path, "w", encoding="utf-8") as f:
+                json.dump(study, f, ensure_ascii=False, indent=2)
+            n_steps = sum(len(t["steps"]) for t in study["tasks"])
+            n_gt = sum(
+                1 for t in study["tasks"] for s in t["steps"] if s.get("gt")
+            )
+            written.append(
+                f"{out_name} ({len(study['tasks'])} tasks, {n_steps} steps, "
+                f"{n_gt} steps with agent log)"
+            )
+            for t in study["tasks"][:1]:
+                decoded = "/".join(unquote(p) for p in t["video_url"].split("/"))
+                full = os.path.join(REPO_ROOT, decoded)
+                if not os.path.isfile(full):
+                    print(f"WARNING: missing video for sample task: {full}")
+
+    # Back-compat aliases
+    default_c = app.normalize_condition(config.DEFAULT_CONDITION)
+    for alias, src_name in (
+        ("study.json", f"study_{default_c}_nolog.json"),
+        ("study_native.json", "study_native_nolog.json"),
+        ("study_osworld.json", "study_osworld_nolog.json"),
+    ):
+        src = os.path.join(REPO_ROOT, src_name)
+        dst = os.path.join(REPO_ROOT, alias)
+        with open(src, encoding="utf-8") as f:
+            payload = f.read()
+        with open(dst, "w", encoding="utf-8") as f:
+            f.write(payload)
 
     with open(os.path.join(REPO_ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(build_index_html())
 
-    n_steps = sum(len(t["steps"]) for t in study["tasks"])
-    n_prac = len(study.get("practice_tasks") or [])
-    print(f"Wrote study.json ({len(study['tasks'])} tasks, {n_steps} steps, "
-          f"{n_prac} practice) and index.html to {REPO_ROOT}")
-    if study["config"].get("dev_mode"):
-        print("WARNING: DEV_MODE is True — but ground truth is stripped from "
-              "study.json anyway. Set DEV_MODE=False for the real study.")
+    print("Wrote:")
+    for line in written:
+        print(f"  {line}")
+    print("  study.json / study_native.json / study_osworld.json (nolog aliases)")
+    print("  index.html")
+    print("Prolific study links (append your PROLIFIC_* params):")
+    for c in config.CONDITIONS:
+        for log in (0, 1):
+            print(f"  .../?condition={c}&log={log}")
 
 
 if __name__ == "__main__":

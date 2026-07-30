@@ -41,8 +41,13 @@ python3 app.py            # open http://localhost:8000
 > `conda` on the PATH). Optionally create an isolated env first with
 > `python3 -m venv .venv && source .venv/bin/activate`.
 
-The app reads recordings from `../m3_exp1_40tasks_bundle` (see `config.py`).
-Videos are streamed with HTTP Range support so seeking works.
+The app reads scored recordings from `../prolific_bundle_element_log_fixed`
+(Claude Sonnet 4.6, native vs OSWorld scaffolds, with fixed element logs) and
+practice clips from `../m3_exp1_40tasks_bundle` (see `config.py`). Videos are
+streamed with HTTP Range support so seeking works.
+
+Pick the arm with `?condition=native` or `?condition=osworld` (same quiz / same
+8 task IDs; different videos).
 
 ## Where data goes
 
@@ -77,8 +82,10 @@ The intro/instructions copy (what a computer-use agent is, the specificity and
    (`https://app.prolific.com/submissions/complete?cc=XXXXXXX`).
 2. Use the "URL parameters" option in Prolific so participants arrive with
    `?PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}`.
-   The app stores these and keys each participant by their Prolific PID, so a
-   reload or disconnect resumes their session.
+   Run **four** Prolific study links (scaffold × agent-log), differing by
+   `&condition=native|osworld` and `&log=0|1`. Keys are
+   `<prolific_pid>__<condition>__<log|nolog>`.
+   A reload or disconnect resumes their session.
 3. Deploy behind HTTPS (any host that can run a Flask/WSGI app). For real load,
    run under a WSGI server, e.g. `gunicorn -w 4 app:app`.
 
