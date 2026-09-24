@@ -336,8 +336,9 @@ def _build_task(run: dict, *, bundle_dir: str, bundle_name: str,
                 show_agent_log: bool = False):
     """Turn one run descriptor into a client-facing task, or None to skip.
 
-    show_agent_log: include action text + model response as participant-visible
-    agent output (no accessibility-tree elements).
+    show_agent_log: include model response as participant-visible agent log
+    (reasoning + planned code). Executed `action` code is omitted for participants
+    (may include scaffold shims); DEV_MODE still attaches it for researchers.
     DEV_MODE: also include tags + element hits for researchers.
     """
     rel = run.get("path")
@@ -421,10 +422,11 @@ def _build_task(run: dict, *, bundle_dir: str, bundle_name: str,
         }
         if include_gt:
             gt: dict = {
-                "action": action_text,
                 "response": step.get("response") or "",
             }
+            # Executed action code + tags/elements: researchers only.
             if include_dev_extras:
+                gt["action"] = action_text
                 tag = tags.get(str(raw_nums[i])) or tags.get(str(step_num)) or {}
                 if tag.get("category"):
                     gt["category"] = tag.get("category")

@@ -54,8 +54,9 @@ def _staticize(task: dict, *, keep_agent_log: bool) -> dict:
         if not keep_agent_log:
             step.pop("gt", None)
         elif gt:
+            # Participant log: model response only (reasoning + planned code).
+            # Omit executed `action` (may include scaffold shims, e.g. MiniMax).
             step["gt"] = {
-                "action": gt.get("action") or "",
                 "response": gt.get("response") or "",
             }
     return task

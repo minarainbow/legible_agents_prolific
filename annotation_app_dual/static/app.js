@@ -1434,6 +1434,8 @@ function formatElementHit(hit, idx, total) {
 }
 
 /** Participant-facing agent log (log / both conditions).
+ *  Shows model response only (reasoning + planned code) — not gt.action,
+ *  which is the executed payload and may include scaffold shims (e.g. MiniMax).
  *  Log-only: fill the video slot (#agent-log-stage).
  *  Both: keep it in the annotate card (#dev-gt).
  */
@@ -1450,7 +1452,8 @@ function renderAgentOutput(step) {
   if (!box) return;
 
   const gt = step.gt;
-  if (!gt || (!gt.action && !gt.response)) {
+  const body = gt && gt.response ? String(gt.response).trim() : "";
+  if (!body) {
     if (logOnly) {
       const card = el("div", "agent-output");
       card.appendChild(el("div", "agent-output-label", "Agent log"));
@@ -1462,11 +1465,6 @@ function renderAgentOutput(step) {
     }
     return;
   }
-
-  const parts = [];
-  if (gt.action) parts.push(String(gt.action).trim());
-  if (gt.response) parts.push(String(gt.response).trim());
-  const body = parts.join("\n\n");
 
   if (logOnly) {
     const card = el("div", "agent-output");
@@ -2076,7 +2074,7 @@ const TOUR_ANNOTATE_BODY_LOG =
 const TOUR_LOG_STEP = {
   sel: "#dev-gt",
   title: "Agent log",
-  body: "In this version of the study you also see the agent's own log for each step — the action it planned (for example a click) and any reasoning it wrote. Treat the video as the primary evidence of what happened on screen; the agent log is extra context that may help (or sometimes disagree with what you see).",
+  body: "In this version of the study you also see the agent's own log for each step — its reasoning and the code it planned. Treat the video as the primary evidence of what happened on screen; the agent log is extra context that may help (or sometimes disagree with what you see).",
   place: "left",
 };
 
@@ -2099,7 +2097,7 @@ function getTourSteps() {
       videoStep.sel = "#agent-log-stage";
       videoStep.title = "Agent log";
       videoStep.body =
-        "There is no screen recording in this version. For each step, read the agent's log here — what it planned and any reasoning it wrote — then answer the two questions on the right. Press Play to move through steps; the timeline still marks each one.";
+        "There is no screen recording in this version. For each step, read the agent's log here — its reasoning and the code it planned — then answer the two questions on the right. Press Play to move through steps; the timeline still marks each one.";
     }
     const annotate = steps.find((s) => s.sel === "#annotate-card");
     if (annotate) {
