@@ -107,6 +107,85 @@
     }));
   }
 
+  /** Must match annotation_app_dual/study_mode.py _seeded_shuffle. */
+  async function sha256Hex(str) {
+    const buf = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(str)
+    );
+    return Array.from(new Uint8Array(buf))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  async function seededShuffle(items, seedKey) {
+    const out = items.slice();
+    for (let i = out.length - 1; i > 0; i--) {
+      const digest = await sha256Hex(seedKey + "|" + i);
+      const j = parseInt(digest.slice(0, 8), 16) % (i + 1);
+      const tmp = out[i];
+      out[i] = out[j];
+      out[j] = tmp;
+    }
+    return out;
+  }
+
+  function longestEntryId(tasks) {
+    let best = null;
+    let bestN = -1;
+    (tasks || []).forEach((t) => {
+      const eid = t.entry_id || t.id;
+      const n = Number(t.num_annotatable) || 0;
+      if (n > bestN) {
+        best = eid;
+        bestN = n;
+      }
+    });
+    return best;
+  }
+
+  /**
+   * Same order as study_mode.order_for_participant (Flask).
+   * Stable per prolific_pid × bundle; avoids putting the longest traj last.
+   */
+  async function orderTasksForParticipant(tasks, prolificPid, bundleId) {
+    const base = (tasks || []).slice();
+    if (!prolificPid || bundleId == null || bundleId === "") return base;
+    const ids = base.map((t) => t.entry_id || t.id);
+    const byId = {};
+    base.forEach((t) => {
+      byId[t.entry_id || t.id] = t;
+    });
+    const seedKey = prolificPid + "|bundle=" + bundleId + "|final_final_v1";
+    const longest = longestEntryId(base);
+    let orderedIds = ids;
+    for (let attempt = 0; attempt < 40; attempt++) {
+      orderedIds = await seededShuffle(ids, seedKey + "|attempt=" + attempt);
+      if (orderedIds[orderedIds.length - 1] !== longest) break;
+    }
+    return orderedIds.map((eid, i) => {
+      const t = Object.assign({}, byId[eid]);
+      t.order_index = i;
+      return t;
+    });
+  }
+
+  function tasksFromOrder(orderIds) {
+    const byId = {};
+    (STUDY.tasks || []).forEach((t) => {
+      byId[t.entry_id || t.id] = t;
+    });
+    return (orderIds || [])
+      .map((eid, i) => {
+        const src = byId[eid];
+        if (!src) return null;
+        const t = Object.assign({}, src);
+        t.order_index = i;
+        return t;
+      })
+      .filter(Boolean);
+  }
+
   function stampAnnotation(ann, entryId, record) {
     if (!ann || typeof ann !== "object") return ann;
     ann.entry_id = entryId;
@@ -209,8 +288,16 @@
         : (base.endsWith(dualSuf) ? base : `${base}${dualSuf}`);
 
       let record = loadRecord(pid);
+      let tasksOut;
       if (!record) {
-        const tasks = STUDY.tasks || [];
+        const seedPid = prolific || pid;
+        const tasks = isBundle
+          ? await orderTasksForParticipant(STUDY.tasks || [], seedPid, bundleId)
+          : (STUDY.tasks || []).slice();
+        // Refresh order_index for presentation_order rows
+        tasks.forEach((t, i) => {
+          t.order_index = i;
+        });
         record = {
           participant_id: pid,
           prolific_pid: prolific,
@@ -228,6 +315,7 @@
           presentation_order: presentationOrderFromTasks(tasks),
           annotations: {},
         };
+        tasksOut = tasks;
       } else {
         if (body.study_id) record.study_id = body.study_id.trim();
         if (body.session_id) record.session_id = body.session_id.trim();
@@ -239,12 +327,27 @@
           record.bundle_id = Number(bundleId);
           record.evidence = evidence;
         }
-        if (!record.presentation_order || !record.presentation_order.length) {
-          record.presentation_order = presentationOrderFromTasks(STUDY.tasks);
-        }
         if (!record.task_order || !record.task_order.length) {
-          record.task_order = (STUDY.tasks || []).map((t) => t.entry_id || t.id);
+          const seedPid = (record.prolific_pid || prolific || pid).trim();
+          if (isBundle && seedPid) {
+            const shuffled = await orderTasksForParticipant(
+              STUDY.tasks || [],
+              seedPid,
+              record.bundle_id != null ? record.bundle_id : bundleId
+            );
+            record.task_order = shuffled.map((t) => t.entry_id || t.id);
+            record.presentation_order = presentationOrderFromTasks(shuffled);
+          } else {
+            record.task_order = (STUDY.tasks || []).map((t) => t.entry_id || t.id);
+          }
         }
+        if (!record.presentation_order || !record.presentation_order.length) {
+          record.presentation_order = presentationOrderFromTasks(
+            tasksFromOrder(record.task_order)
+          );
+        }
+        tasksOut = tasksFromOrder(record.task_order);
+        if (!tasksOut.length) tasksOut = STUDY.tasks || [];
       }
       persist(record);
       return {
@@ -257,7 +360,7 @@
         presentation_order: record.presentation_order,
         profile: record.profile || {},
         submitted_at: record.submitted_at,
-        tasks: STUDY.tasks,
+        tasks: tasksOut,
         practice_tasks: STUDY.practice_tasks,
         annotations: record.annotations || {},
       };

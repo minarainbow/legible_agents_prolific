@@ -9,7 +9,6 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import random
 from typing import Any
 
 import config
@@ -89,30 +88,39 @@ def _longest_entry_id(manifest: dict, entry_ids: list[str]) -> str:
     return best
 
 
+def _seeded_shuffle(items: list[str], seed_key: str) -> list[str]:
+    """Deterministic Fisher–Yates shared with annotation_app_dual/static/backend.js.
+
+    At step i (from n-1 down to 1), j = int(sha256(f\"{seed_key}|{i}\")[:8], 16) % (i+1).
+    """
+    out = list(items)
+    for i in range(len(out) - 1, 0, -1):
+        digest = hashlib.sha256(f"{seed_key}|{i}".encode()).hexdigest()
+        j = int(digest[:8], 16) % (i + 1)
+        out[i], out[j] = out[j], out[i]
+    return out
+
+
 def order_for_participant(
     bundle_id: int,
     prolific_pid: str,
     *,
     randomize: bool = True,
 ) -> list[str]:
-    """Return bundle entry_ids in presentation order for this participant."""
+    """Return bundle entry_ids in presentation order for this participant.
+
+    Same algorithm as GitHub Pages StudyBackend (seeded shuffle + avoid longest-last).
+    """
     manifest = load_manifest()
     b = manifest["bundles"][str(bundle_id)]
     base = list(b["default_order"])
     if not randomize or not (prolific_pid or "").strip():
         return base
 
-    seed = int(
-        hashlib.sha256(
-            f"{prolific_pid}|bundle={bundle_id}|final_final_v1".encode()
-        ).hexdigest()[:16],
-        16,
-    )
-    rng = random.Random(seed)
+    seed_key = f"{prolific_pid}|bundle={bundle_id}|final_final_v1"
     longest = _longest_entry_id(manifest, base)
-    order = list(base)
-    for _ in range(40):
-        rng.shuffle(order)
+    for attempt in range(40):
+        order = _seeded_shuffle(base, f"{seed_key}|attempt={attempt}")
         if order[-1] != longest:
             return order
     # fallback: default_order already avoids longest-last
