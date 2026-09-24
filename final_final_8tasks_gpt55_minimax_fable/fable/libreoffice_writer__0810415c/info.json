@@ -1,0 +1,13 @@
+{
+  "model": "Claude Fable 5",
+  "scaffold": "OSWorld",
+  "domain": "libreoffice_writer",
+  "task_id": "0810415c-bde4-4443-9047-d5f70165a697",
+  "folder": "fable/libreoffice_writer__0810415c",
+  "score": 1.0,
+  "duration_sec": 387.066667,
+  "trajectory_sha256": "1c20ce1e323bad887078dc6126b2f7bd44d976459c1feb4b830a1b77b434a2d7",
+  "playback_video_sha256": "e1f94716ffe5f9827b404da14d716cf0a87166b6814887b63dd8382e65f64c85",
+  "swap_note": "Replaced 0e763496 with 0810415c; recording from writer_0810415c_vscode_9439a27b_6videos_20260924_105006.zip; traj/meta from minimax_fable_gpt55_osworld_80tasks_trajectories_20260923_204010.zip",
+  "instruction": "Make the line spacing of first two paragraph into double line spacing"
+}

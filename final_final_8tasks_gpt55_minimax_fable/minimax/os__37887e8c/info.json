@@ -1,0 +1,17 @@
+{
+  "model": "MiniMax-M3",
+  "scaffold": "OSWorld",
+  "domain": "os",
+  "task_id": "37887e8c-da15-4192-923c-08fa390a176d",
+  "source_directory": "results/pyautogui/screenshot/MiniMax-M3__osworld/os/37887e8c-da15-4192-923c-08fa390a176d",
+  "folder": "MiniMax-M3/os/37887e8c-da15-4192-923c-08fa390a176d",
+  "trajectory_sha256": "21bdb38f97c6c9ba11223b7de3c253202882db379662bd6a63c4db78db9b4e79",
+  "score": 1.0,
+  "instruction": "Compress all files under \"/tmp/test_files\" that were last modified 30 days ago and put them in \"/tmp/test_files/old_files\". Move all other files to \"/tmp/test_files/new_files.",
+  "new_recording_episode": false,
+  "duration_sec": 751.033333,
+  "original_video_sha256": "fed0c8babbc55d184f7df94fdb3f8d2ce4a001764152f60899727ed8d24478ac",
+  "playback_video_sha256": "98196b27873c163c3614de94d629c871dc7be10f617349ef9ee2d62d3be8c098",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 29
+}

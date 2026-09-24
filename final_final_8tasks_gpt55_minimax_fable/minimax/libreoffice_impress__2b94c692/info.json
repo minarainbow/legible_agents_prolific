@@ -1,0 +1,17 @@
+{
+  "model": "MiniMax-M3",
+  "scaffold": "OSWorld",
+  "domain": "libreoffice_impress",
+  "task_id": "2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "source_directory": "results/pyautogui/screenshot/MiniMax-M3__osworld/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "folder": "MiniMax-M3/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "trajectory_sha256": "67a9b7aa9a3830d3d67abe90ac981e626812be70e9afef3575bd70e368f9938c",
+  "score": 1.0,
+  "instruction": "Move the image to the right side on Slide 2.",
+  "new_recording_episode": false,
+  "duration_sec": 47.866667,
+  "original_video_sha256": "64cd9a941aebac5f1d442ea2e58b93ac445b76e7f7bc0e042c01186d88ec828e",
+  "playback_video_sha256": "3faf4e09c98863e4a6eb2cf337b01c959c50bf04e9ab6479fe15e6c2db43fee4",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 5
+}

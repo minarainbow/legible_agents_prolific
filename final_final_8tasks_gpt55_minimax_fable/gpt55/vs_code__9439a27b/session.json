@@ -1,0 +1,15 @@
+{
+  "instruction": "Please help me modify the setting of VS Code to keep my cursor focused on the debug console when debugging in VS Code, instead of automatically focusing back on the Editor.",
+  "example_id": "9439a27b-18ae-42d8-9778-5f68f891805e",
+  "run_started_at": "2026-08-18T21:39:34.738680Z",
+  "recording_started_at": "2026-08-18T21:39:34.779835Z",
+  "recording_ended_at": "2026-08-18T21:47:08.445558Z",
+  "recording_fps": 30,
+  "model": "gpt-5.5-2026-04-23",
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "vs_code",
+  "recording_duration_sec": 143.633333
+}

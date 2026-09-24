@@ -1,0 +1,320 @@
+{
+  "pool": "final_final_8tasks_gpt55_minimax_fable",
+  "created_at": "2026-09-24T18:02:39.321130+00:00",
+  "swaps": [
+    {
+      "domain": "chrome",
+      "removed": "9656a811",
+      "added": "93eabf48",
+      "recording_source": "chrome_93eabf48_three_models_videos_20260924_102733.zip",
+      "traj_source": "minimax_fable_gpt55_osworld_80tasks_trajectories_20260923_204010.zip"
+    },
+    {
+      "domain": "libreoffice_writer",
+      "removed": "0e763496",
+      "added": "0810415c",
+      "recording_source": "writer_0810415c_vscode_9439a27b_6videos_20260924_105006.zip",
+      "traj_source": "minimax_fable_gpt55_osworld_80tasks_trajectories_20260923_204010.zip"
+    },
+    {
+      "domain": "vs_code",
+      "removed": "0512bb38",
+      "added": "9439a27b",
+      "recording_source": "writer_0810415c_vscode_9439a27b_6videos_20260924_105006.zip",
+      "traj_source": "minimax_fable_gpt55_osworld_80tasks_trajectories_20260923_204010.zip",
+      "note": "GPT-5.5 uses 9439a27b_GPT-5.5_latest_rerun.mp4"
+    }
+  ],
+  "tasks": [
+    {
+      "domain": "chrome",
+      "task_id8": "93eabf48",
+      "task_id": "93eabf48-6a27-4cb6-b963-7d5fe1e0d3a9"
+    },
+    {
+      "domain": "gimp",
+      "task_id8": "77b8ab4d",
+      "task_id": "77b8ab4d-994f-43ac-8930-8ca087d7c4b4"
+    },
+    {
+      "domain": "libreoffice_calc",
+      "task_id8": "04d9aeaf",
+      "task_id": "04d9aeaf-7bed-4024-bedb-e10e6f00eb7f"
+    },
+    {
+      "domain": "libreoffice_impress",
+      "task_id8": "2b94c692",
+      "task_id": "2b94c692-6abb-48ae-ab0b-b3e8a19cb340"
+    },
+    {
+      "domain": "libreoffice_writer",
+      "task_id8": "0810415c",
+      "task_id": "0810415c-bde4-4443-9047-d5f70165a697"
+    },
+    {
+      "domain": "os",
+      "task_id8": "37887e8c",
+      "task_id": "37887e8c-da15-4192-923c-08fa390a176d"
+    },
+    {
+      "domain": "vlc",
+      "task_id8": "9195653c",
+      "task_id": "9195653c-f4aa-453d-aa95-787f6ccfaae9"
+    },
+    {
+      "domain": "vs_code",
+      "task_id8": "9439a27b",
+      "task_id": "9439a27b-18ae-42d8-9778-5f68f891805e"
+    }
+  ],
+  "n_trajectories": 24,
+  "n_with_recording": 24,
+  "n_step_rows": 218,
+  "by_model": {
+    "gpt55": {
+      "n": 8,
+      "with_recording": 8,
+      "success": 4,
+      "fail": 4,
+      "raw_steps": 46,
+      "annotatable_steps": 37,
+      "mean_duration_sec": 270.85
+    },
+    "minimax": {
+      "n": 8,
+      "with_recording": 8,
+      "success": 8,
+      "fail": 0,
+      "raw_steps": 104,
+      "annotatable_steps": 96,
+      "mean_duration_sec": 200.22
+    },
+    "fable": {
+      "n": 8,
+      "with_recording": 8,
+      "success": 7,
+      "fail": 1,
+      "raw_steps": 68,
+      "annotatable_steps": 59,
+      "mean_duration_sec": 262.23
+    }
+  },
+  "coverage": [
+    {
+      "domain": "chrome",
+      "task_id8": "93eabf48",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 203.6,
+      "score": 0.0
+    },
+    {
+      "domain": "chrome",
+      "task_id8": "93eabf48",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 55.133,
+      "score": 1.0
+    },
+    {
+      "domain": "chrome",
+      "task_id8": "93eabf48",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 110.467,
+      "score": 0.0
+    },
+    {
+      "domain": "gimp",
+      "task_id8": "77b8ab4d",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 70.6,
+      "score": 1.0
+    },
+    {
+      "domain": "gimp",
+      "task_id8": "77b8ab4d",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 144.567,
+      "score": 1.0
+    },
+    {
+      "domain": "gimp",
+      "task_id8": "77b8ab4d",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 87.233,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_calc",
+      "task_id8": "04d9aeaf",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 316.767,
+      "score": 0.0
+    },
+    {
+      "domain": "libreoffice_calc",
+      "task_id8": "04d9aeaf",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 135.6,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_calc",
+      "task_id8": "04d9aeaf",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 322.833,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_impress",
+      "task_id8": "2b94c692",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 87.767,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_impress",
+      "task_id8": "2b94c692",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 47.867,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_impress",
+      "task_id8": "2b94c692",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 101.7,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_writer",
+      "task_id8": "0810415c",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 280.333,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_writer",
+      "task_id8": "0810415c",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 108.733,
+      "score": 1.0
+    },
+    {
+      "domain": "libreoffice_writer",
+      "task_id8": "0810415c",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 387.067,
+      "score": 1.0
+    },
+    {
+      "domain": "os",
+      "task_id8": "37887e8c",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 435.267,
+      "score": 0.0
+    },
+    {
+      "domain": "os",
+      "task_id8": "37887e8c",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 751.033,
+      "score": 1.0
+    },
+    {
+      "domain": "os",
+      "task_id8": "37887e8c",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 765.533,
+      "score": 1.0
+    },
+    {
+      "domain": "vlc",
+      "task_id8": "9195653c",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 628.867,
+      "score": 1.0
+    },
+    {
+      "domain": "vlc",
+      "task_id8": "9195653c",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 263.967,
+      "score": 1.0
+    },
+    {
+      "domain": "vlc",
+      "task_id8": "9195653c",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 246.133,
+      "score": 1.0
+    },
+    {
+      "domain": "vs_code",
+      "task_id8": "9439a27b",
+      "model": "gpt55",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 143.633,
+      "score": 0.0
+    },
+    {
+      "domain": "vs_code",
+      "task_id8": "9439a27b",
+      "model": "minimax",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 94.867,
+      "score": 1.0
+    },
+    {
+      "domain": "vs_code",
+      "task_id8": "9439a27b",
+      "model": "fable",
+      "status": "ok",
+      "has_recording": true,
+      "duration_sec": 76.867,
+      "score": 1.0
+    }
+  ]
+}

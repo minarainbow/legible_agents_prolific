@@ -1,0 +1,34 @@
+{
+  "model": "GPT-5.5",
+  "scaffold": "OSWorld",
+  "domain": "gimp",
+  "task_id": "77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "source_directory": "results/gpt55_77b8ab4d_rerun_20260923/episodes/01_osworld_77b8ab4d/pyautogui/screenshot/gpt-5.5-2026-04-23/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "folder": "GPT-5.5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "trajectory_sha256": "f032a5cc4c029a5f593001bd6f2759fbddb1f7579e1ff6588040762c15d481ba",
+  "score": 1.0,
+  "instruction": "Could you assist me in placing my photo on the desktop and renaming it to export.jpg?",
+  "new_recording_episode": true,
+  "qa_directory": "results/gpt55_77b8ab4d_rerun_20260923/episodes/01_osworld_77b8ab4d",
+  "duration_sec": 70.6,
+  "original_video_sha256": "6854ab646407d7a50c8300d332412cd9d6e250f6df29caa3bea85acf1e448ef1",
+  "playback_video_sha256": "6363713c2f2c8d868aeef4cfedd8d223cbec39286a29e66442078985a793a76d",
+  "original_and_playback_full_decode": true,
+  "playback_probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p"
+      }
+    ],
+    "format": {
+      "duration": "70.600000",
+      "size": "1193993"
+    }
+  },
+  "raw_step_records": 4
+}

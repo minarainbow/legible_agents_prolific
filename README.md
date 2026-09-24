@@ -13,73 +13,66 @@ is self-contained and ready to run.
 Requires Python 3.9+.
 
 ```bash
-cd annotation_app
+cd annotation_app_dual
 python3 -m pip install -r requirements.txt
 python3 app.py
 ```
 
-Then open http://127.0.0.1:8000
+Then open http://127.0.0.1:8001/?bundle=3&condition=screen
 
 ## Layout
 
-- `annotation_app/` — Flask server, static frontend, and study config.
-  - `config.py` — everything a researcher tweaks: questions, task selection,
-    completion link, playback tuning, scaffold conditions, and `DEV_MODE`.
-  - `app.py` — server (serves the app, streams video with HTTP Range support,
-    saves annotations to `annotation_app/data/`).
-  - `static/` — the single-page frontend (`index.html`, `app.js`, `style.css`).
-- `prolific_bundle_element_log_fixed/` — Claude Sonnet 4.6 recordings for both
-  scaffolds (`native` and `OSWorld`), 8 tasks each (same task IDs), with fixed
-  element-level click logs.
-- `m3_exp1_40tasks_bundle/` — short MiniMax clips used only for the guided
-  practice walkthrough.
+- `annotation_app_dual/` — **current study** (3 model bundles × screen|log|both).
+  Flask for local dev; `build_static.py` writes the GitHub Pages bundle.
+- `final_final_8tasks_gpt55_minimax_fable/` — GPT-5.5 / MiniMax / Fable screen
+  recordings served by Pages (24 videos).
+- `annotation_app/` — earlier Claude Sonnet 4.6 2×2 study (kept for reference).
+- `m3_exp1_40tasks_bundle/` — short MiniMax clip used for guided practice.
 
-## Between-subjects arms (Prolific)
+## Between-subjects arms (Prolific) — multi-model dual study
 
-Same quiz and same 8 task IDs. Split participants across **4 URLs**
-(scaffold × agent-log visibility):
+Split participants across **9 URLs** (bundle × evidence):
 
 ```
-https://<your-pages-host>/?condition=native&log=0&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
-https://<your-pages-host>/?condition=native&log=1&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
-https://<your-pages-host>/?condition=osworld&log=0&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
-https://<your-pages-host>/?condition=osworld&log=1&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=1&condition=screen&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=1&condition=log&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=1&condition=both&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=2&condition=screen&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=2&condition=log&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=2&condition=both&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=3&condition=screen&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=3&condition=log&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+https://minarainbow.github.io/legible_agents_prolific/?bundle=3&condition=both&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
 ```
 
-- `condition=native` → Claude Sonnet 4.6 native scaffold videos
-- `condition=osworld` → Claude Sonnet 4.6 OSWorld scaffold videos
-- `log=0` → video only (no agent text)
-- `log=1` → also show the agent's action + reasoning as “Agent output”
+- `bundle=1|2|3` → Latin-square model assignment (A / B / C; Impress GPT-5.5 is in bundle 3)
+- `condition=screen` → video only
+- `condition=log` → agent text only (no video)
+- `condition=both` → video + agent text
 
-Participant records store `condition` + `show_log` and are keyed as
-`<prolific_pid>__<condition>__<log|nolog>`.
+Participant records are keyed as `<prolific_pid>__b{N}__<screen|log|both>__dual`.
 
 ## Host it on GitHub Pages (no server)
 
-The app also runs fully static, so you can host it on GitHub Pages. A prebuilt
-`index.html` + `study_native.json` / `study_osworld.json` at the repo root drive
-the study (`study.json` aliases the default arm); saving goes through
-`annotation_app/static/backend.js` (localStorage + Firebase).
+Prebuilt root files: `index.html` + `study_b{1|2|3}_{screen|log|both}.json`.
+Videos live under `final_final_8tasks_gpt55_minimax_fable/`. Saves go through
+`annotation_app_dual/static/backend.js` (localStorage + Firebase).
 
-1. **Rebuild the static bundle** whenever `config.py`, task selection, or the
-   frontend HTML changes:
+1. **Rebuild** whenever dual config / frontend / stimuli change:
 
    ```bash
-   cd annotation_app
-   python3 build_static.py     # writes ../index.html and study_*.json
+   cd annotation_app_dual
+   python3 build_static.py     # writes ../index.html and study_b*.json
    ```
 
 2. **Enable Pages**: repo Settings → Pages → Deploy from a branch → `main` / root.
-   The site serves at `https://<user>.github.io/<repo>/` (videos stream with
-   byte-range seeking).
+   Site: `https://minarainbow.github.io/legible_agents_prolific/`
 
-Participant id comes from the Prolific `?PROLIFIC_PID=...` URL param (random
-fallback). The Flask app (`python3 app.py`) is unchanged and still works for
-local development (`?condition=` works there too).
+Local Flask: `cd annotation_app_dual && python3 app.py` (same `?bundle=` / `?condition=` params).
 
 ## Data storage (Firebase Realtime Database)
 
-In static/Pages mode, `annotation_app/static/backend.js` writes each participant's
+In static/Pages mode, `annotation_app_dual/static/backend.js` writes each participant's
 full record to a Firebase **Realtime Database** via its REST API (no SDK), and
 also caches to `localStorage` as an offline fallback / resume store.
 

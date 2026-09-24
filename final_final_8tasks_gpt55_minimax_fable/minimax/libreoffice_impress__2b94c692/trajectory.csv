@@ -1,0 +1,112 @@
+﻿model,scaffold,domain,task_id,new_recording_episode,score,step_num,action_timestamp,video_offset_sec,action,response,reward,done,info,timing,screenshot_file,recording_path,source_directory
+MiniMax-M3,OSWorld,libreoffice_impress,2b94c692-6abb-48ae-ab0b-b3e8a19cb340,False,1.0,1,20260730@131520157737,5.313,"import pyautogui
+if not getattr(pyautogui, ""_osworld_m3_norm"", False):
+    pyautogui._osworld_m3_norm = True
+    _mn_FX, _mn_FY = 1.92, 1.08
+    def _mn_wrap(_f, _xy_at=0):
+        def _g(*args, **kwargs):
+            args = list(args)
+            if len(args) >= _xy_at + 1 and isinstance(args[_xy_at], (int, float)): args[_xy_at] = args[_xy_at] * _mn_FX
+            if len(args) >= _xy_at + 2 and isinstance(args[_xy_at + 1], (int, float)): args[_xy_at + 1] = args[_xy_at + 1] * _mn_FY
+            if isinstance(kwargs.get(""x""), (int, float)): kwargs[""x""] = kwargs[""x""] * _mn_FX
+            if isinstance(kwargs.get(""y""), (int, float)): kwargs[""y""] = kwargs[""y""] * _mn_FY
+            return _f(*args, **kwargs)
+        return _g
+    for _n in (""click"", ""doubleClick"", ""tripleClick"", ""rightClick"", ""middleClick"",
+               ""moveTo"", ""dragTo"", ""mouseDown"", ""mouseUp"", ""moveRel"", ""dragRel""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n)))
+    for _n in (""scroll"", ""hscroll"", ""vscroll""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n), _xy_at=1))
+    # position()/size() deliberately NOT overridden -- pyautogui's scroll() calls
+    # position(x, y) with args internally; a zero-arg replacement TypeErrors every scroll
+    # (hit this live on 2026-07-21). See the matching note in COORD_FIX_SHIM.
+
+pyautogui.click(86, 365)
+time.sleep(1)","```python
+pyautogui.click(86, 365)
+time.sleep(1)
+```",0,False,{},"{""run_elapsed_sec"": 5.344, ""video_offset_sec"": 5.313, ""predict_started_video_offset_sec"": 3.078, ""action_started_video_offset_sec"": 3.078}",step_1_20260730@131520157737.png,MiniMax-M3/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340/recording.mp4,results/pyautogui/screenshot/MiniMax-M3__osworld/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340
+MiniMax-M3,OSWorld,libreoffice_impress,2b94c692-6abb-48ae-ab0b-b3e8a19cb340,False,1.0,2,20260730@131524938212,10.032,"import pyautogui
+if not getattr(pyautogui, ""_osworld_m3_norm"", False):
+    pyautogui._osworld_m3_norm = True
+    _mn_FX, _mn_FY = 1.92, 1.08
+    def _mn_wrap(_f, _xy_at=0):
+        def _g(*args, **kwargs):
+            args = list(args)
+            if len(args) >= _xy_at + 1 and isinstance(args[_xy_at], (int, float)): args[_xy_at] = args[_xy_at] * _mn_FX
+            if len(args) >= _xy_at + 2 and isinstance(args[_xy_at + 1], (int, float)): args[_xy_at + 1] = args[_xy_at + 1] * _mn_FY
+            if isinstance(kwargs.get(""x""), (int, float)): kwargs[""x""] = kwargs[""x""] * _mn_FX
+            if isinstance(kwargs.get(""y""), (int, float)): kwargs[""y""] = kwargs[""y""] * _mn_FY
+            return _f(*args, **kwargs)
+        return _g
+    for _n in (""click"", ""doubleClick"", ""tripleClick"", ""rightClick"", ""middleClick"",
+               ""moveTo"", ""dragTo"", ""mouseDown"", ""mouseUp"", ""moveRel"", ""dragRel""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n)))
+    for _n in (""scroll"", ""hscroll"", ""vscroll""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n), _xy_at=1))
+    # position()/size() deliberately NOT overridden -- pyautogui's scroll() calls
+    # position(x, y) with args internally; a zero-arg replacement TypeErrors every scroll
+    # (hit this live on 2026-07-21). See the matching note in COORD_FIX_SHIM.
+
+pyautogui.click(286, 551)
+time.sleep(0.5)","```python
+pyautogui.click(286, 551)
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 10.063, ""video_offset_sec"": 10.032, ""predict_started_video_offset_sec"": 7.86, ""action_started_video_offset_sec"": 7.86}",step_2_20260730@131524938212.png,MiniMax-M3/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340/recording.mp4,results/pyautogui/screenshot/MiniMax-M3__osworld/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340
+MiniMax-M3,OSWorld,libreoffice_impress,2b94c692-6abb-48ae-ab0b-b3e8a19cb340,False,1.0,3,20260730@131529737234,16.485,"import pyautogui
+if not getattr(pyautogui, ""_osworld_m3_norm"", False):
+    pyautogui._osworld_m3_norm = True
+    _mn_FX, _mn_FY = 1.92, 1.08
+    def _mn_wrap(_f, _xy_at=0):
+        def _g(*args, **kwargs):
+            args = list(args)
+            if len(args) >= _xy_at + 1 and isinstance(args[_xy_at], (int, float)): args[_xy_at] = args[_xy_at] * _mn_FX
+            if len(args) >= _xy_at + 2 and isinstance(args[_xy_at + 1], (int, float)): args[_xy_at + 1] = args[_xy_at + 1] * _mn_FY
+            if isinstance(kwargs.get(""x""), (int, float)): kwargs[""x""] = kwargs[""x""] * _mn_FX
+            if isinstance(kwargs.get(""y""), (int, float)): kwargs[""y""] = kwargs[""y""] * _mn_FY
+            return _f(*args, **kwargs)
+        return _g
+    for _n in (""click"", ""doubleClick"", ""tripleClick"", ""rightClick"", ""middleClick"",
+               ""moveTo"", ""dragTo"", ""mouseDown"", ""mouseUp"", ""moveRel"", ""dragRel""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n)))
+    for _n in (""scroll"", ""hscroll"", ""vscroll""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n), _xy_at=1))
+    # position()/size() deliberately NOT overridden -- pyautogui's scroll() calls
+    # position(x, y) with args internally; a zero-arg replacement TypeErrors every scroll
+    # (hit this live on 2026-07-21). See the matching note in COORD_FIX_SHIM.
+
+pyautogui.dragTo(586, 551, duration=1)
+time.sleep(0.5)","```python
+pyautogui.dragTo(586, 551, duration=1)
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 16.516, ""video_offset_sec"": 16.485, ""predict_started_video_offset_sec"": 12.657, ""action_started_video_offset_sec"": 12.657}",step_3_20260730@131529737234.png,MiniMax-M3/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340/recording.mp4,results/pyautogui/screenshot/MiniMax-M3__osworld/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340
+MiniMax-M3,OSWorld,libreoffice_impress,2b94c692-6abb-48ae-ab0b-b3e8a19cb340,False,1.0,4,20260730@131536484325,22.485,"import pyautogui
+if not getattr(pyautogui, ""_osworld_m3_norm"", False):
+    pyautogui._osworld_m3_norm = True
+    _mn_FX, _mn_FY = 1.92, 1.08
+    def _mn_wrap(_f, _xy_at=0):
+        def _g(*args, **kwargs):
+            args = list(args)
+            if len(args) >= _xy_at + 1 and isinstance(args[_xy_at], (int, float)): args[_xy_at] = args[_xy_at] * _mn_FX
+            if len(args) >= _xy_at + 2 and isinstance(args[_xy_at + 1], (int, float)): args[_xy_at + 1] = args[_xy_at + 1] * _mn_FY
+            if isinstance(kwargs.get(""x""), (int, float)): kwargs[""x""] = kwargs[""x""] * _mn_FX
+            if isinstance(kwargs.get(""y""), (int, float)): kwargs[""y""] = kwargs[""y""] * _mn_FY
+            return _f(*args, **kwargs)
+        return _g
+    for _n in (""click"", ""doubleClick"", ""tripleClick"", ""rightClick"", ""middleClick"",
+               ""moveTo"", ""dragTo"", ""mouseDown"", ""mouseUp"", ""moveRel"", ""dragRel""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n)))
+    for _n in (""scroll"", ""hscroll"", ""vscroll""):
+        if hasattr(pyautogui, _n): setattr(pyautogui, _n, _mn_wrap(getattr(pyautogui, _n), _xy_at=1))
+    # position()/size() deliberately NOT overridden -- pyautogui's scroll() calls
+    # position(x, y) with args internally; a zero-arg replacement TypeErrors every scroll
+    # (hit this live on 2026-07-21). See the matching note in COORD_FIX_SHIM.
+
+pyautogui.dragTo(883, 551, duration=1)
+time.sleep(0.5)","```python
+pyautogui.dragTo(883, 551, duration=1)
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 22.516, ""video_offset_sec"": 22.485, ""predict_started_video_offset_sec"": 19.407, ""action_started_video_offset_sec"": 19.407}",step_4_20260730@131536484325.png,MiniMax-M3/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340/recording.mp4,results/pyautogui/screenshot/MiniMax-M3__osworld/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340
+MiniMax-M3,OSWorld,libreoffice_impress,2b94c692-6abb-48ae-ab0b-b3e8a19cb340,False,1.0,5,20260730@131542704937,25.86,DONE,"```python
+DONE
+```",0,True,"{""done"": true}","{""run_elapsed_sec"": 25.891, ""video_offset_sec"": 25.86, ""predict_started_video_offset_sec"": 25.625, ""action_started_video_offset_sec"": 25.625}",step_5_20260730@131542704937.png,MiniMax-M3/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340/recording.mp4,results/pyautogui/screenshot/MiniMax-M3__osworld/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340

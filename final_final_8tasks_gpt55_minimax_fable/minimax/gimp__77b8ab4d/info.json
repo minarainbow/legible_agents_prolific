@@ -1,0 +1,17 @@
+{
+  "model": "MiniMax-M3",
+  "scaffold": "OSWorld",
+  "domain": "gimp",
+  "task_id": "77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "source_directory": "results/pyautogui/screenshot/MiniMax-M3__osworld/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "folder": "MiniMax-M3/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "trajectory_sha256": "53b5ce60265761b51ea40c20e21394e738b7917b0070b8bb12fcd8f337bf88e6",
+  "score": 1.0,
+  "instruction": "Could you assist me in placing my photo on the desktop and renaming it to export.jpg?",
+  "new_recording_episode": false,
+  "duration_sec": 144.566667,
+  "original_video_sha256": "5d93a1be074594012a153d854ce400d2c9a68de04df8b4d53921076efb7a710b",
+  "playback_video_sha256": "4a5126f6913ca7cc131f0665010778e3aeb9bcdba495cdeb85fcedafc273a12b",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 15
+}

@@ -1,0 +1,17 @@
+{
+  "model": "GPT-5.5",
+  "scaffold": "OSWorld",
+  "domain": "libreoffice_impress",
+  "task_id": "2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "source_directory": "results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "folder": "GPT-5.5/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "trajectory_sha256": "42d4346609cb68253cf704a1b6fa0f06cf79266eecb82f029257502e2a281077",
+  "score": 1.0,
+  "instruction": "Move the image to the right side on Slide 2.",
+  "new_recording_episode": false,
+  "duration_sec": 87.766667,
+  "original_video_sha256": "fb045a8512e63b12eed97a43103f642eb9e4b14ea9784bd85b11b9cdd6bb1acd",
+  "playback_video_sha256": "133e6a645e6ec968a10048c8dea5c47225c12bcd58e900c5a407103023bda888",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 2
+}

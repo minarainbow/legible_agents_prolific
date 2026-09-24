@@ -1,0 +1,17 @@
+{
+  "model": "Fable",
+  "scaffold": "OSWorld",
+  "domain": "os",
+  "task_id": "37887e8c-da15-4192-923c-08fa390a176d",
+  "source_directory": "results/pyautogui/screenshot/claude-fable-5/os/37887e8c-da15-4192-923c-08fa390a176d",
+  "folder": "Fable/os/37887e8c-da15-4192-923c-08fa390a176d",
+  "trajectory_sha256": "b769e49c424d50d774e4007fe81f24b767ad2f8ba7efb430f25ad23c01df6128",
+  "score": 1.0,
+  "instruction": "Compress all files under \"/tmp/test_files\" that were last modified 30 days ago and put them in \"/tmp/test_files/old_files\". Move all other files to \"/tmp/test_files/new_files.",
+  "new_recording_episode": false,
+  "duration_sec": 765.533333,
+  "original_video_sha256": "f79db8894128af3903f8cd06d7b2a62534b490f5e6fa1fd9e6064653c86f3bf3",
+  "playback_video_sha256": "d3a9effcc4ae5c4900b7f8ed2409456278b5615bdb6c0c0bb67ba4d81fcc74a9",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 17
+}

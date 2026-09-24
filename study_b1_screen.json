@@ -1,0 +1,1288 @@
+{
+  "config": {
+    "mode": "bundle",
+    "study_version": "dual_v1",
+    "question_schema": "dual",
+    "interaction_prompt": "How did the agent interact with the computer in this step?",
+    "interaction_help": "If several actions happened together, list all of them.",
+    "interaction_placeholder": "e.g. Clicked the File menu / Typed report.pdf into the filename box / Pressed Ctrl+L, typed a URL, and pressed Enter",
+    "interaction_good": [
+      "Clicked the File menu.",
+      "Scrolled down the Preferences list.",
+      "Typed report.pdf into the filename box.",
+      "Pressed Ctrl+L, typed a URL, and pressed Enter.",
+      "Typed and ran a command in Terminal."
+    ],
+    "interaction_vague": [
+      "Clicked a button.",
+      "Typed something.",
+      "Used the keyboard.",
+      "Did something in Terminal."
+    ],
+    "interaction_result_instead": [
+      "The File menu opened.",
+      "The text became larger."
+    ],
+    "interaction_cant_tell": {
+      "id": "cant_tell_interaction",
+      "label": "Can't tell"
+    },
+    "outcome_prompt": "What changed as a result of this step?",
+    "outcome_help": "Include what is different now — not only what you saw on screen (e.g. a dialog closing), but also underlying changes like a setting being applied, a file being saved, or other task state.",
+    "outcome_placeholder": "e.g. The File menu is now open / Do Not Track is now enabled / The setting was saved and the dialog closed",
+    "outcome_good": [
+      "The File menu is now open.",
+      "The lower part of the Preferences list is now visible.",
+      "The filename field now contains report.pdf.",
+      "Do Not Track is now enabled.",
+      "The presentation mode setting was saved (\"In a window\") and the dialog closed."
+    ],
+    "outcome_vague": [
+      "Something changed.",
+      "It updated the page.",
+      "It changed a setting.",
+      "It did the task.",
+      "It made progress.",
+      "The popup disappeared."
+    ],
+    "outcome_interaction_instead": [
+      "Clicked the File menu.",
+      "Scrolled down.",
+      "Ran a command in Terminal."
+    ],
+    "outcome_cant_tell": {
+      "id": "cant_tell_outcome",
+      "label": "Can't tell"
+    },
+    "cant_tell_caution": "Please don't pick Can't tell just to finish faster — but do use it when the step is truly unclear. We'll sanity-check answers at the end.",
+    "answer_prompt": "How did the agent interact with the computer in this step?",
+    "answer_placeholder": "e.g. Clicked the File menu / Typed report.pdf into the filename box / Pressed Ctrl+L, typed a URL, and pressed Enter",
+    "cant_tell": {
+      "id": "cant_tell_interaction",
+      "label": "Can't tell"
+    },
+    "gender_options": [
+      {
+        "id": "female",
+        "label": "Female"
+      },
+      {
+        "id": "male",
+        "label": "Male"
+      },
+      {
+        "id": "nonbinary",
+        "label": "Non-binary"
+      },
+      {
+        "id": "other",
+        "label": "Prefer to self-describe or not say"
+      }
+    ],
+    "occupation_prompt": "What is your occupation?",
+    "occupation_placeholder": "e.g. teacher, software developer, student",
+    "education_prompt": "Highest level of education completed",
+    "education_options": [
+      {
+        "id": "highschool",
+        "label": "High school or less"
+      },
+      {
+        "id": "some_college",
+        "label": "Some college, no degree"
+      },
+      {
+        "id": "associate",
+        "label": "Associate / vocational degree"
+      },
+      {
+        "id": "bachelor",
+        "label": "Bachelor's degree"
+      },
+      {
+        "id": "master",
+        "label": "Master's degree"
+      },
+      {
+        "id": "doctorate",
+        "label": "Doctorate or professional degree"
+      }
+    ],
+    "english_prompt": "How would you rate your English proficiency?",
+    "english_note": "This study involves reading and writing detailed English, so please take part only if you are at a Proficient or Native / bilingual level.",
+    "english_options": [
+      {
+        "id": "basic",
+        "label": "Basic — simple words and phrases"
+      },
+      {
+        "id": "intermediate",
+        "label": "Intermediate — everyday conversation"
+      },
+      {
+        "id": "proficient",
+        "label": "Proficient — fluent in most situations"
+      },
+      {
+        "id": "native",
+        "label": "Native / bilingual"
+      }
+    ],
+    "computer_freq_prompt": "How often do you use a computer for work or study?",
+    "computer_freq_options": [
+      {
+        "id": "rarely",
+        "label": "Rarely or never"
+      },
+      {
+        "id": "weekly",
+        "label": "A few times a week"
+      },
+      {
+        "id": "daily",
+        "label": "Most days"
+      },
+      {
+        "id": "allday",
+        "label": "Nearly all day, every working day"
+      }
+    ],
+    "programming_prompt": "How much experience do you have with programming, scripting, or using a command line/Terminal (e.g., Python, shell scripts, Command Prompt, PowerShell)?",
+    "programming_options": [
+      {
+        "id": "none",
+        "label": "No experience"
+      },
+      {
+        "id": "little",
+        "label": "A little experience"
+      },
+      {
+        "id": "some",
+        "label": "Some experience"
+      },
+      {
+        "id": "a_lot",
+        "label": "A lot of experience"
+      }
+    ],
+    "ai_tools_prompt": "How familiar are you with AI tools in general (e.g. ChatGPT, image generators, AI assistants)?",
+    "ai_tools_options": [
+      {
+        "id": "never",
+        "label": "Never used or heard of them"
+      },
+      {
+        "id": "seen",
+        "label": "Heard of them / seen examples"
+      },
+      {
+        "id": "few",
+        "label": "Used them a few times"
+      },
+      {
+        "id": "often",
+        "label": "Use them regularly"
+      }
+    ],
+    "experience_prompt": "How much experience do you have with computer-use AI agents (AI that controls a computer on its own)?",
+    "experience_options": [
+      {
+        "id": "never",
+        "label": "Never used or heard of them"
+      },
+      {
+        "id": "seen",
+        "label": "Heard of them / seen examples"
+      },
+      {
+        "id": "few",
+        "label": "Used them a few times"
+      },
+      {
+        "id": "often",
+        "label": "Use them often"
+      }
+    ],
+    "familiarity_prompt": "How familiar are you with this kind of task — could you do it yourself in this application?",
+    "familiarity_options": [
+      {
+        "id": "very",
+        "label": "Very familiar — I could easily do this myself"
+      },
+      {
+        "id": "somewhat",
+        "label": "Somewhat — I could do it, with some effort"
+      },
+      {
+        "id": "slightly",
+        "label": "A little — I'd struggle to do it myself"
+      },
+      {
+        "id": "not",
+        "label": "Not at all — I couldn't do this task"
+      }
+    ],
+    "confidence_prompt": "How confident are you in your answer?",
+    "confidence_options": [
+      {
+        "id": "very",
+        "label": "Very confident"
+      },
+      {
+        "id": "somewhat",
+        "label": "Somewhat confident"
+      },
+      {
+        "id": "slightly",
+        "label": "A little confident"
+      },
+      {
+        "id": "not",
+        "label": "Not confident"
+      }
+    ],
+    "success_prompt": "Do you think the agent completed the task successfully?",
+    "success_options": [
+      {
+        "id": "yes",
+        "label": "Yes — it fully completed the task"
+      },
+      {
+        "id": "partial",
+        "label": "Partially — it did some of it"
+      },
+      {
+        "id": "no",
+        "label": "No — it failed or gave up"
+      },
+      {
+        "id": "unsure",
+        "label": "I can't tell"
+      }
+    ],
+    "efficiency_prompt": "Regardless of success, how efficiently did the agent work?",
+    "efficiency_options": [
+      {
+        "id": "high",
+        "label": "Very efficient — little or no wasted effort"
+      },
+      {
+        "id": "medium",
+        "label": "Somewhat efficient — some wasted or repeated actions"
+      },
+      {
+        "id": "low",
+        "label": "Inefficient — lots of wasted, repeated, or confused actions"
+      },
+      {
+        "id": "unsure",
+        "label": "I can't tell"
+      }
+    ],
+    "understanding_prompt": "Overall, how well could you understand what the agent was doing and why?",
+    "understanding_options": [
+      {
+        "id": "very",
+        "label": "Very well — its actions made sense throughout"
+      },
+      {
+        "id": "fairly",
+        "label": "Fairly well — mostly clear, some confusing moments"
+      },
+      {
+        "id": "little",
+        "label": "Only a little — often hard to follow"
+      },
+      {
+        "id": "not",
+        "label": "Not at all — I couldn't tell what it was doing"
+      }
+    ],
+    "completion_url": "",
+    "completion_code": "STUDY-COMPLETE",
+    "dev_mode": false,
+    "condition": "screen",
+    "conditions": {
+      "native": "Claude-sonnet-4.6 (native scaffold)",
+      "osworld": "Claude-sonnet-4.6 (OSWorld scaffold)"
+    },
+    "show_log": false,
+    "show_video": true,
+    "bundle_id": 1,
+    "evidence": "screen",
+    "expected_tasks": 8
+  },
+  "bundle_id": 1,
+  "evidence": "screen",
+  "condition": "screen",
+  "show_log": false,
+  "show_video": true,
+  "completion_url": null,
+  "completion_code": "STUDY-COMPLETE",
+  "tasks": [
+    {
+      "id": "minimax__93eabf48",
+      "path": "final_final_8tasks_gpt55_minimax_fable/minimax/chrome__93eabf48",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "chrome",
+      "instruction": "Could you assist me in turning off the dark mode feature in Google Chrome? I've noticed that while dark mode is great for reducing glare, it actually makes it more challenging for me to read text clearly, especially with my astigmatism.",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/minimax/chrome__93eabf48/recording.mp4",
+      "duration": 55.133,
+      "num_steps": 5,
+      "num_annotatable": 4,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 7.657
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 7.657,
+          "seg_end": 15.235
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 15.235,
+          "seg_end": 19.344
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 19.344,
+          "seg_end": 25.282
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 25.282,
+          "seg_end": 55.133
+        }
+      ],
+      "entry_id": "minimax__93eabf48",
+      "model": "minimax",
+      "model_label": "MiniMax-M3",
+      "task_id": "93eabf48-6a27-4cb6-b963-7d5fe1e0d3a9",
+      "task_id8": "93eabf48",
+      "domain_alias": "chrome",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/minimax/chrome__93eabf48/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/minimax/chrome__93eabf48/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 0
+    },
+    {
+      "id": "gpt55__04d9aeaf",
+      "path": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_calc__04d9aeaf",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "libreoffice_calc",
+      "instruction": "In a new sheet (\"Sheet2\") with 4 headers \"Year\", \"CA changes\", \"FA changes\", and \"OA changes\", calculate the percentage annual changes compared to last year in 2015 to 2019 for the Current Assets, Fixed Assets, and Other Assets columns. ",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_calc__04d9aeaf/recording.mp4",
+      "duration": 442.406,
+      "num_steps": 5,
+      "num_annotatable": 5,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 57.359
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 57.359,
+          "seg_end": 76.359
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 76.359,
+          "seg_end": 102.265
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 102.265,
+          "seg_end": 129.218
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 129.218,
+          "seg_end": 442.406
+        }
+      ],
+      "entry_id": "gpt55__04d9aeaf",
+      "model": "gpt55",
+      "model_label": "GPT-5.5",
+      "task_id": "04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+      "task_id8": "04d9aeaf",
+      "domain_alias": "calc",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_calc__04d9aeaf/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_calc__04d9aeaf/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 1
+    },
+    {
+      "id": "fable__77b8ab4d",
+      "path": "final_final_8tasks_gpt55_minimax_fable/fable/gimp__77b8ab4d",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "gimp",
+      "instruction": "Could you assist me in placing my photo on the desktop and renaming it to export.jpg?",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/fable/gimp__77b8ab4d/recording.mp4",
+      "duration": 87.547,
+      "num_steps": 6,
+      "num_annotatable": 5,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 23.407
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 23.407,
+          "seg_end": 36.0
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 36.0,
+          "seg_end": 46.016
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 46.016,
+          "seg_end": 54.969
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 54.969,
+          "seg_end": 65.782
+        },
+        {
+          "index": 5,
+          "step_num": 6,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 65.782,
+          "seg_end": 87.547
+        }
+      ],
+      "entry_id": "fable__77b8ab4d",
+      "model": "fable",
+      "model_label": "Claude Fable 5",
+      "task_id": "77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+      "task_id8": "77b8ab4d",
+      "domain_alias": "gimp",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/fable/gimp__77b8ab4d/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/fable/gimp__77b8ab4d/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 2
+    },
+    {
+      "id": "minimax__37887e8c",
+      "path": "final_final_8tasks_gpt55_minimax_fable/minimax/os__37887e8c",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "os",
+      "instruction": "Compress all files under \"/tmp/test_files\" that were last modified 30 days ago and put them in \"/tmp/test_files/old_files\". Move all other files to \"/tmp/test_files/new_files.",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/minimax/os__37887e8c/recording.mp4",
+      "duration": 751.563,
+      "num_steps": 29,
+      "num_annotatable": 28,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 18.797
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 18.797,
+          "seg_end": 33.906
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 33.906,
+          "seg_end": 47.297
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 47.297,
+          "seg_end": 63.203
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 63.203,
+          "seg_end": 79.281
+        },
+        {
+          "index": 5,
+          "step_num": 6,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 79.281,
+          "seg_end": 92.391
+        },
+        {
+          "index": 6,
+          "step_num": 7,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 92.391,
+          "seg_end": 114.578
+        },
+        {
+          "index": 7,
+          "step_num": 8,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 114.578,
+          "seg_end": 130.859
+        },
+        {
+          "index": 8,
+          "step_num": 9,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 130.859,
+          "seg_end": 157.219
+        },
+        {
+          "index": 9,
+          "step_num": 10,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 157.219,
+          "seg_end": 172.156
+        },
+        {
+          "index": 10,
+          "step_num": 11,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 172.156,
+          "seg_end": 198.969
+        },
+        {
+          "index": 11,
+          "step_num": 12,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 198.969,
+          "seg_end": 212.188
+        },
+        {
+          "index": 12,
+          "step_num": 13,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 212.188,
+          "seg_end": 225.906
+        },
+        {
+          "index": 13,
+          "step_num": 14,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 225.906,
+          "seg_end": 245.438
+        },
+        {
+          "index": 14,
+          "step_num": 15,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 245.438,
+          "seg_end": 267.469
+        },
+        {
+          "index": 15,
+          "step_num": 16,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 267.469,
+          "seg_end": 286.375
+        },
+        {
+          "index": 16,
+          "step_num": 17,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 286.375,
+          "seg_end": 309.422
+        },
+        {
+          "index": 17,
+          "step_num": 18,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 309.422,
+          "seg_end": 333.203
+        },
+        {
+          "index": 18,
+          "step_num": 19,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 333.203,
+          "seg_end": 364.031
+        },
+        {
+          "index": 19,
+          "step_num": 20,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 364.031,
+          "seg_end": 410.672
+        },
+        {
+          "index": 20,
+          "step_num": 21,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 410.672,
+          "seg_end": 438.891
+        },
+        {
+          "index": 21,
+          "step_num": 22,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 438.891,
+          "seg_end": 453.547
+        },
+        {
+          "index": 22,
+          "step_num": 23,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 453.547,
+          "seg_end": 471.766
+        },
+        {
+          "index": 23,
+          "step_num": 24,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 471.766,
+          "seg_end": 522.359
+        },
+        {
+          "index": 24,
+          "step_num": 25,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 522.359,
+          "seg_end": 576.25
+        },
+        {
+          "index": 25,
+          "step_num": 26,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 576.25,
+          "seg_end": 636.797
+        },
+        {
+          "index": 26,
+          "step_num": 27,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 636.797,
+          "seg_end": 681.906
+        },
+        {
+          "index": 27,
+          "step_num": 28,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 681.906,
+          "seg_end": 727.672
+        },
+        {
+          "index": 28,
+          "step_num": 29,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 727.672,
+          "seg_end": 751.563
+        }
+      ],
+      "entry_id": "minimax__37887e8c",
+      "model": "minimax",
+      "model_label": "MiniMax-M3",
+      "task_id": "37887e8c-da15-4192-923c-08fa390a176d",
+      "task_id8": "37887e8c",
+      "domain_alias": "os",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/minimax/os__37887e8c/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/minimax/os__37887e8c/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 3
+    },
+    {
+      "id": "gpt55__0810415c",
+      "path": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_writer__0810415c",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "libreoffice_writer",
+      "instruction": "Make the line spacing of first two paragraph into double line spacing",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_writer__0810415c/recording.mp4",
+      "duration": 280.333,
+      "num_steps": 3,
+      "num_annotatable": 2,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 244.063
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 244.063,
+          "seg_end": 257.907
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 257.907,
+          "seg_end": 280.333
+        }
+      ],
+      "entry_id": "gpt55__0810415c",
+      "model": "gpt55",
+      "model_label": "GPT-5.5",
+      "task_id": "0810415c-bde4-4443-9047-d5f70165a697",
+      "task_id8": "0810415c",
+      "domain_alias": "writer",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_writer__0810415c/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/gpt55/libreoffice_writer__0810415c/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 4
+    },
+    {
+      "id": "fable__9195653c",
+      "path": "final_final_8tasks_gpt55_minimax_fable/fable/vlc__9195653c",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "vlc",
+      "instruction": "I like watching movies (using VLC) on my laptop and sometimes the volume is too low for my taste even when the volume in VLC is set to the maximum of 125% on the volume control. Can you increase the max volume of the video to the 200% of the original volume?",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/fable/vlc__9195653c/recording.mp4",
+      "duration": 246.828,
+      "num_steps": 18,
+      "num_annotatable": 16,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 14.656
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 14.656,
+          "seg_end": 23.75
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": true,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 23.75,
+          "seg_end": 35.953
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 35.953,
+          "seg_end": 54.64
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 54.64,
+          "seg_end": 68.984
+        },
+        {
+          "index": 5,
+          "step_num": 6,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 68.984,
+          "seg_end": 79.812
+        },
+        {
+          "index": 6,
+          "step_num": 7,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 79.812,
+          "seg_end": 90.203
+        },
+        {
+          "index": 7,
+          "step_num": 8,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 90.203,
+          "seg_end": 100.718
+        },
+        {
+          "index": 8,
+          "step_num": 9,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 100.718,
+          "seg_end": 111.343
+        },
+        {
+          "index": 9,
+          "step_num": 10,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 111.343,
+          "seg_end": 122.265
+        },
+        {
+          "index": 10,
+          "step_num": 11,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 122.265,
+          "seg_end": 133.031
+        },
+        {
+          "index": 11,
+          "step_num": 12,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 133.031,
+          "seg_end": 147.328
+        },
+        {
+          "index": 12,
+          "step_num": 13,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 147.328,
+          "seg_end": 163.546
+        },
+        {
+          "index": 13,
+          "step_num": 14,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 163.546,
+          "seg_end": 181.75
+        },
+        {
+          "index": 14,
+          "step_num": 15,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 181.75,
+          "seg_end": 195.078
+        },
+        {
+          "index": 15,
+          "step_num": 16,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 195.078,
+          "seg_end": 211.14
+        },
+        {
+          "index": 16,
+          "step_num": 17,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 211.14,
+          "seg_end": 224.531
+        },
+        {
+          "index": 17,
+          "step_num": 18,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 224.531,
+          "seg_end": 246.828
+        }
+      ],
+      "entry_id": "fable__9195653c",
+      "model": "fable",
+      "model_label": "Claude Fable 5",
+      "task_id": "9195653c-f4aa-453d-aa95-787f6ccfaae9",
+      "task_id8": "9195653c",
+      "domain_alias": "vlc",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/fable/vlc__9195653c/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/fable/vlc__9195653c/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 5
+    },
+    {
+      "id": "minimax__2b94c692",
+      "path": "final_final_8tasks_gpt55_minimax_fable/minimax/libreoffice_impress__2b94c692",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "libreoffice_impress",
+      "instruction": "Move the image to the right side on Slide 2.",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/minimax/libreoffice_impress__2b94c692/recording.mp4",
+      "duration": 48.11,
+      "num_steps": 5,
+      "num_annotatable": 4,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 6.86
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 6.86,
+          "seg_end": 11.657
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 11.657,
+          "seg_end": 18.407
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 18.407,
+          "seg_end": 24.625
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 24.625,
+          "seg_end": 48.11
+        }
+      ],
+      "entry_id": "minimax__2b94c692",
+      "model": "minimax",
+      "model_label": "MiniMax-M3",
+      "task_id": "2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+      "task_id8": "2b94c692",
+      "domain_alias": "impress",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/minimax/libreoffice_impress__2b94c692/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/minimax/libreoffice_impress__2b94c692/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 6
+    },
+    {
+      "id": "gpt55__9439a27b",
+      "path": "final_final_8tasks_gpt55_minimax_fable/gpt55/vs_code__9439a27b",
+      "bundle": "",
+      "condition": "multimodel",
+      "domain": "vs_code",
+      "instruction": "Please help me modify the setting of VS Code to keep my cursor focused on the debug console when debugging in VS Code, instead of automatically focusing back on the Editor.",
+      "video_url": "final_final_8tasks_gpt55_minimax_fable/gpt55/vs_code__9439a27b/recording.mp4",
+      "duration": 143.633,
+      "num_steps": 5,
+      "num_annotatable": 4,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 161.031
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 161.031,
+          "seg_end": 247.64
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 247.64,
+          "seg_end": 336.281
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 336.281,
+          "seg_end": 395.578
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 395.578,
+          "seg_end": 395.778
+        }
+      ],
+      "entry_id": "gpt55__9439a27b",
+      "model": "gpt55",
+      "model_label": "GPT-5.5",
+      "task_id": "9439a27b-18ae-42d8-9778-5f68f891805e",
+      "task_id8": "9439a27b",
+      "domain_alias": "vscode",
+      "recording_relpath": "final_final_8tasks_gpt55_minimax_fable/gpt55/vs_code__9439a27b/recording.mp4",
+      "trajectory_relpath": "final_final_8tasks_gpt55_minimax_fable/gpt55/vs_code__9439a27b/traj.jsonl",
+      "bundle_id": 1,
+      "evidence": "screen",
+      "show_video": true,
+      "show_log": false,
+      "order_index": 7
+    }
+  ],
+  "practice_tasks": [
+    {
+      "id": "0f84bef9-9790-432e-92b7-eece357603fb",
+      "path": "results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/0f84bef9-9790-432e-92b7-eece357603fb",
+      "bundle": "m3_exp1_40tasks_bundle",
+      "condition": null,
+      "domain": "libreoffice_impress",
+      "instruction": "On it Whenever I launch a LibreOffice Impress, it uses both screens, one for current slide and next slide and another for actual presentation. What I want is to use only one monitor which shows presentation. I dont want the screen with Current slide and Next slide so that it can be used for other purposes. How should I achieve this?",
+      "video_url": "m3_exp1_40tasks_bundle/results/pyautogui/screenshot/MiniMax-M3/libreoffice_impress/0f84bef9-9790-432e-92b7-eece357603fb/recording.mp4",
+      "duration": 72.344,
+      "num_steps": 5,
+      "num_annotatable": 4,
+      "steps": [
+        {
+          "index": 0,
+          "step_num": 1,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 0.0,
+          "seg_end": 11.75
+        },
+        {
+          "index": 1,
+          "step_num": 2,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 11.75,
+          "seg_end": 23.203
+        },
+        {
+          "index": 2,
+          "step_num": 3,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 23.203,
+          "seg_end": 34.672
+        },
+        {
+          "index": 3,
+          "step_num": 4,
+          "is_sleep": false,
+          "is_done": false,
+          "sleep_seconds": null,
+          "seg_start": 34.672,
+          "seg_end": 47.938
+        },
+        {
+          "index": 4,
+          "step_num": 5,
+          "is_sleep": false,
+          "is_done": true,
+          "sleep_seconds": null,
+          "seg_start": 47.938,
+          "seg_end": 72.344
+        }
+      ],
+      "is_practice": true
+    }
+  ],
+  "study_id": "final_final_gpt55_minimax_fable_bundles_v1"
+}

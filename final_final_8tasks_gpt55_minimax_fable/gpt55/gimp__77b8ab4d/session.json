@@ -1,0 +1,15 @@
+{
+  "instruction": "Could you assist me in placing my photo on the desktop and renaming it to export.jpg?",
+  "example_id": "77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "run_started_at": "2026-09-24T05:22:12.581217Z",
+  "recording_started_at": "2026-09-24T05:22:12.628890Z",
+  "recording_ended_at": "2026-09-24T05:23:23.440371Z",
+  "recording_fps": 30,
+  "model": "gpt-5.5-2026-04-23",
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "gimp",
+  "recording_duration_sec": 70.812
+}

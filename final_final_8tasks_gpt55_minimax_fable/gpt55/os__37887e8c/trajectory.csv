@@ -1,0 +1,653 @@
+﻿model,scaffold,domain,task_id,new_recording_episode,score,step_num,action_timestamp,video_offset_sec,action,response,reward,done,info,timing,screenshot_file,recording_path,source_directory
+GPT-5.5,OSWorld,os,37887e8c-da15-4192-923c-08fa390a176d,False,0.0,1,20260818@101737419617,40.328,"import pyautogui, pyperclip, textwrap, time
+cmd = r""""""python3 - <<'PY'
+from pathlib import Path
+import time, gzip, shutil, os
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+cutoff = time.time() - 30 * 24 * 60 * 60
+files = []
+for dirpath, dirnames, filenames in os.walk(root):
+d = Path(dirpath)
+if d == root:
+dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+elif old_dir in d.parents or new_dir in d.parents:
+dirnames[:] = []
+continue
+for name in filenames:
+p = d / name
+if p.is_file():
+files.append(p)
+for p in files:
+rel = p.relative_to(root)
+if p.stat().st_mtime <= cutoff:
+dest = old_dir / (str(rel) + '.gz')
+dest.parent.mkdir(parents=True, exist_ok=True)
+with open(p, 'rb') as f_in, gzip.open(dest, 'wb') as f_out:
+shutil.copyfileobj(f_in, f_out)
+p.unlink()
+else:
+dest = new_dir / rel
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists():
+if dest.is_file() or dest.is_symlink():
+dest.unlink()
+else:
+shutil.rmtree(dest)
+shutil.move(str(p), str(dest))
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+d = Path(dirpath)
+if d in (root, old_dir, new_dir) or old_dir in d.parents or new_dir in d.parents:
+continue
+try:
+d.rmdir()
+except OSError:
+pass
+PY""""""
+pyperclip.copy(cmd)
+pyautogui.hotkey('ctrl','v')
+pyautogui.press('enter')
+time.sleep(1)","Terminal is open at a shell prompt; no previous commands have been run yet. I’ll paste and execute a Python script to create the destination folders, gzip files at least 30 days old into `old_files`, and move the rest into `new_files`.
+```python
+import pyautogui, pyperclip, textwrap, time
+cmd = r""""""python3 - <<'PY'
+from pathlib import Path
+import time, gzip, shutil, os
+
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+
+cutoff = time.time() - 30 * 24 * 60 * 60
+files = []
+for dirpath, dirnames, filenames in os.walk(root):
+    d = Path(dirpath)
+    if d == root:
+        dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+    elif old_dir in d.parents or new_dir in d.parents:
+        dirnames[:] = []
+        continue
+    for name in filenames:
+        p = d / name
+        if p.is_file():
+            files.append(p)
+
+for p in files:
+    rel = p.relative_to(root)
+    if p.stat().st_mtime <= cutoff:
+        dest = old_dir / (str(rel) + '.gz')
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with open(p, 'rb') as f_in, gzip.open(dest, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+        p.unlink()
+    else:
+        dest = new_dir / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            if dest.is_file() or dest.is_symlink():
+                dest.unlink()
+            else:
+                shutil.rmtree(dest)
+        shutil.move(str(p), str(dest))
+
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+    d = Path(dirpath)
+    if d in (root, old_dir, new_dir) or old_dir in d.parents or new_dir in d.parents:
+        continue
+    try:
+        d.rmdir()
+    except OSError:
+        pass
+PY""""""
+pyperclip.copy(cmd)
+pyautogui.hotkey('ctrl','v')
+pyautogui.press('enter')
+time.sleep(1)
+```",0,False,{},"{""run_elapsed_sec"": 40.36, ""video_offset_sec"": 40.328, ""predict_started_video_offset_sec"": 39.218, ""action_started_video_offset_sec"": 39.218}",step_1_20260818@101737419617.png,GPT-5.5/os/37887e8c-da15-4192-923c-08fa390a176d/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/os/37887e8c-da15-4192-923c-08fa390a176d
+GPT-5.5,OSWorld,os,37887e8c-da15-4192-923c-08fa390a176d,False,0.0,2,20260818@101922782541,145.468,"# Terminal is focused at an idle prompt; the previous paste is not visible, so I will cancel any partial input and paste/run the organizing script using Ctrl+Shift+V.
+import pyautogui, time
+cmd = r""""""python3 - <<'PY'
+from pathlib import Path
+import os, time, gzip, shutil
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+cutoff = time.time() - 30 * 24 * 60 * 60
+items = []
+for dirpath, dirnames, filenames in os.walk(root):
+d = Path(dirpath)
+if d == root:
+dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+elif old_dir in d.parents or new_dir in d.parents or d in (old_dir, new_dir):
+dirnames[:] = []
+continue
+for name in filenames:
+p = d / name
+if p.is_file():
+items.append(p)
+old_count = new_count = 0
+for p in items:
+if not p.exists():
+continue
+rel = p.relative_to(root)
+if p.stat().st_mtime <= cutoff:
+dest = old_dir / (str(rel) + '.gz')
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists():
+if dest.is_dir() and not dest.is_symlink():
+shutil.rmtree(dest)
+else:
+dest.unlink()
+with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+shutil.copyfileobj(src, out)
+p.unlink()
+old_count += 1
+else:
+dest = new_dir / rel
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists():
+if dest.is_dir() and not dest.is_symlink():
+shutil.rmtree(dest)
+else:
+dest.unlink()
+shutil.move(str(p), str(dest))
+new_count += 1
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+d = Path(dirpath)
+if d == root or d in (old_dir, new_dir) or old_dir in d.parents or new_dir in d.parents:
+continue
+try:
+d.rmdir()
+except OSError:
+pass
+print(f""Done: compressed {old_count} old file(s) into {old_dir}
+moved {new_count} other file(s) into {new_dir}."")
+PY""""""
+try:
+import pyperclip
+pyperclip.copy(cmd)
+pyautogui.hotkey('ctrl', 'c')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'shift', 'v')
+except Exception:
+pyautogui.hotkey('ctrl', 'c')
+time.sleep(0.2)
+pyautogui.write(cmd, interval=0)
+pyautogui.press('enter')
+time.sleep(1)","```python
+# Terminal is focused at an idle prompt; the previous paste is not visible, so I will cancel any partial input and paste/run the organizing script using Ctrl+Shift+V.
+import pyautogui, time
+cmd = r""""""python3 - <<'PY'
+from pathlib import Path
+import os, time, gzip, shutil
+
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+
+cutoff = time.time() - 30 * 24 * 60 * 60
+items = []
+for dirpath, dirnames, filenames in os.walk(root):
+    d = Path(dirpath)
+    if d == root:
+        dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+    elif old_dir in d.parents or new_dir in d.parents or d in (old_dir, new_dir):
+        dirnames[:] = []
+        continue
+    for name in filenames:
+        p = d / name
+        if p.is_file():
+            items.append(p)
+
+old_count = new_count = 0
+for p in items:
+    if not p.exists():
+        continue
+    rel = p.relative_to(root)
+    if p.stat().st_mtime <= cutoff:
+        dest = old_dir / (str(rel) + '.gz')
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            if dest.is_dir() and not dest.is_symlink():
+                shutil.rmtree(dest)
+            else:
+                dest.unlink()
+        with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+            shutil.copyfileobj(src, out)
+        p.unlink()
+        old_count += 1
+    else:
+        dest = new_dir / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            if dest.is_dir() and not dest.is_symlink():
+                shutil.rmtree(dest)
+            else:
+                dest.unlink()
+        shutil.move(str(p), str(dest))
+        new_count += 1
+
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+    d = Path(dirpath)
+    if d == root or d in (old_dir, new_dir) or old_dir in d.parents or new_dir in d.parents:
+        continue
+    try:
+        d.rmdir()
+    except OSError:
+        pass
+
+print(f""Done: compressed {old_count} old file(s) into {old_dir}; moved {new_count} other file(s) into {new_dir}."")
+PY""""""
+try:
+    import pyperclip
+    pyperclip.copy(cmd)
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(0.2)
+    pyautogui.hotkey('ctrl', 'shift', 'v')
+except Exception:
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(0.2)
+    pyautogui.write(cmd, interval=0)
+pyautogui.press('enter')
+time.sleep(1)
+```",0,False,{},"{""run_elapsed_sec"": 145.5, ""video_offset_sec"": 145.468, ""predict_started_video_offset_sec"": 144.578, ""action_started_video_offset_sec"": 144.578}",step_2_20260818@101922782541.png,GPT-5.5/os/37887e8c-da15-4192-923c-08fa390a176d/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/os/37887e8c-da15-4192-923c-08fa390a176d
+GPT-5.5,OSWorld,os,37887e8c-da15-4192-923c-08fa390a176d,False,0.0,3,20260818@102001327819,183.953,"# Terminal is idle and no previous command output is visible, so I will perform the file organization directly and reliably now.
+import os, time, gzip, shutil
+from pathlib import Path
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+cutoff = time.time() - 30 * 24 * 60 * 60
+files = []
+for dirpath, dirnames, filenames in os.walk(root):
+d = Path(dirpath)
+if d == root:
+dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+elif d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+dirnames[:] = []
+continue
+for name in filenames:
+p = d / name
+if p.is_file():
+files.append(p)
+for p in files:
+if not p.exists():
+continue
+rel = p.relative_to(root)
+if p.stat().st_mtime <= cutoff:
+dest = old_dir / (str(rel) + '.gz')
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists():
+dest.unlink()
+with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+shutil.copyfileobj(src, out)
+p.unlink()
+else:
+dest = new_dir / rel
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists():
+if dest.is_dir() and not dest.is_symlink():
+shutil.rmtree(dest)
+else:
+dest.unlink()
+shutil.move(str(p), str(dest))
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+d = Path(dirpath)
+if d == root or d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+continue
+try:
+d.rmdir()
+except OSError:
+pass
+time.sleep(0.5)","```python
+# Terminal is idle and no previous command output is visible, so I will perform the file organization directly and reliably now.
+import os, time, gzip, shutil
+from pathlib import Path
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+cutoff = time.time() - 30 * 24 * 60 * 60
+files = []
+for dirpath, dirnames, filenames in os.walk(root):
+    d = Path(dirpath)
+    if d == root:
+        dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+    elif d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+        dirnames[:] = []
+        continue
+    for name in filenames:
+        p = d / name
+        if p.is_file():
+            files.append(p)
+for p in files:
+    if not p.exists():
+        continue
+    rel = p.relative_to(root)
+    if p.stat().st_mtime <= cutoff:
+        dest = old_dir / (str(rel) + '.gz')
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            dest.unlink()
+        with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+            shutil.copyfileobj(src, out)
+        p.unlink()
+    else:
+        dest = new_dir / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            if dest.is_dir() and not dest.is_symlink():
+                shutil.rmtree(dest)
+            else:
+                dest.unlink()
+        shutil.move(str(p), str(dest))
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+    d = Path(dirpath)
+    if d == root or d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+        continue
+    try:
+        d.rmdir()
+    except OSError:
+        pass
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 183.985, ""video_offset_sec"": 183.953, ""predict_started_video_offset_sec"": 183.125, ""action_started_video_offset_sec"": 183.125}",step_3_20260818@102001327819.png,GPT-5.5/os/37887e8c-da15-4192-923c-08fa390a176d/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/os/37887e8c-da15-4192-923c-08fa390a176d
+GPT-5.5,OSWorld,os,37887e8c-da15-4192-923c-08fa390a176d,False,0.0,4,20260818@102047706444,230.687,"# Terminal is open and idle; no visible output confirms completion, so I will run the organizing/compressing script inside the terminal now.
+import pyautogui, pyperclip, textwrap, time
+cmd = r""""""python3 - <<'PY'
+from pathlib import Path
+import os, time, gzip, shutil
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+cutoff = time.time() - 30 * 24 * 60 * 60
+targets = []
+for dirpath, dirnames, filenames in os.walk(root):
+d = Path(dirpath)
+if d == root:
+dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+elif d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+dirnames[:] = []
+continue
+for name in filenames:
+p = d / name
+if p.is_file():
+targets.append(p)
+for p in targets:
+if not p.exists():
+continue
+rel = p.relative_to(root)
+if p.stat().st_mtime <= cutoff:
+dest = old_dir / (str(rel) + '.gz')
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists():
+if dest.is_dir() and not dest.is_symlink():
+shutil.rmtree(dest)
+else:
+dest.unlink()
+with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+shutil.copyfileobj(src, out)
+p.unlink()
+else:
+dest = new_dir / rel
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists():
+if dest.is_dir() and not dest.is_symlink():
+shutil.rmtree(dest)
+else:
+dest.unlink()
+shutil.move(str(p), str(dest))
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+d = Path(dirpath)
+if d == root or d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+continue
+try:
+d.rmdir()
+except OSError:
+pass
+print(""DONE"")
+PY""""""
+pyperclip.copy(cmd)
+pyautogui.click(527, 113)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'c')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'shift', 'v')
+time.sleep(0.2)
+pyautogui.press('enter')
+time.sleep(1)","```python
+# Terminal is open and idle; no visible output confirms completion, so I will run the organizing/compressing script inside the terminal now.
+import pyautogui, pyperclip, textwrap, time
+cmd = r""""""python3 - <<'PY'
+from pathlib import Path
+import os, time, gzip, shutil
+
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+
+cutoff = time.time() - 30 * 24 * 60 * 60
+targets = []
+for dirpath, dirnames, filenames in os.walk(root):
+    d = Path(dirpath)
+    if d == root:
+        dirnames[:] = [x for x in dirnames if x not in ('old_files', 'new_files')]
+    elif d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+        dirnames[:] = []
+        continue
+    for name in filenames:
+        p = d / name
+        if p.is_file():
+            targets.append(p)
+
+for p in targets:
+    if not p.exists():
+        continue
+    rel = p.relative_to(root)
+    if p.stat().st_mtime <= cutoff:
+        dest = old_dir / (str(rel) + '.gz')
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            if dest.is_dir() and not dest.is_symlink():
+                shutil.rmtree(dest)
+            else:
+                dest.unlink()
+        with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+            shutil.copyfileobj(src, out)
+        p.unlink()
+    else:
+        dest = new_dir / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            if dest.is_dir() and not dest.is_symlink():
+                shutil.rmtree(dest)
+            else:
+                dest.unlink()
+        shutil.move(str(p), str(dest))
+
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+    d = Path(dirpath)
+    if d == root or d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+        continue
+    try:
+        d.rmdir()
+    except OSError:
+        pass
+print(""DONE"")
+PY""""""
+pyperclip.copy(cmd)
+pyautogui.click(527, 113)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'c')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'shift', 'v')
+time.sleep(0.2)
+pyautogui.press('enter')
+time.sleep(1)
+```",0,False,{},"{""run_elapsed_sec"": 230.719, ""video_offset_sec"": 230.687, ""predict_started_video_offset_sec"": 229.5, ""action_started_video_offset_sec"": 229.5}",step_4_20260818@102047706444.png,GPT-5.5/os/37887e8c-da15-4192-923c-08fa390a176d/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/os/37887e8c-da15-4192-923c-08fa390a176d
+GPT-5.5,OSWorld,os,37887e8c-da15-4192-923c-08fa390a176d,False,0.0,5,20260818@102303298074,366.265,"# Terminal is idle and previous attempts left no visible confirmation, so I will write/run a robust organizer script and show its completion in the terminal.
+import os, subprocess, time
+script = r'''
+from pathlib import Path
+import os, time, gzip, shutil
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+cutoff = time.time() - 30 * 24 * 60 * 60
+targets = []
+for dirpath, dirnames, filenames in os.walk(root):
+d = Path(dirpath)
+if d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+dirnames[:] = []
+continue
+dirnames[:] = [x for x in dirnames if (d / x) not in (old_dir, new_dir)]
+for name in filenames:
+p = d / name
+if p.is_file():
+targets.append(p)
+old_count = new_count = 0
+for p in targets:
+if not p.exists():
+continue
+rel = p.relative_to(root)
+st = p.stat()
+if st.st_mtime <= cutoff:
+dest = old_dir / (str(rel) + '.gz')
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists() or dest.is_symlink():
+if dest.is_dir() and not dest.is_symlink():
+shutil.rmtree(dest)
+else:
+dest.unlink()
+with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+shutil.copyfileobj(src, out)
+p.unlink()
+old_count += 1
+else:
+dest = new_dir / rel
+dest.parent.mkdir(parents=True, exist_ok=True)
+if dest.exists() or dest.is_symlink():
+if dest.is_dir() and not dest.is_symlink():
+shutil.rmtree(dest)
+else:
+dest.unlink()
+shutil.move(str(p), str(dest))
+new_count += 1
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+d = Path(dirpath)
+if d == root or d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+continue
+try:
+d.rmdir()
+except OSError:
+pass
+print(f""DONE old={old_count} new={new_count}"")
+'''
+path = '/tmp/organize_test_files.py'
+with open(path, 'w') as f:
+f.write(script)
+subprocess.run(['python3', path], check=False)
+import pyautogui
+pyautogui.click(527, 113)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'c')
+time.sleep(0.2)
+pyautogui.write('python3 /tmp/organize_test_files.py', interval=0.01)
+pyautogui.press('enter')
+time.sleep(1)","```python
+# Terminal is idle and previous attempts left no visible confirmation, so I will write/run a robust organizer script and show its completion in the terminal.
+import os, subprocess, time
+script = r'''
+from pathlib import Path
+import os, time, gzip, shutil
+
+root = Path('/tmp/test_files')
+old_dir = root / 'old_files'
+new_dir = root / 'new_files'
+old_dir.mkdir(parents=True, exist_ok=True)
+new_dir.mkdir(parents=True, exist_ok=True)
+
+cutoff = time.time() - 30 * 24 * 60 * 60
+targets = []
+for dirpath, dirnames, filenames in os.walk(root):
+    d = Path(dirpath)
+    if d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+        dirnames[:] = []
+        continue
+    dirnames[:] = [x for x in dirnames if (d / x) not in (old_dir, new_dir)]
+    for name in filenames:
+        p = d / name
+        if p.is_file():
+            targets.append(p)
+
+old_count = new_count = 0
+for p in targets:
+    if not p.exists():
+        continue
+    rel = p.relative_to(root)
+    st = p.stat()
+    if st.st_mtime <= cutoff:
+        dest = old_dir / (str(rel) + '.gz')
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists() or dest.is_symlink():
+            if dest.is_dir() and not dest.is_symlink():
+                shutil.rmtree(dest)
+            else:
+                dest.unlink()
+        with open(p, 'rb') as src, gzip.open(dest, 'wb') as out:
+            shutil.copyfileobj(src, out)
+        p.unlink()
+        old_count += 1
+    else:
+        dest = new_dir / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists() or dest.is_symlink():
+            if dest.is_dir() and not dest.is_symlink():
+                shutil.rmtree(dest)
+            else:
+                dest.unlink()
+        shutil.move(str(p), str(dest))
+        new_count += 1
+
+for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+    d = Path(dirpath)
+    if d == root or d == old_dir or d == new_dir or old_dir in d.parents or new_dir in d.parents:
+        continue
+    try:
+        d.rmdir()
+    except OSError:
+        pass
+
+print(f""DONE old={old_count} new={new_count}"")
+'''
+path = '/tmp/organize_test_files.py'
+with open(path, 'w') as f:
+    f.write(script)
+subprocess.run(['python3', path], check=False)
+import pyautogui
+pyautogui.click(527, 113)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'c')
+time.sleep(0.2)
+pyautogui.write('python3 /tmp/organize_test_files.py', interval=0.01)
+pyautogui.press('enter')
+time.sleep(1)
+```",0,False,{},"{""run_elapsed_sec"": 366.297, ""video_offset_sec"": 366.265, ""predict_started_video_offset_sec"": 365.093, ""action_started_video_offset_sec"": 365.093}",step_5_20260818@102303298074.png,GPT-5.5/os/37887e8c-da15-4192-923c-08fa390a176d/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/os/37887e8c-da15-4192-923c-08fa390a176d
+GPT-5.5,OSWorld,os,37887e8c-da15-4192-923c-08fa390a176d,False,0.0,6,20260818@102351156114,413.812,DONE,```DONE```,0,True,"{""done"": true}","{""run_elapsed_sec"": 413.844, ""video_offset_sec"": 413.812, ""predict_started_video_offset_sec"": 412.953, ""action_started_video_offset_sec"": 412.953}",step_6_20260818@102351156114.png,GPT-5.5/os/37887e8c-da15-4192-923c-08fa390a176d/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/os/37887e8c-da15-4192-923c-08fa390a176d

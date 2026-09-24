@@ -1,0 +1,17 @@
+{
+  "model": "MiniMax-M3",
+  "scaffold": "OSWorld",
+  "domain": "libreoffice_calc",
+  "task_id": "04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+  "source_directory": "results/pyautogui/screenshot/MiniMax-M3__osworld/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+  "folder": "MiniMax-M3/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+  "trajectory_sha256": "671566f7373b27bee66984f6aae2c557a2cf86d0e03738d966620a8b34868981",
+  "score": 1.0,
+  "instruction": "In a new sheet (\"Sheet2\") with 4 headers \"Year\", \"CA changes\", \"FA changes\", and \"OA changes\", calculate the percentage annual changes compared to last year in 2015 to 2019 for the Current Assets, Fixed Assets, and Other Assets columns. ",
+  "new_recording_episode": false,
+  "duration_sec": 135.6,
+  "original_video_sha256": "d62c9852c8001d1b9535fffad6a053911c47fc2fafc4fc598021190f006479c0",
+  "playback_video_sha256": "8d99003daeae934f61d44132bc825e47f0e7f7736581015d11953b045246f8c1",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 11
+}

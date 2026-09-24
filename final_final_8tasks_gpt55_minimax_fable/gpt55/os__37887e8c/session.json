@@ -1,0 +1,15 @@
+{
+  "instruction": "Compress all files under \"/tmp/test_files\" that were last modified 30 days ago and put them in \"/tmp/test_files/old_files\". Move all other files to \"/tmp/test_files/new_files.",
+  "example_id": "37887e8c-da15-4192-923c-08fa390a176d",
+  "run_started_at": "2026-08-18T17:16:58.163448Z",
+  "recording_started_at": "2026-08-18T17:16:58.194072Z",
+  "recording_ended_at": "2026-08-18T17:24:14.061753Z",
+  "recording_fps": 30,
+  "model": "gpt-5.5-2026-04-23",
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "os",
+  "recording_duration_sec": 435.859
+}

@@ -1,0 +1,17 @@
+{
+  "model": "Fable",
+  "scaffold": "OSWorld",
+  "domain": "libreoffice_calc",
+  "task_id": "04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+  "source_directory": "results/pyautogui/screenshot/claude-fable-5/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+  "folder": "Fable/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
+  "trajectory_sha256": "c7b8b83348ef36638a0c7445d7819a08c902b0b5c054307e58bc11ddf73f32c3",
+  "score": 1.0,
+  "instruction": "In a new sheet (\"Sheet2\") with 4 headers \"Year\", \"CA changes\", \"FA changes\", and \"OA changes\", calculate the percentage annual changes compared to last year in 2015 to 2019 for the Current Assets, Fixed Assets, and Other Assets columns. ",
+  "new_recording_episode": false,
+  "duration_sec": 322.833333,
+  "original_video_sha256": "7392ef6ccb07e29e6fb9e7f55dfb8bb03e2ce36c1bb1ea6a4031d7a01591a5b4",
+  "playback_video_sha256": "71c43e8c638cc9a9193e096cdaf01606e6e16c9b1b5799ff6e945cb497da901f",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 4
+}

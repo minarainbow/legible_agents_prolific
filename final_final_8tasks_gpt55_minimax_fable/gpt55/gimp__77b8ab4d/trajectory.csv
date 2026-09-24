@@ -1,0 +1,51 @@
+﻿model,scaffold,domain,task_id,new_recording_episode,score,step_num,action_timestamp,video_offset_sec,action,response,reward,done,info,timing,screenshot_file,recording_path,source_directory
+GPT-5.5,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,True,1.0,1,20260923@222224631601,19.172,"import pyautogui, time, os
+pyautogui.hotkey('ctrl','shift','e')
+time.sleep(1)
+pyautogui.hotkey('ctrl','l')
+time.sleep(0.3)
+pyautogui.write(os.path.expanduser('~/Desktop/export.jpg'), interval=0.01)
+pyautogui.press('enter')
+time.sleep(1)
+pyautogui.press('enter')
+time.sleep(1)
+pyautogui.press('enter')","I can export the currently open image from GIMP directly to the Desktop as `export.jpg`, using the Export As dialog. 
+```python
+import pyautogui, time, os
+pyautogui.hotkey('ctrl','shift','e')
+time.sleep(1)
+pyautogui.hotkey('ctrl','l')
+time.sleep(0.3)
+pyautogui.write(os.path.expanduser('~/Desktop/export.jpg'), interval=0.01)
+pyautogui.press('enter')
+time.sleep(1)
+pyautogui.press('enter')
+time.sleep(1)
+pyautogui.press('enter')
+```",0,False,{},"{""run_elapsed_sec"": 19.219, ""video_offset_sec"": 19.172, ""predict_started_video_offset_sec"": 12.0, ""action_started_video_offset_sec"": 12.0}",step_1_20260923@222224631601.png,GPT-5.5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/gpt55_77b8ab4d_rerun_20260923/episodes/01_osworld_77b8ab4d/pyautogui/screenshot/gpt-5.5-2026-04-23/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+GPT-5.5,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,True,1.0,2,20260923@222236533073,25.828,"# The export path is already set to /home/user/Desktop/export.jpg and the JPEG options dialog is open; click Export to save it.
+import pyautogui, time
+pyautogui.click(1519, 933)
+time.sleep(0.5)","```python
+# The export path is already set to /home/user/Desktop/export.jpg and the JPEG options dialog is open; click Export to save it.
+import pyautogui, time
+pyautogui.click(1519, 933)
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 25.875, ""video_offset_sec"": 25.828, ""predict_started_video_offset_sec"": 23.906, ""action_started_video_offset_sec"": 23.906}",step_2_20260923@222236533073.png,GPT-5.5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/gpt55_77b8ab4d_rerun_20260923/episodes/01_osworld_77b8ab4d/pyautogui/screenshot/gpt-5.5-2026-04-23/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+GPT-5.5,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,True,1.0,3,20260923@222248873493,37.219,"# The image was exported, but GIMP saved it as export.jpg.jpg; rename it on the Desktop to export.jpg.
+import os, time
+src = os.path.expanduser(""~/Desktop/export.jpg.jpg"")
+dst = os.path.expanduser(""~/Desktop/export.jpg"")
+if os.path.exists(src):
+    os.replace(src, dst)
+time.sleep(0.5)","```python
+# The image was exported, but GIMP saved it as export.jpg.jpg; rename it on the Desktop to export.jpg.
+import os, time
+src = os.path.expanduser(""~/Desktop/export.jpg.jpg"")
+dst = os.path.expanduser(""~/Desktop/export.jpg"")
+if os.path.exists(src):
+    os.replace(src, dst)
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 37.266, ""video_offset_sec"": 37.219, ""predict_started_video_offset_sec"": 36.25, ""action_started_video_offset_sec"": 36.25}",step_3_20260923@222248873493.png,GPT-5.5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/gpt55_77b8ab4d_rerun_20260923/episodes/01_osworld_77b8ab4d/pyautogui/screenshot/gpt-5.5-2026-04-23/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+GPT-5.5,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,True,1.0,4,20260923@222302876266,50.5,DONE,"```DONE
+```",0,True,"{""done"": true}","{""run_elapsed_sec"": 50.547, ""video_offset_sec"": 50.5, ""predict_started_video_offset_sec"": 50.25, ""action_started_video_offset_sec"": 50.25}",step_4_20260923@222302876266.png,GPT-5.5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/gpt55_77b8ab4d_rerun_20260923/episodes/01_osworld_77b8ab4d/pyautogui/screenshot/gpt-5.5-2026-04-23/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4

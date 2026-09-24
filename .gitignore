@@ -10,6 +10,22 @@ venv/
 
 # Local participant submissions — never publish these
 annotation_app/data/
+annotation_app_dual/data/
+
+# Evaluation viewer local artifacts (exports, grades, built join)
+eval_data/
+eval/data.json
+eval/grades.json
+eval/grades.json.tmp
+grades_out/
+eval/model_eval/runs/
+eval/model_eval/.env.local
+
+# PII / exports — never commit
+approved_participants_master.csv
+legible-agents-pro-default-rtdb-export.json
+grades_bruce_test_*.json
+eval_grades.json
 
 # Raw results bundles are large. Ignored by default; only the recordings the
 # study actually serves are force-added (git add -f) so the repo stays small.

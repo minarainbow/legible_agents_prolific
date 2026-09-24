@@ -1,0 +1,15 @@
+{
+  "instruction": "Could you assist me in turning off the dark mode feature in Google Chrome? I've noticed that while dark mode is great for reducing glare, it actually makes it more challenging for me to read text clearly, especially with my astigmatism.",
+  "example_id": "93eabf48-6a27-4cb6-b963-7d5fe1e0d3a9",
+  "run_started_at": "2026-08-17T23:17:31.637382Z",
+  "recording_started_at": "2026-08-17T23:17:31.670611Z",
+  "recording_ended_at": "2026-08-17T23:20:55.675850Z",
+  "recording_fps": 30,
+  "model": "gpt-5.5-2026-04-23",
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "chrome",
+  "recording_duration_sec": 203.6
+}

@@ -1,0 +1,17 @@
+{
+  "model": "MiniMax-M3",
+  "scaffold": "OSWorld",
+  "domain": "vlc",
+  "task_id": "9195653c-f4aa-453d-aa95-787f6ccfaae9",
+  "source_directory": "results/pyautogui/screenshot/MiniMax-M3__osworld/vlc/9195653c-f4aa-453d-aa95-787f6ccfaae9",
+  "folder": "MiniMax-M3/vlc/9195653c-f4aa-453d-aa95-787f6ccfaae9",
+  "trajectory_sha256": "9895ea0ec03847fe38744b7896156afd2f4943b50f0c7cfd1447197ad7e5398d",
+  "score": 1.0,
+  "instruction": "I like watching movies (using VLC) on my laptop and sometimes the volume is too low for my taste even when the volume in VLC is set to the maximum of 125% on the volume control. Can you increase the max volume of the video to the 200% of the original volume?",
+  "new_recording_episode": false,
+  "duration_sec": 263.966667,
+  "original_video_sha256": "d721c3c6c7d938817011cf9fc3f1ca97c667c819f4db4868cf6657fd780e74ee",
+  "playback_video_sha256": "05664955e7f846518344ddaefedd2e2d908ce06b971fcf982fdc4da1cadc3f88",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 21
+}

@@ -1,0 +1,13 @@
+{
+  "model": "Claude Fable 5",
+  "scaffold": "OSWorld",
+  "domain": "vs_code",
+  "task_id": "9439a27b-18ae-42d8-9778-5f68f891805e",
+  "folder": "fable/vs_code__9439a27b",
+  "score": 1.0,
+  "duration_sec": 76.866667,
+  "trajectory_sha256": "4757120e75c6b0723278bfb3fdf66d7ebab39d2bb6e992d00f4b383acf4e8d8b",
+  "playback_video_sha256": "1eccf51840135bb1085c0b4c6d53ef838091d7a24ccafa960b52f54f5cc7fce9",
+  "swap_note": "Replaced 0512bb38 with 9439a27b; recording from writer_0810415c_vscode_9439a27b_6videos_20260924_105006.zip; traj/meta from minimax_fable_gpt55_osworld_80tasks_trajectories_20260923_204010.zip",
+  "instruction": "Please help me modify the setting of VS Code to keep my cursor focused on the debug console when debugging in VS Code, instead of automatically focusing back on the Editor."
+}

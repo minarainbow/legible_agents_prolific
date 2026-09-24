@@ -1,0 +1,23 @@
+﻿model,scaffold,domain,task_id,new_recording_episode,score,step_num,action_timestamp,video_offset_sec,action,response,reward,done,info,timing,screenshot_file,recording_path,source_directory
+GPT-5.5,OSWorld,libreoffice_impress,2b94c692-6abb-48ae-ab0b-b3e8a19cb340,False,1.0,1,20260818@042353334378,57.36,"# Reflection: The main canvas is still on Slide 1, while Slide 2 thumbnail shows the image on the left; select Slide 2 and drag that image to the right side.
+import pyautogui, time
+pyautogui.click(176, 395)
+time.sleep(0.6)
+pyautogui.moveTo(550, 580, duration=0.1)
+pyautogui.mouseDown()
+time.sleep(0.2)
+pyautogui.moveTo(1185, 580, duration=0.8)
+pyautogui.mouseUp()
+time.sleep(0.3)","```python
+# Reflection: The main canvas is still on Slide 1, while Slide 2 thumbnail shows the image on the left; select Slide 2 and drag that image to the right side.
+import pyautogui, time
+pyautogui.click(176, 395)
+time.sleep(0.6)
+pyautogui.moveTo(550, 580, duration=0.1)
+pyautogui.mouseDown()
+time.sleep(0.2)
+pyautogui.moveTo(1185, 580, duration=0.8)
+pyautogui.mouseUp()
+time.sleep(0.3)
+```",0,False,{},"{""run_elapsed_sec"": 57.391, ""video_offset_sec"": 57.36, ""predict_started_video_offset_sec"": 51.907, ""action_started_video_offset_sec"": 51.907}",step_1_20260818@042353334378.png,GPT-5.5/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340
+GPT-5.5,OSWorld,libreoffice_impress,2b94c692-6abb-48ae-ab0b-b3e8a19cb340,False,1.0,2,20260818@042406887267,65.688,DONE,```DONE```,0,True,"{""done"": true}","{""run_elapsed_sec"": 65.719, ""video_offset_sec"": 65.688, ""predict_started_video_offset_sec"": 65.469, ""action_started_video_offset_sec"": 65.469}",step_2_20260818@042406887267.png,GPT-5.5/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340

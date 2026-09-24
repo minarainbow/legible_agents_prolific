@@ -1,0 +1,17 @@
+{
+  "model": "Fable",
+  "scaffold": "OSWorld",
+  "domain": "libreoffice_impress",
+  "task_id": "2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "source_directory": "results/pyautogui/screenshot/claude-fable-5/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "folder": "Fable/libreoffice_impress/2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "trajectory_sha256": "0647a426dab2bc1efbfe87882248dbd008b5440a8788e37adc50e82b5ce561a6",
+  "score": 1.0,
+  "instruction": "Move the image to the right side on Slide 2.",
+  "new_recording_episode": false,
+  "duration_sec": 101.7,
+  "original_video_sha256": "ef646705de05895269c5119d39bf736f3864acc14047d1174381dd02fe2cf973",
+  "playback_video_sha256": "d50e24dc9c99fe974269fb42f7c7a8a5a2a58d2855a71739833de524dfed4e46",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 5
+}

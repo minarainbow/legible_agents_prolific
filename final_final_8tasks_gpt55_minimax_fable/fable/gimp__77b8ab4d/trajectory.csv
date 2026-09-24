@@ -1,0 +1,67 @@
+﻿model,scaffold,domain,task_id,new_recording_episode,score,step_num,action_timestamp,video_offset_sec,action,response,reward,done,info,timing,screenshot_file,recording_path,source_directory
+Fable,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,False,1.0,1,20260827@204000789897,15.547,"import pyautogui
+import time
+pyautogui.hotkey('shift', 'ctrl', 'e')
+time.sleep(1.5)","Looking at the screenshot, GIMP is open with an image ""The_Lost_River_Of_Dreams.jpg"". The task is to export this photo to the Desktop with the name ""export.jpg"". I'll use GIMP's ""Export As"" feature, which can be accessed with Shift+Ctrl+E.
+
+```python
+import pyautogui
+import time
+pyautogui.hotkey('shift', 'ctrl', 'e')
+time.sleep(1.5)
+```",0,False,{},"{""run_elapsed_sec"": 15.578, ""video_offset_sec"": 15.547, ""predict_started_video_offset_sec"": 13.282, ""action_started_video_offset_sec"": 13.282}",step_1_20260827@204000789897.png,Fable/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/pyautogui/screenshot/claude-fable-5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+Fable,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,False,1.0,2,20260827@204011903029,28.422,"import pyautogui
+import time
+pyautogui.click(1470, 416)
+time.sleep(0.5)
+pyautogui.hotkey('ctrl', 'a')
+time.sleep(0.5)
+pyautogui.typewrite('export.jpg', interval=0.05)
+time.sleep(0.5)","The Export Image dialog is open. The Desktop folder appears to be already selected as the save location (shown in the breadcrumb path). Now I need to change the filename to ""export.jpg"". I'll click on the name field, select all text, and type the new name.
+
+```python
+import pyautogui
+import time
+pyautogui.click(1470, 416)
+time.sleep(0.5)
+pyautogui.hotkey('ctrl', 'a')
+time.sleep(0.5)
+pyautogui.typewrite('export.jpg', interval=0.05)
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 28.453, ""video_offset_sec"": 28.422, ""predict_started_video_offset_sec"": 24.407, ""action_started_video_offset_sec"": 24.407}",step_2_20260827@204011903029.png,Fable/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/pyautogui/screenshot/claude-fable-5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+Fable,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,False,1.0,3,20260827@204024502519,40.36,"import pyautogui
+import time
+pyautogui.click(1859, 1046)
+time.sleep(1.5)","The filename has been changed to ""export.jpg"" and the save location is set to Desktop (as shown in the breadcrumb and highlighted in the Places panel). Now I'll click the Export button to proceed.
+
+```python
+import pyautogui
+import time
+pyautogui.click(1859, 1046)
+time.sleep(1.5)
+```",0,False,{},"{""run_elapsed_sec"": 40.391, ""video_offset_sec"": 40.36, ""predict_started_video_offset_sec"": 37.0, ""action_started_video_offset_sec"": 37.0}",step_3_20260827@204024502519.png,Fable/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/pyautogui/screenshot/claude-fable-5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+Fable,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,False,1.0,4,20260827@204034512969,49.953,"import pyautogui
+import time
+pyautogui.click(1859, 1046)
+time.sleep(1.5)","The Export Image dialog is still open with ""export.jpg"" as the filename and Desktop as the save location. The cursor is hovering over the Export button but it seems the click didn't register. I'll click the Export button again.
+
+```python
+import pyautogui
+import time
+pyautogui.click(1859, 1046)
+time.sleep(1.5)
+```",0,False,{},"{""run_elapsed_sec"": 49.984, ""video_offset_sec"": 49.953, ""predict_started_video_offset_sec"": 47.016, ""action_started_video_offset_sec"": 47.016}",step_4_20260827@204034512969.png,Fable/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/pyautogui/screenshot/claude-fable-5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+Fable,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,False,1.0,5,20260827@204043463564,59.672,"import pyautogui
+import time
+pyautogui.click(1518, 931)
+time.sleep(2)","The ""Export Image as JPEG"" dialog has appeared with quality settings. I'll click the Export button in this dialog to finalize the export with the default settings.
+
+```python
+import pyautogui
+import time
+pyautogui.click(1518, 931)
+time.sleep(2)
+```",0,False,{},"{""run_elapsed_sec"": 59.703, ""video_offset_sec"": 59.672, ""predict_started_video_offset_sec"": 55.969, ""action_started_video_offset_sec"": 55.969}",step_5_20260827@204043463564.png,Fable/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/pyautogui/screenshot/claude-fable-5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4
+Fable,OSWorld,gimp,77b8ab4d-994f-43ac-8930-8ca087d7c4b4,False,1.0,6,20260827@204054288791,67.172,DONE,"The status bar at the bottom confirms ""Image exported to '/home/user/Desktop/export.jpg'"" and the title bar shows ""[export] (exported)"". The photo has been successfully placed on the desktop with the name export.jpg. The task is complete.
+
+```DONE```",0,True,"{""done"": true}","{""run_elapsed_sec"": 67.203, ""video_offset_sec"": 67.172, ""predict_started_video_offset_sec"": 66.782, ""action_started_video_offset_sec"": 66.782}",step_6_20260827@204054288791.png,Fable/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4/recording.mp4,results/pyautogui/screenshot/claude-fable-5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4

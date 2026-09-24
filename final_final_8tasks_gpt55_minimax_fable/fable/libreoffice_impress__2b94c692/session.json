@@ -1,0 +1,15 @@
+{
+  "instruction": "Move the image to the right side on Slide 2.",
+  "example_id": "2b94c692-6abb-48ae-ab0b-b3e8a19cb340",
+  "run_started_at": "2026-09-01T22:36:58.664299Z",
+  "recording_started_at": "2026-09-01T22:36:58.695383Z",
+  "recording_ended_at": "2026-09-01T22:38:40.683207Z",
+  "recording_fps": 30,
+  "model": "claude-fable-5",
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "libreoffice_impress",
+  "recording_duration_sec": 102.0
+}

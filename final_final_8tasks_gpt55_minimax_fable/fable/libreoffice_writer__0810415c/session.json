@@ -1,0 +1,15 @@
+{
+  "instruction": "Make the line spacing of first two paragraph into double line spacing",
+  "example_id": "0810415c-bde4-4443-9047-d5f70165a697",
+  "run_started_at": "2026-08-28T09:57:08.626713Z",
+  "recording_started_at": "2026-08-28T09:57:08.657249Z",
+  "recording_ended_at": "2026-08-28T10:03:36.506678Z",
+  "recording_fps": 30,
+  "model": "claude-fable-5",
+  "provider_name": "virtualbox",
+  "action_space": "pyautogui",
+  "observation_type": "screenshot",
+  "prompt_variant": "default",
+  "domain": "libreoffice_writer",
+  "recording_duration_sec": 387.066667
+}

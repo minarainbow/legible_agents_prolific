@@ -1,0 +1,17 @@
+{
+  "model": "GPT-5.5",
+  "scaffold": "OSWorld",
+  "domain": "os",
+  "task_id": "37887e8c-da15-4192-923c-08fa390a176d",
+  "source_directory": "results/pyautogui/screenshot/gpt-5.5-2026-04-23/os/37887e8c-da15-4192-923c-08fa390a176d",
+  "folder": "GPT-5.5/os/37887e8c-da15-4192-923c-08fa390a176d",
+  "trajectory_sha256": "ae41904fe3993cd80698b93cbfdcacfb8b28ed17750b5d47ffbc5bd371b5d371",
+  "score": 0.0,
+  "instruction": "Compress all files under \"/tmp/test_files\" that were last modified 30 days ago and put them in \"/tmp/test_files/old_files\". Move all other files to \"/tmp/test_files/new_files.",
+  "new_recording_episode": false,
+  "duration_sec": 435.266667,
+  "original_video_sha256": "3de25665fdc2bccad5bb9f84990f5ece3d2e3f0564523d68a5baae35258bde52",
+  "playback_video_sha256": "b3c8e94d660d60c5ed8c95f51a0ff7366743d33b8f5fb292f5c9455aa7e00b09",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 6
+}

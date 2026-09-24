@@ -1,0 +1,17 @@
+{
+  "model": "Fable",
+  "scaffold": "OSWorld",
+  "domain": "gimp",
+  "task_id": "77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "source_directory": "results/pyautogui/screenshot/claude-fable-5/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "folder": "Fable/gimp/77b8ab4d-994f-43ac-8930-8ca087d7c4b4",
+  "trajectory_sha256": "2bac4a4f5581e04ee98a73514fac6a050698680a5798a0a5a07e86072d498376",
+  "score": 1.0,
+  "instruction": "Could you assist me in placing my photo on the desktop and renaming it to export.jpg?",
+  "new_recording_episode": false,
+  "duration_sec": 87.233333,
+  "original_video_sha256": "d5e78ad71eda9f3e0c5b5a0947b05e598c2d7c6ba9f81a487b84ce0b4fb4af86",
+  "playback_video_sha256": "d1b0011297488a960ffcfb948c3da44d509bc3645d1a62b712e8b4c014ea89d3",
+  "original_and_playback_full_decode": true,
+  "raw_step_records": 6
+}

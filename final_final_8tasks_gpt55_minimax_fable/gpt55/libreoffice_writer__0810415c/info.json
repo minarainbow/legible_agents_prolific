@@ -1,0 +1,13 @@
+{
+  "model": "GPT-5.5",
+  "scaffold": "OSWorld",
+  "domain": "libreoffice_writer",
+  "task_id": "0810415c-bde4-4443-9047-d5f70165a697",
+  "folder": "gpt55/libreoffice_writer__0810415c",
+  "score": 1.0,
+  "duration_sec": 280.333333,
+  "trajectory_sha256": "efb28abb9da3a9b440b18dbf42b76ae09814aadd9ef46f3470ae81dacecdb70b",
+  "playback_video_sha256": "87f4cb24d1859e4bf1e8a5ada402b5b2ab2d813dfb49cb69576d8a3f7760d908",
+  "swap_note": "Replaced 0e763496 with 0810415c; recording from writer_0810415c_vscode_9439a27b_6videos_20260924_105006.zip; traj/meta from minimax_fable_gpt55_osworld_80tasks_trajectories_20260923_204010.zip",
+  "instruction": "Make the line spacing of first two paragraph into double line spacing"
+}

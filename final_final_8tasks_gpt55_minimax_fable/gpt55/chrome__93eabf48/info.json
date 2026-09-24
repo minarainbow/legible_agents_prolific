@@ -1,0 +1,13 @@
+{
+  "model": "GPT-5.5",
+  "scaffold": "OSWorld",
+  "domain": "chrome",
+  "task_id": "93eabf48-6a27-4cb6-b963-7d5fe1e0d3a9",
+  "folder": "gpt55/chrome__93eabf48",
+  "score": 0.0,
+  "duration_sec": 203.6,
+  "trajectory_sha256": "ac5aba462514dc853d652fd95510b7c4bb5eabbfa43ddc88ae5c840dad85c2ee",
+  "playback_video_sha256": "19a48f599486e4c0346b8e2197db593c81dc127d7736a3435447339a83fb77b7",
+  "chrome_swap_note": "Replaced 9656a811 with 93eabf48; recording from chrome_93eabf48_three_models_videos_20260924_102733.zip; traj/meta from minimax_fable_gpt55_osworld_80tasks_trajectories_20260923_204010.zip",
+  "instruction": "Could you assist me in turning off the dark mode feature in Google Chrome? I've noticed that while dark mode is great for reducing glare, it actually makes it more challenging for me to read text clearly, especially with my astigmatism."
+}

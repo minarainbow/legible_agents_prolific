@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Final page preview</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+  /* force the done screen visible for this temp preview file */
+  body { margin: 0; }
+  .screen { display: none !important; }
+  #screen-done { display: flex !important; min-height: 100vh; }
+</style>
+</head>
+<body>
+<section id="screen-done" class="screen center-screen">
+  <div class="card narrow center">
+    <div class="done-check">✓</div>
+    <h1>Thank you!</h1>
+    <p class="lead">Your annotations have been submitted.</p>
+    <div id="done-code" class="done-code">Completion code: STUDY-COMPLETE</div>
+    <a id="done-link" class="btn primary" href="#">Return to Prolific</a>
+  </div>
+</section>
+</body>
+</html>

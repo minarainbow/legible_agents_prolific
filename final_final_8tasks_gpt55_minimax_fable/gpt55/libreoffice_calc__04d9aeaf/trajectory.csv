@@ -1,0 +1,286 @@
+﻿model,scaffold,domain,task_id,new_recording_episode,score,step_num,action_timestamp,video_offset_sec,action,response,reward,done,info,timing,screenshot_file,recording_path,source_directory
+GPT-5.5,OSWorld,libreoffice_calc,04d9aeaf-7bed-4024-bedb-e10e6f00eb7f,False,0.0,1,20260828@204014296402,46.078,"import pyautogui, time, pyperclip
+data = """"""Year\tCA changes\tFA changes\tOA changes
+2015\t10.15%\t-4.96%\t-1.68%
+2016\t7.22%\t-5.56%\t5.85%
+2017\t13.42%\t-5.93%\t7.65%
+2018\t6.46%\t-6.68%\t0.47%
+2019\t6.55%\t-7.46%\t1.44%""""""
+pyautogui.click(195, 1046)
+time.sleep(0.5)
+pyperclip.copy(data)
+pyautogui.hotkey('ctrl', 'home')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'v')
+time.sleep(0.5)","Sheet1 contains the asset data for 2014–2019 and only Sheet1 exists, so I’ll add Sheet2 and populate it with the requested annual percentage changes for 2015–2019.
+```python
+import pyautogui, time, pyperclip
+
+data = """"""Year\tCA changes\tFA changes\tOA changes
+2015\t10.15%\t-4.96%\t-1.68%
+2016\t7.22%\t-5.56%\t5.85%
+2017\t13.42%\t-5.93%\t7.65%
+2018\t6.46%\t-6.68%\t0.47%
+2019\t6.55%\t-7.46%\t1.44%""""""
+
+pyautogui.click(195, 1046)
+time.sleep(0.5)
+pyperclip.copy(data)
+pyautogui.hotkey('ctrl', 'home')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl', 'v')
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 46.11, ""video_offset_sec"": 46.078, ""predict_started_video_offset_sec"": 36.89, ""action_started_video_offset_sec"": 36.89}",step_1_20260828@204014296402.png,GPT-5.5/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f
+GPT-5.5,OSWorld,libreoffice_calc,04d9aeaf-7bed-4024-bedb-e10e6f00eb7f,False,0.0,2,20260828@204035775625,65.312,"import pyautogui, time, pyperclip
+content = """"""Year\tCA changes\tFA changes\tOA changes
+2015\t=(Sheet1.B3-Sheet1.B2)/Sheet1.B2\t=(Sheet1.C3-Sheet1.C2)/Sheet1.C2\t=(Sheet1.D3-Sheet1.D2)/Sheet1.D2
+2016\t=(Sheet1.B4-Sheet1.B3)/Sheet1.B3\t=(Sheet1.C4-Sheet1.C3)/Sheet1.C3\t=(Sheet1.D4-Sheet1.D3)/Sheet1.D3
+2017\t=(Sheet1.B5-Sheet1.B4)/Sheet1.B4\t=(Sheet1.C5-Sheet1.C4)/Sheet1.C4\t=(Sheet1.D5-Sheet1.D4)/Sheet1.D4
+2018\t=(Sheet1.B6-Sheet1.B5)/Sheet1.B5\t=(Sheet1.C6-Sheet1.C5)/Sheet1.C5\t=(Sheet1.D6-Sheet1.D5)/Sheet1.D5
+2019\t=(Sheet1.B7-Sheet1.B6)/Sheet1.B6\t=(Sheet1.C7-Sheet1.C6)/Sheet1.C6\t=(Sheet1.D7-Sheet1.D6)/Sheet1.D6""""""
+pyperclip.copy(content)
+pyautogui.hotkey('ctrl','v')
+time.sleep(0.5)
+pyautogui.dragTo(438, 414, 0.2, button='left')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','shift','5')
+time.sleep(0.3)","Sheet2 is open and blank with A1 selected, so I will paste the headers, years, and formulas for annual percentage changes, then format the percentage cells.
+```python
+import pyautogui, time, pyperclip
+content = """"""Year\tCA changes\tFA changes\tOA changes
+2015\t=(Sheet1.B3-Sheet1.B2)/Sheet1.B2\t=(Sheet1.C3-Sheet1.C2)/Sheet1.C2\t=(Sheet1.D3-Sheet1.D2)/Sheet1.D2
+2016\t=(Sheet1.B4-Sheet1.B3)/Sheet1.B3\t=(Sheet1.C4-Sheet1.C3)/Sheet1.C3\t=(Sheet1.D4-Sheet1.D3)/Sheet1.D3
+2017\t=(Sheet1.B5-Sheet1.B4)/Sheet1.B4\t=(Sheet1.C5-Sheet1.C4)/Sheet1.C4\t=(Sheet1.D5-Sheet1.D4)/Sheet1.D4
+2018\t=(Sheet1.B6-Sheet1.B5)/Sheet1.B5\t=(Sheet1.C6-Sheet1.C5)/Sheet1.C5\t=(Sheet1.D6-Sheet1.D5)/Sheet1.D5
+2019\t=(Sheet1.B7-Sheet1.B6)/Sheet1.B6\t=(Sheet1.C7-Sheet1.C6)/Sheet1.C6\t=(Sheet1.D7-Sheet1.D6)/Sheet1.D6""""""
+pyperclip.copy(content)
+pyautogui.hotkey('ctrl','v')
+time.sleep(0.5)
+pyautogui.dragTo(438, 414, 0.2, button='left')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','shift','5')
+time.sleep(0.3)
+```",0,False,{},"{""run_elapsed_sec"": 65.344, ""video_offset_sec"": 65.312, ""predict_started_video_offset_sec"": 58.359, ""action_started_video_offset_sec"": 58.359}",step_2_20260828@204035775625.png,GPT-5.5/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f
+GPT-5.5,OSWorld,libreoffice_calc,04d9aeaf-7bed-4024-bedb-e10e6f00eb7f,False,0.0,3,20260828@204054771641,90.64,"# Sheet2 is blank with A1 selected, so paste the required headers and percentage-change formulas into A1:D6.
+import pyautogui, time, pyperclip
+content = ""Year\tCA changes\tFA changes\tOA changes\n2015\t=(Sheet1.B3-Sheet1.B2)/Sheet1.B2\t=(Sheet1.C3-Sheet1.C2)/Sheet1.C2\t=(Sheet1.D3-Sheet1.D2)/Sheet1.D2\n2016\t=(Sheet1.B4-Sheet1.B3)/Sheet1.B3\t=(Sheet1.C4-Sheet1.C3)/Sheet1.C3\t=(Sheet1.D4-Sheet1.D3)/Sheet1.D3\n2017\t=(Sheet1.B5-Sheet1.B4)/Sheet1.B4\t=(Sheet1.C5-Sheet1.C4)/Sheet1.C4\t=(Sheet1.D5-Sheet1.D4)/Sheet1.D4\n2018\t=(Sheet1.B6-Sheet1.B5)/Sheet1.B5\t=(Sheet1.C6-Sheet1.C5)/Sheet1.C5\t=(Sheet1.D6-Sheet1.D5)/Sheet1.D5\n2019\t=(Sheet1.B7-Sheet1.B6)/Sheet1.B6\t=(Sheet1.C7-Sheet1.C6)/Sheet1.C6\t=(Sheet1.D7-Sheet1.D6)/Sheet1.D6""
+pyperclip.copy(content)
+pyautogui.click(151, 315)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','v')
+time.sleep(0.5)
+pyautogui.dragTo(438, 414, 0.2, button='left')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','shift','5')
+time.sleep(0.3)","```python
+# Sheet2 is blank with A1 selected, so paste the required headers and percentage-change formulas into A1:D6.
+import pyautogui, time, pyperclip
+content = ""Year\tCA changes\tFA changes\tOA changes\n2015\t=(Sheet1.B3-Sheet1.B2)/Sheet1.B2\t=(Sheet1.C3-Sheet1.C2)/Sheet1.C2\t=(Sheet1.D3-Sheet1.D2)/Sheet1.D2\n2016\t=(Sheet1.B4-Sheet1.B3)/Sheet1.B3\t=(Sheet1.C4-Sheet1.C3)/Sheet1.C3\t=(Sheet1.D4-Sheet1.D3)/Sheet1.D3\n2017\t=(Sheet1.B5-Sheet1.B4)/Sheet1.B4\t=(Sheet1.C5-Sheet1.C4)/Sheet1.C4\t=(Sheet1.D5-Sheet1.D4)/Sheet1.D4\n2018\t=(Sheet1.B6-Sheet1.B5)/Sheet1.B5\t=(Sheet1.C6-Sheet1.C5)/Sheet1.C5\t=(Sheet1.D6-Sheet1.D5)/Sheet1.D5\n2019\t=(Sheet1.B7-Sheet1.B6)/Sheet1.B6\t=(Sheet1.C7-Sheet1.C6)/Sheet1.C6\t=(Sheet1.D7-Sheet1.D6)/Sheet1.D6""
+pyperclip.copy(content)
+pyautogui.click(151, 315)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','v')
+time.sleep(0.5)
+pyautogui.dragTo(438, 414, 0.2, button='left')
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','shift','5')
+time.sleep(0.3)
+```",0,False,{},"{""run_elapsed_sec"": 90.672, ""video_offset_sec"": 90.64, ""predict_started_video_offset_sec"": 77.359, ""action_started_video_offset_sec"": 77.359}",step_3_20260828@204054771641.png,GPT-5.5/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f
+GPT-5.5,OSWorld,libreoffice_calc,04d9aeaf-7bed-4024-bedb-e10e6f00eb7f,False,0.0,4,20260828@204120671521,112.343,"import pyautogui, time, subprocess
+text = """"""Year\tCA changes\tFA changes\tOA changes
+2015\t=(Sheet1.B3-Sheet1.B2)/Sheet1.B2\t=(Sheet1.C3-Sheet1.C2)/Sheet1.C2\t=(Sheet1.D3-Sheet1.D2)/Sheet1.D2
+2016\t=(Sheet1.B4-Sheet1.B3)/Sheet1.B3\t=(Sheet1.C4-Sheet1.C3)/Sheet1.C3\t=(Sheet1.D4-Sheet1.D3)/Sheet1.D3
+2017\t=(Sheet1.B5-Sheet1.B4)/Sheet1.B4\t=(Sheet1.C5-Sheet1.C4)/Sheet1.C4\t=(Sheet1.D5-Sheet1.D4)/Sheet1.D4
+2018\t=(Sheet1.B6-Sheet1.B5)/Sheet1.B5\t=(Sheet1.C6-Sheet1.C5)/Sheet1.C5\t=(Sheet1.D6-Sheet1.D5)/Sheet1.D5
+2019\t=(Sheet1.B7-Sheet1.B6)/Sheet1.B6\t=(Sheet1.C7-Sheet1.C6)/Sheet1.C6\t=(Sheet1.D7-Sheet1.D6)/Sheet1.D6""""""
+subprocess.run(['bash','-lc', ""cat > /tmp/calc_paste.txt <<'EOF'\n""+text+""\nEOF\nxclip -selection clipboard /tmp/calc_paste.txt""], check=False)
+pyautogui.click(151,315)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','v')
+time.sleep(0.5)
+pyautogui.hotkey('ctrl','s')
+time.sleep(0.5)","Sheet2 is still blank with A1 selected, so I will input the required headers and formulas again using paste directly into A1.
+```python
+import pyautogui, time, subprocess
+text = """"""Year\tCA changes\tFA changes\tOA changes
+2015\t=(Sheet1.B3-Sheet1.B2)/Sheet1.B2\t=(Sheet1.C3-Sheet1.C2)/Sheet1.C2\t=(Sheet1.D3-Sheet1.D2)/Sheet1.D2
+2016\t=(Sheet1.B4-Sheet1.B3)/Sheet1.B3\t=(Sheet1.C4-Sheet1.C3)/Sheet1.C3\t=(Sheet1.D4-Sheet1.D3)/Sheet1.D3
+2017\t=(Sheet1.B5-Sheet1.B4)/Sheet1.B4\t=(Sheet1.C5-Sheet1.C4)/Sheet1.C4\t=(Sheet1.D5-Sheet1.D4)/Sheet1.D4
+2018\t=(Sheet1.B6-Sheet1.B5)/Sheet1.B5\t=(Sheet1.C6-Sheet1.C5)/Sheet1.C5\t=(Sheet1.D6-Sheet1.D5)/Sheet1.D5
+2019\t=(Sheet1.B7-Sheet1.B6)/Sheet1.B6\t=(Sheet1.C7-Sheet1.C6)/Sheet1.C6\t=(Sheet1.D7-Sheet1.D6)/Sheet1.D6""""""
+subprocess.run(['bash','-lc', ""cat > /tmp/calc_paste.txt <<'EOF'\n""+text+""\nEOF\nxclip -selection clipboard /tmp/calc_paste.txt""], check=False)
+pyautogui.click(151,315)
+time.sleep(0.2)
+pyautogui.hotkey('ctrl','v')
+time.sleep(0.5)
+pyautogui.hotkey('ctrl','s')
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 112.375, ""video_offset_sec"": 112.343, ""predict_started_video_offset_sec"": 103.265, ""action_started_video_offset_sec"": 103.265}",step_4_20260828@204120671521.png,GPT-5.5/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f
+GPT-5.5,OSWorld,libreoffice_calc,04d9aeaf-7bed-4024-bedb-e10e6f00eb7f,False,0.0,5,20260828@204147632761,132.921,"import pyautogui, time, subprocess, textwrap
+script = r'''
+import uno, time, os
+from com.sun.star.beans import PropertyValue
+ctx = uno.getComponentContext()
+smgr = ctx.ServiceManager
+desktop = smgr.createInstanceWithContext(""com.sun.star.frame.Desktop"", ctx)
+doc = desktop.getCurrentComponent()
+sheets = doc.Sheets
+if not sheets.hasByName(""Sheet2""):
+sheets.insertNewByName(""Sheet2"", sheets.getCount())
+sh1 = sheets.getByName(""Sheet1"")
+sh2 = sheets.getByName(""Sheet2"")
+# clear Sheet2
+cursor = sh2.createCursor()
+cursor.gotoEndOfUsedArea(True)
+cursor.clearContents(1023)
+headers = [""Year"", ""CA changes"", ""FA changes"", ""OA changes""]
+for c,h in enumerate(headers):
+cell = sh2.getCellByPosition(c,0)
+cell.String = h
+cell.CharWeight = 150
+# locate columns and year rows on Sheet1
+used = sh1.createCursor()
+used.gotoEndOfUsedArea(True)
+addr = used.RangeAddress
+max_col, max_row = addr.EndColumn, addr.EndRow
+def s(row,col):
+return sh1.getCellByPosition(col,row).String.strip()
+def val(row,col):
+return sh1.getCellByPosition(col,row).Value
+year_col = None
+colmap = {}
+for r in range(max_row+1):
+for c in range(max_col+1):
+txt = s(r,c).lower()
+if txt == ""year"":
+year_col = c
+if ""current"" in txt and ""asset"" in txt:
+colmap[""CA""] = c
+if ""fixed"" in txt and ""asset"" in txt:
+colmap[""FA""] = c
+if ""other"" in txt and ""asset"" in txt:
+colmap[""OA""] = c
+# fallback common layout if needed
+if year_col is None:
+year_col = 0
+if not all(k in colmap for k in (""CA"",""FA"",""OA"")):
+colmap = {""CA"":1, ""FA"":2, ""OA"":3}
+year_rows = {}
+for r in range(max_row+1):
+ytxt = s(r, year_col)
+yval = val(r, year_col)
+try:
+y = int(float(ytxt if ytxt else yval))
+if 2014 <= y <= 2019:
+year_rows[y] = r
+except Exception:
+pass
+for i,y in enumerate(range(2015,2020), start=1):
+sh2.getCellByPosition(0,i).Value = y
+for j,k in enumerate([""CA"",""FA"",""OA""], start=1):
+if y in year_rows and (y-1) in year_rows:
+cur = val(year_rows[y], colmap[k])
+prev = val(year_rows[y-1], colmap[k])
+sh2.getCellByPosition(j,i).Value = (cur-prev)/prev if prev else 0
+else:
+sh2.getCellByPosition(j,i).String = """"
+# format B2:D6 as percentages
+for c in range(1,4):
+for r in range(1,6):
+sh2.getCellByPosition(c,r).NumberFormat = 10
+# adjust widths and activate Sheet2
+for c in range(4):
+sh2.Columns.getByIndex(c).OptimalWidth = True
+doc.CurrentController.setActiveSheet(sh2)
+doc.store()
+'''
+open('/tmp/fill_sheet2.py','w').write(script)
+subprocess.run(['python3','/tmp/fill_sheet2.py'])
+time.sleep(0.5)
+pyautogui.hotkey('ctrl','s')
+time.sleep(0.5)","Sheet2 is blank with A1 selected, and previous paste attempts did not populate it, so I will use LibreOffice’s UNO interface to read Sheet1, create the correct formulas/results in Sheet2, format percentages, and save.
+```python
+import pyautogui, time, subprocess, textwrap
+script = r'''
+import uno, time, os
+from com.sun.star.beans import PropertyValue
+ctx = uno.getComponentContext()
+smgr = ctx.ServiceManager
+desktop = smgr.createInstanceWithContext(""com.sun.star.frame.Desktop"", ctx)
+doc = desktop.getCurrentComponent()
+sheets = doc.Sheets
+if not sheets.hasByName(""Sheet2""):
+    sheets.insertNewByName(""Sheet2"", sheets.getCount())
+sh1 = sheets.getByName(""Sheet1"")
+sh2 = sheets.getByName(""Sheet2"")
+# clear Sheet2
+cursor = sh2.createCursor()
+cursor.gotoEndOfUsedArea(True)
+cursor.clearContents(1023)
+headers = [""Year"", ""CA changes"", ""FA changes"", ""OA changes""]
+for c,h in enumerate(headers):
+    cell = sh2.getCellByPosition(c,0)
+    cell.String = h
+    cell.CharWeight = 150
+# locate columns and year rows on Sheet1
+used = sh1.createCursor()
+used.gotoEndOfUsedArea(True)
+addr = used.RangeAddress
+max_col, max_row = addr.EndColumn, addr.EndRow
+def s(row,col):
+    return sh1.getCellByPosition(col,row).String.strip()
+def val(row,col):
+    return sh1.getCellByPosition(col,row).Value
+year_col = None
+colmap = {}
+for r in range(max_row+1):
+    for c in range(max_col+1):
+        txt = s(r,c).lower()
+        if txt == ""year"":
+            year_col = c
+        if ""current"" in txt and ""asset"" in txt:
+            colmap[""CA""] = c
+        if ""fixed"" in txt and ""asset"" in txt:
+            colmap[""FA""] = c
+        if ""other"" in txt and ""asset"" in txt:
+            colmap[""OA""] = c
+# fallback common layout if needed
+if year_col is None:
+    year_col = 0
+if not all(k in colmap for k in (""CA"",""FA"",""OA"")):
+    colmap = {""CA"":1, ""FA"":2, ""OA"":3}
+year_rows = {}
+for r in range(max_row+1):
+    ytxt = s(r, year_col)
+    yval = val(r, year_col)
+    try:
+        y = int(float(ytxt if ytxt else yval))
+        if 2014 <= y <= 2019:
+            year_rows[y] = r
+    except Exception:
+        pass
+for i,y in enumerate(range(2015,2020), start=1):
+    sh2.getCellByPosition(0,i).Value = y
+    for j,k in enumerate([""CA"",""FA"",""OA""], start=1):
+        if y in year_rows and (y-1) in year_rows:
+            cur = val(year_rows[y], colmap[k])
+            prev = val(year_rows[y-1], colmap[k])
+            sh2.getCellByPosition(j,i).Value = (cur-prev)/prev if prev else 0
+        else:
+            sh2.getCellByPosition(j,i).String = """"
+# format B2:D6 as percentages
+for c in range(1,4):
+    for r in range(1,6):
+        sh2.getCellByPosition(c,r).NumberFormat = 10
+# adjust widths and activate Sheet2
+for c in range(4):
+    sh2.Columns.getByIndex(c).OptimalWidth = True
+doc.CurrentController.setActiveSheet(sh2)
+doc.store()
+'''
+open('/tmp/fill_sheet2.py','w').write(script)
+subprocess.run(['python3','/tmp/fill_sheet2.py'])
+time.sleep(0.5)
+pyautogui.hotkey('ctrl','s')
+time.sleep(0.5)
+```",0,False,{},"{""run_elapsed_sec"": 132.953, ""video_offset_sec"": 132.921, ""predict_started_video_offset_sec"": 130.218, ""action_started_video_offset_sec"": 130.218}",step_5_20260828@204147632761.png,GPT-5.5/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f/recording.mp4,results/pyautogui/screenshot/gpt-5.5-2026-04-23/libreoffice_calc/04d9aeaf-7bed-4024-bedb-e10e6f00eb7f
