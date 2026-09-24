@@ -50,7 +50,7 @@ https://minarainbow.github.io/legible_agents_prolific/?bundle=3&condition=both&P
 - `condition=log` → agent text only (no video)
 - `condition=both` → video + agent text
 
-Participant records are keyed as `<prolific_pid>__b{N}__<screen|log|both>__dual`.
+Participant records are keyed as `dual__<prolific_pid>__b{N}__<screen|log|both>`.
 
 ## Host it on GitHub Pages (no server)
 

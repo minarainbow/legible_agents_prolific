@@ -25,7 +25,8 @@ http://127.0.0.1:8001/?condition=osworld&log=1
 
 ## Data
 
-Saved under `annotation_app_dual/data/`. Participant ids end with `__dual` so they don’t collide with the original study.
+Saved under `annotation_app_dual/data/`. Participant ids are prefixed with `dual__`
+so they sort together in Firebase and don’t collide with the original study.
 
 Per-step annotation shape:
 

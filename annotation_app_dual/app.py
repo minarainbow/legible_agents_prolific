@@ -929,11 +929,13 @@ def api_participant():
         suffix = arm_suffix(condition, show_log)
 
     base = prolific_pid or body.get("participant_id") or ("anon-" + uuid.uuid4().hex[:12])
-    if prolific_pid:
-        pid = f"{prolific_pid}__{suffix}__dual"
+    # Prefix dual__ so Firebase / data keys cluster ahead of the old single-Q study.
+    if str(base).startswith("dual__"):
+        pid = str(base)
+    elif prolific_pid:
+        pid = f"dual__{prolific_pid}__{suffix}"
     else:
-        dual_suf = f"__{suffix}__dual"
-        pid = base if str(base).endswith(dual_suf) else f"{base}{dual_suf}"
+        pid = f"dual__{base}__{suffix}"
 
     with _IO_LOCK:
         record = _load_participant(pid)

@@ -30,9 +30,9 @@
  *        model, domain, task_id (OSWorld UUID), task_id8, order_index,
  *        familiarity, success, …, steps/{stepNum}/…
  *
- * participant_id:
- *   legacy: "<prolific>__<native|osworld>__<log|nolog>__dual"
- *   bundle: "<prolific>__b{N}__<screen|log|both>__dual"
+ * participant_id (Firebase key — dual_ prefix so dual-Q records sort together):
+ *   legacy: "dual__<prolific>__<native|osworld>__<log|nolog>"
+ *   bundle: "dual__<prolific>__b{N}__<screen|log|both>"
  * ------------------------------------------------------------------------- */
 
 (function () {
@@ -64,13 +64,45 @@
 
   function pushRemote(record) {
     if (!DB_URL) return;
-    const url = `${DB_URL}/responses/${encodeURIComponent(record.participant_id)}.json`;
+    const pid = record && record.participant_id;
+    if (!pid) {
+      console.warn("[firebase] skip write: missing participant_id");
+      return;
+    }
+    const url = `${DB_URL}/responses/${encodeURIComponent(pid)}.json`;
     fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(record),
       keepalive: true,
-    }).catch((e) => console.warn("RTDB write failed", e));
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const text = await res.text().catch(() => "");
+          console.error(
+            "[firebase] write failed",
+            res.status,
+            pid,
+            text.slice(0, 200)
+          );
+          window.__FIREBASE_LAST_ERROR = {
+            status: res.status,
+            pid,
+            at: nowIso(),
+            body: text.slice(0, 200),
+          };
+          return;
+        }
+        window.__FIREBASE_LAST_OK = { pid, at: nowIso() };
+      })
+      .catch((e) => {
+        console.error("[firebase] write error (network/blocked?)", e);
+        window.__FIREBASE_LAST_ERROR = {
+          network: String(e && e.message ? e.message : e),
+          pid,
+          at: nowIso(),
+        };
+      });
   }
 
   function attachTimingTotals(record) {
@@ -282,10 +314,12 @@
 
       const prolific = (body.prolific_pid || "").trim();
       const base = prolific || randomPid();
-      const dualSuf = `__${suffix}__dual`;
-      const pid = prolific
-        ? `${prolific}${dualSuf}`
-        : (base.endsWith(dualSuf) ? base : `${base}${dualSuf}`);
+      // Prefix dual__ so Firebase keys cluster / sort ahead of the old study.
+      const pid = (() => {
+        if (String(base).startsWith("dual__")) return base;
+        if (prolific) return `dual__${prolific}__${suffix}`;
+        return `dual__${base}__${suffix}`;
+      })();
 
       let record = loadRecord(pid);
       let tasksOut;
