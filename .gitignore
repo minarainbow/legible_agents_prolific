@@ -20,6 +20,9 @@ eval/grades.json.tmp
 grades_out/
 eval/model_eval/runs/
 eval/model_eval/.env.local
+dual_grader/.env.local
+dual_grader/gemini_runs/
+gt_annotator/data/
 
 # PII / exports — never commit
 approved_participants_master.csv

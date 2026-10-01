@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ground truth annotation</title>
+  <link rel="stylesheet" href="gt_annotator/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <section id="screen-pick" class="screen center-screen">
+      <div class="card narrow">
+        <div class="brand">Ground truth</div>
+        <h1>Who is annotating?</h1>
+        <p class="lead">You each write the reference answer for your trajectories. Trajectories marked <b>Both</b> are in the overlap, so the other grader writes those too.</p>
+        <div class="pick-row">
+          <a class="btn primary" href="gt.html?rater=a">Grader A</a>
+          <a class="btn primary" href="gt.html?rater=b">Grader B</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-work" class="screen hidden">
+      <header class="topbar">
+        <div class="topbar-left">
+          <span class="brand small">Ground truth</span>
+          <span class="rater-pill" id="rater-pill">A</span>
+          <div class="task-switch">
+            <label for="traj-select">Trajectory</label>
+            <select id="traj-select"></select>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div id="progress" class="progress-pill">—</div>
+          <span id="save-status" class="save-status">Saved</span>
+          <button type="button" id="btn-export" class="btn ghost sm">Download</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <div class="col-video">
+          <div class="task-card">
+            <div class="task-head">
+              <span class="domain-chip" id="task-domain"></span>
+              <span class="model-chip" id="task-model"></span>
+              <span class="task-count" id="task-count"></span>
+            </div>
+            <div class="task-eyebrow">Task the agent was asked to do</div>
+            <p class="task-instruction" id="task-instruction"></p>
+          </div>
+
+          <div class="video-wrap">
+            <video id="video" preload="auto" playsinline muted></video>
+            <div id="video-badge" class="video-badge hidden"></div>
+          </div>
+          <div class="timeline" id="timeline"></div>
+          <div class="video-controls">
+            <button id="btn-play" class="btn-play-round" type="button" aria-label="Play">▶</button>
+          </div>
+        </div>
+
+        <div class="col-form">
+          <div class="evidence-card">
+            <div class="evidence-head">
+              <span class="section-label">Evidence</span>
+              <span class="muted" id="evidence-flags"></span>
+            </div>
+
+            <details open class="ev">
+              <summary>Agent log</summary>
+              <pre class="ev-pre" id="ev-log"></pre>
+            </details>
+            <details open class="ev">
+              <summary>Screenshots</summary>
+              <div class="shots">
+                <figure>
+                  <figcaption id="before-cap">Before</figcaption>
+                  <img id="before-img" alt="Screen before this step" />
+                </figure>
+                <figure>
+                  <figcaption id="after-cap">After</figcaption>
+                  <img id="after-img" alt="Screen after this step" />
+                </figure>
+              </div>
+            </details>
+            <details open class="ev">
+              <summary>Element hit-test</summary>
+              <pre class="ev-pre" id="ev-elements"></pre>
+            </details>
+            <details class="ev">
+              <summary>Executed action</summary>
+              <pre class="ev-pre" id="ev-action"></pre>
+            </details>
+            <details class="ev">
+              <summary>Later trajectory</summary>
+              <pre class="ev-pre" id="ev-future"></pre>
+            </details>
+          </div>
+
+          <div class="annotate-card" id="annotate-card">
+            <div class="step-header">
+              <span class="step-title" id="step-title">Action 1</span>
+              <span class="step-status" id="step-status"></span>
+            </div>
+            <div id="sleep-note" class="sleep-note hidden"></div>
+            <div id="annotate-body">
+              <div class="ai-row">
+                <button type="button" id="btn-guess" class="btn ghost">AI guess</button>
+                <span class="muted" id="guess-status"></span>
+              </div>
+              <div id="guess-box" class="guess-box hidden"></div>
+
+              <div class="q-block">
+                <div class="q-num">1</div>
+                <div class="q-body">
+                  <label class="section-label" for="interaction-answer" id="interaction-prompt"></label>
+                  <p class="q-help" id="interaction-help"></p>
+                  <textarea id="interaction-answer" rows="3"></textarea>
+                  <button type="button" id="btn-cant-interaction" class="btn cant-tell">Can't tell</button>
+                  <label class="section-label spaced">How confident are you?</label>
+                  <div id="interaction-confidence" class="options conf-row"></div>
+                </div>
+              </div>
+
+              <div class="q-block">
+                <div class="q-num">2</div>
+                <div class="q-body">
+                  <label class="section-label" for="outcome-answer" id="outcome-prompt"></label>
+                  <p class="q-help" id="outcome-help"></p>
+                  <textarea id="outcome-answer" rows="3"></textarea>
+                  <button type="button" id="btn-cant-outcome" class="btn cant-tell">Can't tell</button>
+                  <label class="section-label spaced">How confident are you?</label>
+                  <div id="outcome-confidence" class="options conf-row"></div>
+                </div>
+              </div>
+
+              <label class="section-label spaced" for="step-note">Note (optional)</label>
+              <textarea id="step-note" rows="2" placeholder="Why this was hard, or where the evidence disagrees…"></textarea>
+            </div>
+            <div class="step-nav">
+              <button type="button" id="btn-prev" class="btn ghost">← Prev</button>
+              <button type="button" id="btn-next" class="btn primary">Next step →</button>
+            </div>
+            <p class="hint">You can switch trajectories anytime. Space plays and pauses. N / P move between steps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>window.GT_STATIC = true;</script>
+  <script src="gt_annotator/static/app.js"></script>
+</body>
+</html>
